@@ -1,0 +1,15 @@
+ul.djng-form-errors {
+        margin-left: 0;
+        display: inline-block;
+        list-style-type: none;
+}
+ul.djng-form-errors li.invalid {
+        color: #e9322d;
+}
+ul.djng-form-errors li.invalid:before {
+        content: "\2716\20";  /* adds a red cross before the error message */
+}
+ul.djng-form-errors li.valid:before {
+        color: #00c900;
+        content: "\2714";  /* adds a green tick */
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="form-ui-examples">
+<head>
+    <title>angular-form-ui Examples</title>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="slideToggle.css" rel="stylesheet">
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.min.js"></script>
+    <script src="../../angular-form-ui.js"></script>
+    <script src="slideToggle.js"></script>
+    <script type="text/javascript">
+        angular.module('form-ui-examples', ['angular-form-ui']).
+
+            controller('ExampleController', function ($scope) {
+                $scope.slideToggleOnOff = true;
+
+                $scope.slideToggleActiveInactve = false;
+
+                $scope.slideToggleMethods = true;
+                $scope.slideToggleMethodStatus = "On";
+                $scope.setActive = function () {
+                    $scope.slideToggleMethods = true;
+                    $scope.slideToggleMethodStatus = "On";
+                    alert("slideToggle is on!");
+                }
+                $scope.setInactive = function () {
+                    $scope.slideToggleMethodStatus = "Off";
+                }
+            });
+    </script>
+    <style type="text/css">
+        .divider { height: 40px; }
+        .directive:not(.first) { margin-top: 2em;}
+    </style>
+</head>
+<body ng-controller="ExampleController">
+<div class='container'>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class='directive'>slideToggle</h3>
+            <p>Toggle a boolean value using a fancy slider</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9 highlight ng-non-bindable">
+            <pre>&lt;slide-toggle ng-model="slideToggleOnOff"&gt;&lt;slide-toggle&gt;</pre>
+        </div>
+        <div class="col-md-3">
+            ng-model: {{ slideToggleOnOff }}<br/>
+            <slide-toggle ng-model="slideToggleOnOff"></slide-toggle>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-md-9 ng-non-bindable">
+            <p>You can use the <code>on-label</code> and <code>offLabel</code> attributes to modify the text displayed for each option</p>
+            <pre>&lt;slide-toggle on-label="Active" offLabel="Inactive" ng-model="slideToggleActiveInactve"&gt;&lt;slide-toggle&gt;</pre>
+        </div>
+        <div class="col-md-3">
+            ng-model: {{ slideToggleActiveInactve }}<br/>
+            <slide-toggle on-label="Active" off-label="Inactive" ng-model="slideToggleActiveInactve"></slide-toggle>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-md-9 ng-non-bindable">
+            <p>You can use the <code>on</code> and <code>off</code> attributes to execute scope methods when the slider enters that state.  This is useful for times where you need more functionality than simply toggling a value.</p>
+            <pre>&lt;slide-toggle on="Active" off="Inactive" ng-model="slideToggleActiveInactve" disable-triggers-on-init&gt;&lt;slide-toggle&gt;</pre>
+            <p>Note: The use of <code>disable-triggers-on-init</code> here prevents the triggers from being executed when the page loads.</p>
+        </div>
+        <div class="col-md-3">
+            Status: {{ slideToggleMethodStatus }}<br/>
+            <slide-toggle on="setActive" off="setInactive" ng-model="slideToggleMethods" disable-triggers-on-init></slide-toggle>
+        </div>
+    </div>
+</div>
+</body>
+</html>

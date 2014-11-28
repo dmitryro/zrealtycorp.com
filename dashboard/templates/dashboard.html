@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Latest Published Properties{% endblock %}
+
+{% block content %}
+<h1>Customer Dashboard</h1>
+<div id="dashboard-form"  ng-controller="AuthCtrl">
+
+
+<form  methond="post" ng-controller="AuthCtrl"  name="dashboard_form" id="dashboard-form"  ng-submit=""  novalidate>
+           {% csrf_token %}
+
+<ul>
+   <li>
+      <a href="http://zrealtycorp.com/logout/">Logout</a>
+   </li>
+</ul>
+</form>
+</div>
+{% endblock %}
+
+

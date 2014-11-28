@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load pages_extras %}
+{% load metaprop_extras %}
+{% block title %}Post with us {% endblock %}
+
+
+{% block content %}
+<div id="sign-in-form" class="well-login" ng-controller="AuthCtrl">
+<h1>Sign Up</h1>
+
+<div id="register-success-message" ng-show="registered">
+<p  ng-animate="{show: 'fade'}">A new account was created.</p>
+</div>
+
+<div id="register-failure-message" ng-show="unregistered">
+<p ng-animate="{show: 'fade'}">Invalid credentials.</p>
+</div>
+
+<div id="password-failure-message" ng-show="nonequalpass">
+<p ng-animate="{show: 'fade'}">Two passwords do not match.</p>
+</div>
+
+
+<form  name="member_form" id="member-form"  ng-submit=""  novalidate>
+           {% csrf_token %}
+          {{ member_form }}
+ <div class="clearfix"></div>
+
+     <div class="submit-wrapper">
+         <input type="button" name=register" value=" Sign up " class="btn-login btn-primary" id="submit-id-register-submit" ng-click="registerMember(member)"/>
+     </div>
+
+</form>
+
+</div>
+
+{% endblock %}
+

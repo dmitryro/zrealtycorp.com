@@ -1,0 +1,7 @@
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<content:encoded><![CDATA[
+  <p>ZRealty RSS Feeds.</p> 
+]]></content:encoded>
+
+{% load rss_tags %}
+{{ entry.published_parsed|parsed_to_date|timesince }}

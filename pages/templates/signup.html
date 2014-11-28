@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load pages_extras %}
+{% load metaprop_extras %}
+{% block title %}Post with us {% endblock %}
+
+
+{% block content %}
+<h1>Sign Up</h1>
+
+<form  name="member_form" id="member-form"  ng-submit=""  novalidate>
+           {% csrf_token %}
+          {{ member_form }}
+ <div class="clearfix"></div>
+
+     <div class="submit-wrapper">
+         <button ng-click="submit()">Next</button>
+     </div>
+
+</form>
+
+
+
+{% endblock %}
+

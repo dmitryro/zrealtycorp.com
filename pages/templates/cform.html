@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<ul class="djng-form-errors" ng-hide="subscribe_form.email.$pristine">
+  <li ng-show="subscribe_form.email.$error.required" class="ng-hide">This field is required.</li>
+  <li ng-show="subscribe_form.email.$error.email" class="">Enter a valid email address.</li>
+</ul>   
+   
+<form name="{{ form.form_name }}" novalidate>
+  {{ form|crispy }}
+  <input type="submit" value="Submit" />
+</form> 
+
+{% endblock %}

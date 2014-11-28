@@ -1,0 +1,90 @@
+{% load djangular_tags %}
+{% load bootstrap_toolkit %}
+{% load url from future %}
+{% load uni_form_tags %}
+{% load imagekit %}
+{% load thumbnail %}
+{% load logo_extras %}
+{% load icon_extras %}
+{% load metaprop_extras %}
+
+           <div class="container" id="header-area"> <!-- header area starts -->
+   
+                     <div id="header-leftside-bar"> <!-- header leftside starts -->
+                            <div id="logo">
+                                        <img src="{% logo_meta 1 3 %}" height="{% logo_meta 1 4 %}" width="{% logo_meta 1 5 %}" />
+                            </div>
+                            <div id="slogan">
+                                      {% logo_meta 1 6 %}
+                            </div>
+                     </div> <!-- header leftside ends -->
+
+                     <div id="header-spacer">&nbsp;&nbsp;
+                     </div>
+         
+                     <div id="options-icon-bar"> <!-- options icon bar starts -->
+
+                            <div id="home_wrapper">
+                                  <div id="home"><a href="{% icon_meta 3 2 %}"><img src="{% icon_meta 3 3 %}" height="{% icon_meta 3 4 %}" width="{% icon_meta 3 5 %}" /></a>&nbsp;&nbsp;</div>
+                                  <div id="home_tooltip">
+                                  </div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div id="about_wrapper">
+                                  <div id="about"><a href="{% icon_meta 5 2 %}"><img src="{% icon_meta 5 3 %}" height="{% icon_meta 5 4 %}" width="{% icon_meta 5 5 %}" /></a>&nbsp;&nbsp;</div>
+                                  <div id="about_tooltip">
+                                  </div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div id="blog_wrapper">
+                                  <div id="blog"><a href="{% icon_meta 4 2 %}"><img src="{% icon_meta 4 3 %}" height="{% icon_meta 4 4 %}" width="{% icon_meta 4 5 %}" /></a>&nbsp;&nbsp;</div>
+                                  <div id="blog_tooltip">
+                                  </div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div id="search_wrapper">
+                                  <div id="search"><a href="{% icon_meta 2 2 %}"><img src="{% icon_meta 2 3 %}" height="{% icon_meta 2 4 %}" width="{% icon_meta 2 5 %}" /></a>&nbsp;&nbsp;</div>
+                                  <div id="search_tooltip" qtipOpts="{ style: { classes: 'qtip-default  qtip qtip-tipped' } }">
+                                  </div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div id="contact_wrapper">
+                                  <div id="contact"><a href="{% icon_meta 1 2 %}"><img src="{% icon_meta 1 3 %}" height="{% icon_meta 1 4 %}" width="{% icon_meta 1 5 %}" /></a></div>
+                                  <div id="contact_tooltip">
+                                  </div>
+                                  <div class="clearfix"></div>
+                            </div>
+                     </div> <!-- options icon bar ends -->
+
+                     <div id="socials-wrapper"> <!-- socials wrapper starts -->
+                            <div class="social" id="social_6"><a href="{% social_icon_meta 6 2 %}"><img src="{% social_icon_meta 6 3 %}" height="{% social_icon_meta 6 4 %}" width="{% social_icon_meta 6 5 %}" /></a>
+                                  <div id="social_6_tooltip"></div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div class="social" id="social_5"><a href="{% social_icon_meta 5 2 %}"><img src="{% social_icon_meta 5 3 %}" height="{% social_icon_meta 5 4 %}" width="{% social_icon_meta 5 5 %}" /></a>
+                                  <div id="social_5_tooltip"></div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div class="social" id="social_4"><a href="{% social_icon_meta 4 2 %}"><img src="{% social_icon_meta 4 3 %}" height="{% social_icon_meta 4 4 %}" width="{% social_icon_meta 4 5 %}" /></a>
+                                  <div id="social_4_tooltip"></div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div class="social" id="social_3"><a href="{% social_icon_meta 3 2 %}"><img src="{% social_icon_meta 3 3 %}" height="{% social_icon_meta 3 4 %}" width="{% social_icon_meta 3 5 %}" /></a>
+                                  <div id="social_3_tooltip"></div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div class="social" id="social_2"><a href="{% social_icon_meta 2 2 %}"><img src="{% social_icon_meta 2 3 %}" height="{% social_icon_meta 2 4 %}" width="{% social_icon_meta 2 5 %}"  /></a>
+                                  <div id="social_2_tooltip"></div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div class="social" id="social_1"><a href="{% social_icon_meta 1 2 %}"><img src="{% social_icon_meta 1 3 %}" height="{% social_icon_meta 1 4 %}" width="{% social_icon_meta 1 5 %}"  /></a>
+                                  <div id="social_1_tooltip"></div>
+                                  <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                     </div>   <!-- socials wrapper ends -->
+
+                     <div class="clearfix"></div>  
+         </div> <!-- header area ends -->
+
+         <div class="clearfix"></div>

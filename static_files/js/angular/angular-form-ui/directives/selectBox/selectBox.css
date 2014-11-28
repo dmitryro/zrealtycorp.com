@@ -1,0 +1,67 @@
+.ngSelectBox {
+    display: -moz-inline-box;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+
+    background: #fcfcfc;
+    background: -o-linear-gradient(top, #fcfcfc 0%,#f1f1f1 100%);
+    background: linear-gradient(top, #fcfcfc 0%,#f1f1f1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#f1f1f1',GradientType=0 );
+
+    zoom: 1;
+    width: auto;
+    min-width: 100px;
+    max-width: 280px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid #D2D2D2;
+    height: 28px;
+    line-height: 28px;
+    margin: 0;
+    padding: 0 0 0 8px;
+    vertical-align: middle;
+
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+
+    box-shadow: 0 1px 0 #fff inset, 0 1px 0px #eeeeee;
+    -webkit-box-shadow: 0 1px 0 #fff inset, 0 1px 0px #eeeeee;
+    -moz-box-shadow: 0 1px 0 #fff inset, 0 1px 0px #eeeeee;
+}
+.ngSelectBox span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #777;
+    text-shadow: 0 1px #f5f5f5;
+    padding: 0px 32px 0px 2px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAcCAYAAABlL09dAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpEQkE5RTExQzIxQzIxMUUyODhDQ0I3ODEwNUU5QTU1NiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpGMjI1QjVGODIxQzUxMUUyODhDQ0I3ODEwNUU5QTU1NiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkRCQTlFMTFBMjFDMjExRTI4OENDQjc4MTA1RTlBNTU2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkRCQTlFMTFCMjFDMjExRTI4OENDQjc4MTA1RTlBNTU2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+CBdukgAAAKhJREFUeNpivHr16n8GBgZGLS0tBmoCJgYagVGDh7DBLPgkKyoqCBrQ0dFBsYtFgXg7lKZaUHAB8WYg9oDSXNQwmBmIlwOxOZRvDuUzU2pwPxD7oYmB+JPJjjwoyINikgDjkCuEBjQdTwPi/1jwNEqDIheIN6GJbYKKU2TwXyCOBOKTUP5JKP8vNSLvGxD7AvEOKP2NoshDA6+B2HP4puNRg4ewwQABBgCQRCpJoMTXVQAAAABJRU5ErkJggg==) no-repeat 100%;
+    cursor: pointer;
+    font-size: 11px;
+    height: 28px;
+    line-height: 28px;
+}
+.ngSelectBox select {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 28px;
+    width: 100%;
+
+    opacity: 0;
+    filter: alpha(opacity:0);
+
+    border: none;
+    background: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    border: solid 1px white;
+}

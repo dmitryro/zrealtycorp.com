@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load imagekit %}
+{% load pagination_tags %}
+
+{% block title %}Latest Published Properties{% endblock %}
+
+{% block content %}
+
+{% autopaginate sales_properties 10 %}
+{% if sales_properties %}
+    <div class="properties-listing-head" ng-controller="SortCtrl">
+    <form name="sortby" action="" ng-submit="">
+     <div class="column-one"  ng-click="sortColumn(1)">
+        <strong><a href="#" class="sortable">ID</a></strong>
+     </div>
+     <div class="column-two"  ng-click="sortColumn(2)">
+        <strong><a href="#" class="sortable">Property</a></strong>
+     </div>
+     <div class="column-three"  ng-click="sortColumn(3)">
+        <strong><a href="#" class="sortable">Type</a></strong>
+     </div>
+
+     <div class="column-four"  ng-click="sortColumn(4)">
+        <strong><a href="#" class="sortable">Rooms</a></strong>
+     </div>
+
+     <div class="column-five"  ng-click="sortColumn(5)">
+        <strong><a href="#" class="sortable">Baths</a></strong>
+     </div>
+
+     <div class="column-six"  ng-click="sortColumn(6)">
+        <strong><a href="#" class="sortable">Size</a></strong>
+     </div>
+
+     <div class="column-seven"  ng-click="sortColumn(7)">
+       <strong><a href="#" class="sortable">Offer</a></strong>
+     </div>
+
+    <div class="column-eight"  ng-click="sortColumn(8)">
+        <strong><a href="#" class="sortable">Price</a></strong>
+    </div>
+
+    <div class="column-nine"  ng-click="sortColumn(9)">
+        <strong><a href="#" class="sortable">Location</a></strong>
+    </div>
+     <div class="column-ten"  ng-click="sortColumn(10)">
+        <strong><a href="#" class="sortable">Pets</a></strong>
+    </div>
+    <div class="column-eleven">
+        <strong>View</strong>
+    </div>
+   </form>
+   </div>
+
+  <div style="clear:both;"></div>
+  <div style="float:top;">
+   {% for property in sales_properties %}
+      
+    <div class="properties-listing-body">
+
+           <div  class="column-one">
+                {{ property.property_id }}
+           </div>
+
+           <div class="column-two">
+                <a href="http://zrealtycorp.com/property/{{ property.property_id }}">{{ property.title }}</a>
+           </div>
+           <div class="column-three">
+                 {{ property.type }}
+           </div>
+
+           <div class="column-four">
+                 {{ property.rooms }}
+           </div>
+ 
+           <div class="column-five">
+                 {{ property.bathrooms }}
+           </div>
+
+           <div class="column-six">
+                 {{ property.size }}
+           </div>
+     
+           <div class="column-seven">
+                 {{ property.category }}
+           </div>
+
+           <div class="column-eight">
+                 {{ property.price }}
+           </div>
+           <div class="column-nine">
+                 {{ property.borough }}&nbsp;/&nbsp;{{ property.neighborhood }}
+           </div>
+
+           <div class="column-ten">
+               {% if property.pets_allowed %}
+                    <span>Yes</span>
+               {% else %}
+                    <span>No</span> 
+               {% endif %}
+           </div>        
+           <div class="column-eleven">
+              {% thumbnail '100x80'  property.picture1 %}
+           </div>
+           <div style="clear:both;"></div>
+      </div>
+      <div style="clear:both;"></div>
+   {% endfor %}
+   </div>
+{% else %}
+    <p>No properties were found.</p>
+{% endif %}
+
+{% paginate %}
+{% endblock %}
+
+
