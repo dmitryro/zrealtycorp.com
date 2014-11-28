@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+{% load bootstrap_toolkit %}
+{% load djangular_tags %}
+{% load url from future %}
+{% load imagekit %}
+{% load thumbnail %}
+{% load logo_extras %}
+{% load icon_extras %}
+{% load metaprop_extras %}
+{% include "tooltips/tooltips.html" %}
+<html lang="en" ng-app="zrealty">
+<head>
+<meta charset="utf-8">
+<title>{% metaprop_meta 1 %}</title>
+<meta name="description" content="{% metaprop_meta 3 %}">
+<meta name="keywords" content="{% metaprop_meta 2 %}">
+<meta name="author" content="{% metaprop_meta 4 %}">
+{% bootstrap_stylesheet_tag %}
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css' />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/colorbox.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ticker-style.css" />
+<!-- note that there's also blue.uni-form.css and dark.uni-form.css available if you want to try changing defaults up -->
+<link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}uni_form/default.uni-form.css" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/qtip.css" type="text/css" />
+{% load coffeescript %}
+<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.gridnav.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ticker.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ba-bbq.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.colorbox.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.qtip.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/blocksit.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-cookies.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/django/django-angular.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/django/angular-django-rest-resource.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/require/require.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}uni_form/uni-form.jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/imagesloaded.pkg.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/custom/controllers.js"></script>
+<!-- uni-form JS library, optional -->
+<script>
+var zrealty = angular.module('zrealty', ['ng.django.forms' ,'ngCookies', 'djangoRESTResources']).
+config([
+'$httpProvider',
+'$interpolateProvider',
+function($httpProvider, $interpolateProvider) {
+$interpolateProvider.startSymbol('{$');
+$interpolateProvider.endSymbol('$}');
+$httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+}]).
+run([
+'$http',
+'$cookies',
+function($http, $cookies) {
+$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+}]);
+// $(function(){
+// $('form.uniForm').uniform();
+// });
+//var zrealty = angular.module('zrealty', [/* other dependencies */, 'ng.django.forms']);
+$(function(){
+$('#contact-close').bind('click',function(){
+$('#contact-form').css('display','none');
+});
+$('#contact-form').css('display','none');
+$(".group1").colorbox({rel:'group1'});
+$(".ajax").colorbox();
+$(".youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+$(".vimeo").colorbox({iframe:true, innerWidth:500, innerHeight:409});
+$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+$(".inline").colorbox({inline:true, width:"50%"});
+$(".callbacks").colorbox({
+onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+});
+$('.non-retina').colorbox({rel:'group5', transition:'none'})
+$('.retina').colorbox({rel:'group5', transition:'none', retinaImage:true, retinaUrl:true});
+$("#search a").on( "click", function() {
+$('#properties_area').css('display','none');
+open = $("#is_search_open").val();
+if (open==undefined || !open) {
+$("#is_search_open").attr('value','true');
+}
+if (open=='false') {
+$("#is_search_open").attr('value','true');
+$("#search_area").css('display','block');
+$("#search_area").css('height','80px');
+$("#container").css('margin-top','180px');
+}
+if (open=='true'){
+$("#is_search_open").attr('value','false');
+$("#search_area").css('display','none');
+$("#search_area").css('height','0px');
+$("#container").css('margin-top','90px');
+}
+/// alert(open);
+return false;
+}
+);
+$("#bnt_search").on("click",function() {
+$("#homepage_list").html('');
+$("#homepage_list").css('display','none');
+$("#search_header").css('display','block');
+});
+$("#home a").on( "click", function() {
+var ref = window.location.href;
+prop_open = $("#is_properties_open").val();
+if (ref.indexOf('property')!= -1) {
+$("#container").attr("src",'http://zrealtycorp.com');
+window.location.href = "http://zrealtycorp.com";
+}
+if (ref=='http://zrealtycorp.com/contact/') {
+$("#container").attr("src",'http://zrealtycorp.com');
+window.location.href = "http://zrealtycorp.com";
+}
+if (ref=='http://zrealtycorp.com/blog/') {
+$("#container").attr("src",'http://zrealtycorp.com');
+window.location.href = "http://zrealtycorp.com";
+}
+if(ref=='http://zrealtycorp.com/contact/') {
+$("#container").attr("src",'http://zrealtycorp.com');
+window.location.href = "http://zrealtycorp.com";
+}
+$("#search_area").css('display','none');
+if (prop_open==undefined || !prop_open) {
+$("#is_properties_open").attr('value','true');
+}
+if (prop_open=='false') {
+$("#is_properties_open").attr('value','true');
+$("#properties_area").css('display','block');
+$("#properties_area").css('height','70px');
+// $("#properties_area").css('width','81.81%');
+$("#properties_area").css('position','abolute');
+$("#container").css('margin-top','180px');
+}
+if (prop_open=='true'){
+$("#is_properties_open").attr('value','false');
+$("#properties_area").css('display','none');
+$("#properties_area").css('height','0px');
+$("#container").css('margin-top','90px');
+}
+return false;
+});
+$('#search a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: 'Search the properties'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped'
+},
+position: {
+target: $('#search_tooltip')
+}
+});
+$('#contact a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: 'Contact us'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped'
+},
+position: {
+target: $('#contact_tooltip')
+}
+});
+$('#blog a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: 'publish with us'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped'
+},
+position: {
+target: $('#blog_tooltip')
+}
+});
+$('#about a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: 'Learn more about us'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped'
+},
+position: {
+target: $('#about_tooltip')
+}
+});
+$('#home a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: '<span style="font-size:12px;"><a href="#">Homes</a></span>'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped',
+tip: {
+corner: 'right top',
+mimic: 'right center'
+}
+},
+position: {
+target: $('#home_tooltip')
+}
+});
+$('#social_1 a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: '<span style="font-size:12px;"><a href="#">Follow us on Facebook</a></span>'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped',
+tip: {
+corner: 'right top',
+mimic: 'right center'
+}
+},
+position: {
+target: $('#social_1_tooltip')
+}
+});
+$('#social_2 a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: '<span style="font-size:12px;"><a href="#">Follow us on LinkedIn</a></span>'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped',
+tip: {
+corner: 'right top',
+mimic: 'right center'
+}
+},
+position: {
+target: $('#social_2_tooltip')
+}
+});
+$('#social_3 a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: '<span style="font-size:12px;"><a href="#">Follow us on Twitter</a></span>'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped',
+tip: {
+corner: 'right top',
+mimic: 'right center'
+}
+},
+position: {
+target: $('#social_3_tooltip')
+}
+});
+$('#social_4 a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: '<span style="font-size:12px;"><a href="#">Follow us on YouTube</a></span>'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped',
+tip: {
+corner: 'right top',
+mimic: 'right center'
+}
+},
+position: {
+target: $('#social_4_tooltip')
+}
+});
+$('#social_5 a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: '<span style="font-size:12px;"><a href="#">Follow us on Google Plus</a></span>'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped',
+tip: {
+corner: 'right top',
+mimic: 'right center'
+}
+},
+position: {
+target: $('#social_5_tooltip')
+}
+});
+$('#social_6 a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: '<span style="font-size:12px;"><a href="#">Read our RSS Feed</a></span>'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped',
+tip: {
+corner: 'right top',
+mimic: 'right center'
+}
+},
+position: {
+target: $('#social_6_tooltip')
+}
+});
+$('#back_btn a').qtip({ // Grab some elements to apply the tooltip to
+content: {
+text: '<span style="font-size:12px;"><a href="#">Back to the list</a></span>'
+},
+style: {
+classes: 'qtip-default qtip qtip-tipped',
+tip: {
+corner: 'right top',
+mimic: 'right center'
+}
+},
+position: {
+target: $('#back_btn_tooltip')
+}
+});
+});
+// var zrealty = angular.module('zrealty', [/* other dependencies */, 'ng.django.forms']);
+</script>
+<script>
+$(document).ready(function(){
+//vendor script
+//blocksit define
+$(window).load( function() {
+$('#container').BlocksIt({
+numOfCol: 5,
+offsetX: 8,
+offsetY: 8
+});
+});
+//window resize
+var currentWidth = 1100;
+$(window).resize(function() {
+var winWidth = $(window).width();
+var conWidth;
+if(winWidth < 660) {
+conWidth = 440;
+col = 2
+} else if(winWidth < 880) {
+conWidth = 660;
+col = 3
+} else if(winWidth < 1100) {
+conWidth = 880;
+col = 4;
+} else {
+conWidth = 1100;
+col = 5;
+}
+if(conWidth != currentWidth) {
+currentWidth = conWidth;
+$('#container').width(conWidth);
+$('#container').BlocksIt({
+numOfCol: col,
+offsetX: 8,
+offsetY: 8
+});
+}
+});
+</script>
+{% block extra_head %}{% endblock %}
+</head>
+<body ng-controller="SearchController">
+<div class="container" id="header">
+<div id="header_leftside_bar">
+<div id="logo">
+<img src="{% logo_meta 1 3 %}" height="{% logo_meta 1 4 %}" width="{% logo_meta 1 5 %}" />
+</div>
+<div id="slogan">
+{% logo_meta 1 6 %}
+</div>
+</div>
+<div class="header_spacer">
+</div>
+<div id="options_icon_bar">
+<div id="home_wrapper">
+<div id="home"><a href="{% icon_meta 3 2 %}"><img src="{% icon_meta 3 3 %}" height="{% icon_meta 3 4 %}" width="{% icon_meta 3 5 %}" /></a>&nbsp;&nbsp;</div>
+<div id="home_tooltip">
+</div>
+<div class="clearfix"></div>
+</div>
+<div id="about_wrapper">
+<div id="about"><a href="{% icon_meta 5 2 %}"><img src="{% icon_meta 5 3 %}" height="{% icon_meta 5 4 %}" width="{% icon_meta 5 5 %}" /></a>&nbsp;&nbsp;</div>
+<div id="about_tooltip">
+</div>
+<div class="clearfix"></div>
+</div>
+<div id="blog_wrapper">
+<div id="blog"><a href="{% icon_meta 4 2 %}"><img src="{% icon_meta 4 3 %}" height="{% icon_meta 4 4 %}" width="{% icon_meta 4 5 %}" /></a>&nbsp;&nbsp;</div>
+<div id="blog_tooltip">
+</div>
+<div class="clearfix"></div>
+</div>
+<div id="search_wrapper">
+<div id="search"><a href="{% icon_meta 2 2 %}"><img src="{% icon_meta 2 3 %}" height="{% icon_meta 2 4 %}" width="{% icon_meta 2 5 %}" /></a>&nbsp;&nbsp;</div>
+<div id="search_tooltip" qtipOpts="{ style: { classes: 'qtip-default qtip qtip-tipped' } }">
+</div>
+<div class="clearfix"></div>
+</div>
+<div id="contact_wrapper">
+<div id="contact"><a href="{% icon_meta 1 2 %}"><img src="{% icon_meta 1 3 %}" height="{% icon_meta 1 4 %}" width="{% icon_meta 1 5 %}" /></a></div>
+<div id="contact_tooltip">
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="socials">
+<div class="social" id="social_6"><a href="{% social_icon_meta 6 2 %}"><img src="{% social_icon_meta 6 3 %}" height="{% social_icon_meta 6 4 %}" width="{% social_icon_meta 6 5 %}" /></a>
+<div id="social_6_tooltip"></div>
+<div class="clearfix"></div>
+</div>
+<div class="social" id="social_5"><a href="{% social_icon_meta 5 2 %}"><img src="{% social_icon_meta 5 3 %}" height="{% social_icon_meta 5 4 %}" width="{% social_icon_meta 5 5 %}" /></a>
+<div id="social_5_tooltip"></div>
+<div class="clearfix"></div>
+</div>
+<div class="social" id="social_4"><a href="{% social_icon_meta 4 2 %}"><img src="{% social_icon_meta 4 3 %}" height="{% social_icon_meta 4 4 %}" width="{% social_icon_meta 4 5 %}" /></a>
+<div id="social_4_tooltip"></div>
+<div class="clearfix"></div>
+</div>
+<div class="social" id="social_3"><a href="{% social_icon_meta 3 2 %}"><img src="{% social_icon_meta 3 3 %}" height="{% social_icon_meta 3 4 %}" width="{% social_icon_meta 3 5 %}" /></a>
+<div id="social_3_tooltip"></div>
+<div class="clearfix"></div>
+</div>
+<div class="social" id="social_2"><a href="{% social_icon_meta 2 2 %}"><img src="{% social_icon_meta 2 3 %}" height="{% social_icon_meta 2 4 %}" width="{% social_icon_meta 2 5 %}" /></a>
+<div id="social_2_tooltip"></div>
+<div class="clearfix"></div>
+</div>
+<div class="social" id="social_1"><a href="{% social_icon_meta 1 2 %}"><img src="{% social_icon_meta 1 3 %}" height="{% social_icon_meta 1 4 %}" width="{% social_icon_meta 1 5 %}" /></a>
+<div id="social_1_tooltip"></div>
+<div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="container" id="properties_area">
+<form action="" name="propertiesform">
+<input type="hidden" id="is_properties_open" value="" />
+</form>
+<div class="spacer"></div>
+<div class="all_tab"><a href="http://zrealtycorp.com">All</a></div>
+<div class="sales_tab"><a href="http://zrealtycorp.com/sale">Sales</a></div>
+<div class="spacer"></div>
+<div class="rentals_tab"><a href="http://zrealtycorp.com/rent">Rentals</a></div>
+<div class="spacer"></div>
+<div class="featured_tab"><a href="http://zrealtycorp.com">Featured</a></div>
+<div class="spacer"></div>
+<div class="clearfix"></div>
+</div>
+<div class="container" id="search_area">
+<form action="" name="property_search_form" ng-submit="">
+<div class="search_panel_titles">
+<div class="search_panel_title">Size (BR)</div>
+<div class="search_panel_title">Type (Condo, etc..)</div>
+<div class="search_panel_title">Category (Rent/Sale)</div>
+<div class="search_panel_title">Borough</div>
+<div class="search_panel_title">Neighborhood</div>
+<div class="search_panel_title">Min Price</div>
+<div class="search_panel_title">Max Price</div>
+<div class="search_panel_title_last">&nbsp;</div>
+</div>
+<div class="clearfix"></div>
+<div class="search_panel">
+<div class="search_panel_field"><input type="text" name="rooms" ng-model="property.rooms" />
+<br/><span>{$ property.rooms $}</span>
+</div>
+<div class="search_panel_field"><input type="text" name="type" ng-model="property.type" />
+<br/><span>{$ property.type $}</span>
+</div>
+<div class="search_panel_field"><input type="text" name="category" ng-model="property.category"/>
+<br/><span>{$ property.category $}</span>
+</div>
+<div class="search_panel_field"><input type="text" name="borough" ng-model="property.borough" />
+<br/><span>{$ property.borough $}</span>
+</div>
+<div class="search_panel_field"><input type="text" name="neighborhood" ng-model="property.neighborhood" />
+<br/><span>{$ property.neighborhood $}</span>
+</div>
+<div class="search_panel_field"><input type="text" name="minprice" ng-model="property.minprice" />
+<br/><span>{$ property.minprice $}</span>
+</div>
+<div class="search_panel_field"><input type="text" name="maxprice" ng-model="property.maxprice" />
+<br/><span>{$ property.maxprice $}</span>
+</div>
+<div class="search_panel_field_last"><div class="btn" id="bnt_search" ng-click="searchProperty(property)">Search</div></div>
+</div>
+<div class="clearfix"></div>
+{% csrf_token %}
+<input type="hidden" id="is_search_open" value="" />
+</form>
+</div>
+<div class="container" id="container">
+<div id="contact-form">
+<div class="ccntact-form-header">
+<div class="ccntact-form-header-header">
+Contact us
+</div>
+<div class="close-form" id="contact-close">
+<img src="http://zrealtycorp.com/media/images/icon_close_white.png" />
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+</div>
+<div id="homepage_list">
+{% block content %}Empty page{% endblock %}
+</div>
+<div class="properties-listing-head" id="search_header" ng-controller="SearchController" ng-show="data.success">
+<!--
+<div ng-switch on="itemExists(items)">
+<span ng-switch-when="true">Got some items</span>
+<span ng-switch-default>oh no, you don't have it</span>
+</div>
+-->
+<form name="sortby" action="" ng-submit="">
+<div class="column-one" ng-click="sortColumn(1)" ng-show="data.success">
+<strong><a href="#" class="sortable">ID</a></strong>
+</div>
+<div class="column-two" ng-click="sortColumn(2)">
+<strong><a href="#" class="sortable">Property</a></strong>
+</div>
+<div class="column-three" ng-click="sortColumn(3)">
+<strong><a href="#" class="sortable">Type</a></strong>
+</div>
+<div class="column-four" ng-click="sortColumn(4)">
+<strong><a href="#" class="sortable">Rooms</a></strong>
+</div>
+<div class="column-five" ng-click="sortColumn(5)">
+<strong><a href="#" class="sortable">Baths</a></strong>
+</div>
+<div class="column-six" ng-click="sortColumn(6)">
+<strong><a href="#" class="sortable">Size</a></strong>
+</div>
+<div class="column-seven" ng-click="sortColumn(7)">
+<strong><a href="#" class="sortable">Offer</a></strong>
+</div>
+<div class="column-eight" ng-click="sortColumn(8)">
+<strong><a href="#" class="sortable">Price</a></strong>
+</div>
+<div class="column-nine" ng-click="sortColumn(9)">
+<strong><a href="#" class="sortable">Location</a></strong>
+</div>
+<div class="column-ten" ng-click="sortColumn(10)">
+<strong><a href="#" class="sortable">Pets</a></strong>
+</div>
+<div class="column-eleven">
+<strong>View</strong>
+</div>
+</form>
+</div>
+<div style="clear:both;"></div>
+<div ng-repeat="item in items">
+<div class="properties-listing-body">
+<div class="column-one">
+{$ item.property_id $}
+</div>
+<div class="column-two">
+<a href="http://zrealtycorp.com/property/{$ item.property_id $}">{$ item.title $}</a>
+</div>
+<div class="column-three">
+{$ item.type $}
+</div>
+<div class="column-four">
+{$ item.rooms $}
+</div>
+<div class="column-five">
+{$ item.bathrooms $}
+</div>
+<div class="column-six">
+{$ item.size $}
+</div>
+<div class="column-seven">
+{$ item.category $}
+</div>
+<div class="column-eight">
+{$ item.price $}
+</div>
+<div class="column-nine">
+{$ item.borough $}&nbsp;/&nbsp;{$ item.neighborhood $}
+</div>
+<div class="column-ten">
+{$ item.pets_allowed $}
+</div>
+<div class="column-eleven">
+<img src="http://zrealtycorp.com/media/{$ item.picture1 $}" width="180" height="100" />
+</div>
+<div style="clear:both;"></div>
+</div>
+<div style="clear:both;"></div>
+</div>
+<p><hr></p>
+<footer class="row">
+<div class="span6">
+<p>&copy; 2014 ZRealty Corp.</p>
+</div>
+</footer>
+</div> <!-- container -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', '{% metaprop_meta 5 %}', 'auto');
+ga('send', 'pageview');
+</script>
+<script>
+$(document).ready(function() {
+$('#contact-form').css('display','none');
+$('#is_search_open').attr('value','false');
+$("#search_header").css('display','none');
+$('#is_properties_open').attr('value','false');
+$('#search_area').css('display','none');
+$('#properties_area').css('display','none');
+$('#contact-us').bind('click',function() {
+$('#contact-form').css('display','block');
+});
+$('#contact-us').mouseover(function(){
+$('#contact-us img').attr('src','http://zrealtycorp.com/media/images/contact_us_button_on.png');
+});
+$('#contact-us').mouseout(function() {
+$('#contact-us img').attr('src','http://zrealtycorp.com/media/images/contact_us_button_off.png');
+});
+});
+</script>
+</body>
+</html>
+

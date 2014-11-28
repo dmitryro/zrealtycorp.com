@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load thumbnail %}
+{% load imagekit %}
+{% load property_extras %}
+{% block title %}Property Details{% endblock %}
+
+{% block content %}
+<div class="back_btn" id="back_btn">
+ <a  href="http://zrealtycorp.com"><img src="{{ MEDIA_URL }}images/back_icon_blue.png"></a>
+</div>
+<div id="back_btn_tooltip"></div>
+<div class="clearfix"></div>
+
+         <div class="grid-level">
+           <div class="property-photo-wrappper">
+                      <a class="group1" href="{{ MEDIA_URL }}{% property_meta request.path 1 %}" title="{% property_meta request.path 5 %},
+                                                                                                        {% property_meta request.path 8 %},
+                                                                                                        {% property_meta request.path 9 %}">
+                      <img src="{{ MEDIA_URL }}{% property_meta request.path 1 %}" height="150" width="270"  />
+                      </a>
+           </div>
+
+           <div class="property-photo-wrappper"> 
+                      <a class="group1" href="{{ MEDIA_URL }}{% property_meta request.path 2 %}" title="{% property_meta request.path 5 %},
+                                                                                                        {% property_meta request.path 8 %},
+                                                                                                        {% property_meta request.path 9 %}">
+                          <img src="{{ MEDIA_URL }}{% property_meta request.path 2 %}" height="150" width="270" />
+                      </a>
+ 
+           </div>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="grid-level">
+           <div class="property-photo-wrappper"> 
+                      <a class="group1" href="{{ MEDIA_URL }}{% property_meta request.path 1 %}" title="{% property_meta request.path 5 %},
+                                                                                                        {% property_meta request.path 8 %},
+                                                                                                        {% property_meta request.path 9 %}">
+                         <img src="{{ MEDIA_URL }}{% property_meta request.path 3 %}" height="150" width="270" />
+                      </a>
+           </div>
+
+
+           <div class="property-photo-wrappper"> 
+                      <a class="group1" href="{{ MEDIA_URL }}{% property_meta request.path 1 %}" title="{% property_meta request.path 5 %},
+                                                                                                        {% property_meta request.path 8 %},
+                                                                                                        {% property_meta request.path 9 %}">
+                          <img src="{{ MEDIA_URL }}{% property_meta request.path 4 %}" height="150" width="270"  />
+                      </a>
+           </div>
+          </div>
+         <div class="clearfix"></div>
+	
+	 <div class="meta_data_wrapper">
+	 <strong> {% property_meta request.path 5 %} </strong>
+
+<div class="property_data_line">
+  <div class="property_data_title"><strong> Published: </strong></div><div class="property_data_field">{% property_meta request.path 15 %}</div>
+  <div clsss="clearfix"></div>
+</div>
+
+<div class="property_data_line">
+  <div class="property_data_title"><strong> Type: </strong></div><div class="property_data_field">{% property_meta request.path 6 %}</div>
+  <div clsss="clearfix"></div>
+</div>
+
+<div class="property_data_line">
+   <div class="property_data_title"> <strong> Category: </strong></div><div class="property_data_field">{% property_meta request.path 7 %}</div>
+   <div clsss="clearfix"></div>
+</div>
+
+<div class="property_data_line">
+   <div class="property_data_title"> <strong> Location: </strong>  </div><div class="property_data_field">{% property_meta request.path 8  %} -  {% property_meta request.path 9  %}</div>
+   <div clsss="clearfix"></div>
+</div>
+
+<div class="property_data_line">
+  <div class="property_data_title"> <strong> Bedrooms: </strong> </div><div class="property_data_field"> {% property_meta request.path 11  %} </div>
+  <div clsss="clearfix"></div>
+</div>
+
+<div class="property_data_line">
+   <div class="property_data_title"> <strong> Baths: </strong>  </div><div class="property_data_field">  {% property_meta request.path 12  %} </div>
+   <div clsss="clearfix"></div>
+</div>
+
+<div class="property_data_line">
+  <div class="property_data_title"> <strong> Pets: </strong> </div><div class="property_data_field"> {% property_meta request.path 13  %} </div>
+  <div clsss="clearfix"></div>
+</div>
+
+<div class="property_data_line">
+  <div class="property_data_title"> <strong> Price: </strong> </div><div class="property_data_field"> {% property_meta request.path 14  %} </div>
+  <div clsss="clearfix"></div>
+</div>
+
+<div class="property_data_line">
+  <div class="property_data_title"><strong> Description: </strong> </div><div class="property_data_field">{% property_meta request.path 10 %} </div> 
+  <div clsss="clearfix"></div>
+</div>
+<div class="property_data_line">
+  <div class="property_data_title"><strong> &nbsp; </strong> </div><div class="property_data_field"> &nbsp; </div>
+  <div clsss="clearfix"></div>
+</div>
+
+<div class="property_contact_line">
+  <div class="property_data_title">
+    <a class="btn" href="http://zrealtycorp.com/contact">Contact</a>
+  </div>
+  <div class="property_data_field"> us if you like to inquire about this property.</di>
+   <div clsss="clearfix"></div>  
+</div>
+
+<div clsss="clearfix"></div>
+</div>
+{% endblock %}
+

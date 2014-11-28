@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zrealty">
+{% load djangular_tags %}
+{% load bootstrap_toolkit %}
+{% load url from future %}
+{% load uni_form_tags %}
+{% load imagekit %}
+{% load thumbnail %}
+{% load logo_extras %}
+{% load icon_extras %}
+{% load metaprop_extras %}
+    <head>
+    <meta charset="utf-8">
+    <title>{% metaprop_meta 1 %} {% if flavour == "mobile" %}(mobile version){% endif %}</title>
+    <meta name="viewport" content="width=device-width,inisial-scale=.43"/>
+    <meta name="description" content="{% metaprop_meta 3 %}">
+    <meta name="keywords" content="{% metaprop_meta 2 %}">
+    <meta name="author" content="{% metaprop_meta 4 %}">
+    {% bootstrap_stylesheet_tag %}
+    {% bootstrap_stylesheet_tag "responsive" %}
+    <!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!-- Optional theme -->
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+        <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css' />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/forms.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/colorbox.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ticker-style.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/autocomplete.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/select2.css" />
+<!-- note that there's also blue.uni-form.css and dark.uni-form.css available if you want to try changing defaults up -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" type="text/css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/default.uni-form.css" type="text/css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/qtip.css" type="text/css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}js/angular/angular-gridster/dist/angular-gridster.min.css" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/animate.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}js/angular/mobile-angular-ui/dist/css/mobile-angular-ui-hover.min.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}js/angular/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}js/angular/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css" />
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.mousewheel.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.gridnav.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ticker.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ba-bbq.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.colorbox.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.qtip.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ui.touch-punch.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.autosize.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/javascript-detect-element-resize/jquery.resize.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.pep.js"></script>
+
+        <script type="text/javascript" src="{{ STATIC_URL }}js/breeze/breeze.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/breeze/breezeRestDataServiceAdapter.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/breeze/breezeRestJsonResultsAdapter.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angularUtils.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/django/angular-django-rest-resource.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-cookies.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/ngAutocomplete.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-gridster/src/angular-gridster.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/autocomplete.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/elastic.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/src/paginate-anything.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/ng-load/ng-load.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/django/django-angular.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/require/require.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}uni_form/uni-form.jquery.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/imagesloaded.pkg.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/select2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/ngDjangoFormset/modules.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/ngDjangoFormset/directives.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/ngDjangoFormset/controllers.js"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/mobile-angular-ui.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-form-ui/angular-form-ui.js"></script>  
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-animate.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-route.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-restful.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-touch.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-messages.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-utils/directives/pagination/dirPagination.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-flash.js"></script> 
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/ng-tasty-tpls.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-adaptive-detection.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/foundation/js/modernizr.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/foundation/js/detectizr.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/hook/hook.js"></script>  
+        <script type="text/javascript" src="{{ STATIC_URL }}js/custom/controllers.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/custom/scripts.js"></script> 
+    </head>
+
+    <body>
+        {% block content %}{% endblock %}
+
+      	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-53156913-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+        <script type="text/javascript">
+        </script>
+
+    </body>
+</html>

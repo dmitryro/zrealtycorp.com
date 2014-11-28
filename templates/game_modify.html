@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load render from desc_render %}
+
+{% block title %}Add Game{% endblock %}
+
+{% block extra_script %}
+    {{ block.super }}
+    {% include "pybb/_markitup.html" %}
+    <script type="text/javascript" src="{{ STATIC_URL }}pybb/js/jquery.formset.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<form class="form-horizontal" method="POST">
+    {% csrf_token %}{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+    <fieldset>
+        <legend>
+            <h1>Game{% if instance %} - #{{ instance.pk }}{% endif %}</h1>
+        </legend>
+        {% for field in form.visible_fields %}
+            <div class="control-group{% if field.errors %} error{% endif %}">
+                <label class="control-label">{{ field.label }}</label>
+                <div class="controls">
+                    {{ field }}
+                    {% if field.errors %}<span class="help-inline">{{ field.errors }}</span>{% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        <hr/>
+        <div class="form-actions" align="center">
+            <button type="submit" class="btn btn-success btn-large pull-left" name="act" value="save"><i class="icon-ok"></i>{{' '}}Save</button>
+        </div>
+    </fieldset>
+</form>
+
+{% endblock %}

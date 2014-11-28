@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% load property_extras %}
+{% block title %}Property Details {% endblock %}
+
+{% block content %}
+
+
+
+  <div id="back-button-wrapper">
+     <div class="back-btn" id="back_btn">
+           <a  href="http://zrealtycorp.com"><img src="{{ MEDIA_URL }}images/back_icon_blue.png"></a>
+     </div>
+     <div id="back_btn_tooltip"></div>
+     <div class="clearfix"></div>
+  </div>
+<div class="clearfix"></div>
+<div id="details-wrapper" ng-controller="ContactController">
+
+      <form novalidate  name="contactForm" ng-app="zrealty" ng-submit="">
+ 
+ <div id="contact-form">
+          <div class="contact-form-header">
+            <div class="contact-form-header-header">
+               Contact us
+            </div>
+            <div class="close-form" id="contact-close" ng-click="cleanForm(inquiry)">
+              <img src="http://zrealtycorp.com/media/images/icon_close_white.png" />
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class=conatact-form-row" ng-show="data.success">
+                <div style="float:top;text-align:center;padding:15px 10px 15px 10px;font-size:0.8em;margin:3% 5% 3% 5%;border:1px solid #369DD6;border-radius:3px;">
+                                                                                     Your message has been sent<br/>
+                                                                                     Somebody form ZRealty team<br/>
+                                                                                     will get in touch with you.<br/>
+                                                                                     Thanks for your inquiry.</div>
+          </div>
+          <div class="contact-form-row" ng-show="data.show">
+             <input type="hidden" name="mustclean" ng-model="inquiry.mustclean" ng-val="data.mustclean" />
+             <input type="hidden" name="property_id" ng-model="inquiry.property_id" value="{% property_meta request.path 16 %}" />
+             <div class="contact-form-row-left">Property ID:</div>
+             <div class="contact-form-row-right"> {% property_meta request.path 16 %} ({% property_meta request.path 7 %})</div>
+             <div class="clearfix"></div>
+          </div>
+          <div class="contact-form-row" ng-show="data.show">
+             <input type="hidden" name="title" ng-model="inquiry.title" value="{% property_meta request.path 5 %} - {% property_meta request.path 8 %},{% property_meta request.path 9 %}" />
+             <div class="contact-form-row-left">Property:</div>
+             <div class="contact-form-row-right">{% property_meta request.path 5 %} - {% property_meta request.path 8 %},{% property_meta request.path 9 %}    </div>
+             <div class="clearfix"></div>
+          </div>
+          <div class="contact-form-row" ng-show="data.show">
+             <div class="contact-form-row-left">Your name:</div>
+             <div class="contact-form-row-right">
+                  <div class="form-group" ng-class="{'has-error': contactForm.name.$invalid}"> 
+                      <input type="text" name="name" placeholder="name" required ng-model="inquiry.name" />
+                      <span class="help-block" ng-show="contactForm.name.$error.required">Required</span>
+                  </div>
+             </div>
+             <div class="clearfix"></div>
+          </div>
+          <div class="contact-form-row" ng-show="data.show">
+             <div class="contact-form-row-left">Your email:</div>
+             <div class="contact-form-row-right">
+
+                    <div class="form-group" ng-class="{'has-error': contactForm.email.$invalid}">
+                      <input type="text" name="email" placeholder="email" required   ng-model="inquiry.email" />
+                      <span class="help-block" ng-show="contactForm.email.$error.required">Required</span>
+                    </div>
+             </div>
+             <div class="clearfix"></div>
+          </div>
+          <div class="contact-form-row" ng-show="data.show">
+             <div class="contact-form-row-left">Drop us a line:</div>
+             <div class="contact-form-row-right">
+                 <textarea name="message" id="message" ng-model="inquiry.message">
+                 </textarea>
+           </div>
+           <div class="contact-form-row" ng-show="data.show">
+             <div class="contact-form-row-left">&nbsp;&nbsp;</div>
+             <div class="contact-form-row-right">
+                    <div id="send" class="contact-form-send" ng-click="submitInquiry(inquiry)">
+
+                               <img src="http://zrealtycorp.com/media/images/send_on.png" />
+
+                    </div>
+                     <div class="clearfix"></div>
+               </div>
+           </div>   
+             <div class="clearfix"></div>
+          </div>
+
+ 
+
+          <div class="clearfix"></div>
+  </div>
+
+  
+
+        <div class="grid-level">
+  <div id="sidebar-more-properties">
+      <div class="header-area">You might also like</div>
+      <div class="main-area">Apartments in {% property_meta request.path 8  %} -  {% property_meta request.path 9  %}</div>
+      <div class="footer-area">&nbsp;</div>
+      <div class="clearfix"></div>
+
+  </div>
+
+           <div class="property-photo-wrappper">
+                      <a class="group1" href="{{ MEDIA_URL }}{% property_meta request.path 1 %}" title="{% property_meta request.path 5 %},
+                                                                                                        {% property_meta request.path 8 %},
+                                                                                                        {% property_meta request.path 9 %}">
+                      <img src="{{ MEDIA_URL }}{% property_meta request.path 1 %}" height="150" width="270"  />
+                      </a>
+           </div>
+
+           <div class="property-photo-wrappper"> 
+                      <a class="group1" href="{{ MEDIA_URL }}{% property_meta request.path 2 %}" title="{% property_meta request.path 5 %},
+                                                                                                        {% property_meta request.path 8 %},
+                                                                                                        {% property_meta request.path 9 %}">
+                          <img src="{{ MEDIA_URL }}{% property_meta request.path 2 %}" height="150" width="270" />
+                      </a>
+ 
+           </div>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="grid-level">
+           <div class="property-photo-wrappper"> 
+                      <a class="group1" href="{{ MEDIA_URL }}{% property_meta request.path 1 %}" title="{% property_meta request.path 5 %},
+                                                                                                        {% property_meta request.path 8 %},
+                                                                                                        {% property_meta request.path 9 %}">
+                         <img src="{{ MEDIA_URL }}{% property_meta request.path 3 %}" height="150" width="270" />
+                      </a>
+           </div>
+
+
+           <div class="property-photo-wrappper"> 
+                      <a class="group1" href="{{ MEDIA_URL }}{% property_meta request.path 1 %}" title="{% property_meta request.path 5 %},
+                                                                                                        {% property_meta request.path 8 %},
+                                                                                                        {% property_meta request.path 9 %}">
+                          <img src="{{ MEDIA_URL }}{% property_meta request.path 4 %}" height="150" width="270"  />
+                      </a>
+           </div>
+          </div>
+   	       <strong> {% property_meta request.path 5 %} </strong>
+               <input type="hidden" name="type" ng-model="details.property_id" value="{% property_meta request.path 16 %}"/>
+            
+
+               <div class="property-data-line"> <!-- property data line starts -->
+                   <input type="hidden" name="published" ng-model="details.published" value="{% property_meta request.path 15 %}" />
+                   <div class="property-data-title"><strong> Published: </strong></div>
+                   <div class="property-data-field">{% property_meta request.path 15 %}</div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+                <div clsss="clearfix"></div> 
+               <div class="property-data-line"><!-- property data line starts -->
+                   <input type="hidden" name="type" ng-model="details.type" value="{% property_meta request.path 6 %}"/>
+                   <div class="property-data-title"><strong> Type: </strong></div>
+                   <div class="property-data-field">{% property_meta request.path 6 %}</div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+               <div clsss="clearfix"></div> 
+               <div class="property-data-line"><!-- property data line starts -->
+                   <input type="hidden" name="category" ng-model="details.category" value="{% property_meta request.path 7 %}" />
+                   <div class="property-data-title"> <strong> Category: </strong></div>
+                   <div class="property-data-field">{% property_meta request.path 7 %}</div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+               <div clsss="clearfix"></div>
+
+               <div class="property-data-line"><!-- property data line starts -->
+                   <input type="hidden" name="location" ng-model="details.location" value="{% property_meta request.path 8  %} -  {% property_meta request.path 9  %}"/>
+                   <div class="property-data-title"> <strong> Location: </strong>  </div>
+                   <div class="property-data-field">{% property_meta request.path 8  %} -  {% property_meta request.path 9  %}</div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+
+               <div class="property-data-line"><!-- property data line starts -->
+                   <input type="hidden" name="rooms" ng-model="details.rooms" value="{% property_meta request.path 11  %}" />
+                   <div class="property-data-title"> <strong> Bedrooms: </strong> </div>
+                   <div class="property-data-field"> {% property_meta request.path 11  %} </div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+
+               <div class="property-data-line"><!-- property data line starts -->
+                   <input type="hidden" name="baths" ng-model="details.baths" value="{% property_meta request.path 12  %}" />
+                   <div class="property-data-title"> <strong> Baths: </strong>  </div>
+                   <div class="property-data-field">  {% property_meta request.path 12  %} </div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+
+               <div class="property-data-line"><!-- property data line starts -->
+                   <input type="hidden" name="pets" ng-model="details.pets" value="{% property_meta request.path 13  %}" />
+                   <div class="property-data-title"> <strong> Pets: </strong> </div>
+                   <div class="property-data-field"> {% property_meta request.path 13  %} </div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+
+               <div class="property-data-line"> <!-- property data line starts -->
+                   <input type="hidden" name="price" ng-model="details.price" value="{% property_meta request.path 14  %}" />
+                   <div class="property-data-title"> <strong> Price: </strong> </div>
+                   <div class="property-data-field"> <strong> {% property_meta request.path 14  %} </strong> </div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+
+               <div class="property-data-line"> <!-- property data line starts -->
+                   <input type="hidden" name="description" ng-model="details.description" value="{% property_meta request.path 10 %}" />
+                   <div class="property-data-title"><strong> Description: </strong> </div>
+                   <div class="property-data-field">{% property_meta request.path 10 %} </div>
+                   <div clsss="clearfix"></div>
+               </div> <!-- property data line ends -->
+
+               <div class="property-data-line"> <!-- property data line starts -->
+                   <div class="property-data-title"><strong> &nbsp; </strong> </div>
+                   <div class="property-data-field"> &nbsp; </div>
+                   <div clsss="clearfix"></div>
+               </div:> <!-- property data line ends -->
+                    
+
+
+               <div class="property-contact-line"> <!-- property contact line starts -->
+                        <div id="contact-us" ng-click="openContact()">
+                                <img src="http://zrealtycorp.com/media/images/contact_us_button_off.png" />
+                        </div>
+               </div> <!-- property contact line ends -->
+
+
+
+</form>
+</div> <!-- details-wrapper ends -->
+
+
+
+
+
+
+           {% csrf_token %}
+{% endblock %}
+
+

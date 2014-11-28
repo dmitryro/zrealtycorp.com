@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load metaprop_extras %}
+{% load easy_maps_tags %}
+{% block title %}Contact us {% endblock %}
+
+{% block content %}
+
+<h1>Get in touch</h1>
+ 
+<div class="contact-grid" id="contact-grid">
+    <div class="map">
+         {% csrf_token %}
+           {% easy_map '2103 Avenue Z, Brooklyn, NY 11235' 350 250 16 using 'map.html' %}
+    </div>
+
+    <div class="details">
+    <p>  {% contact_metaprop_meta 0 %} </p>
+    <p>  {% contact_metaprop_meta 1 %} </p>
+    <p>  {% contact_metaprop_meta 2 %} </p>
+    <p>  {% contact_metaprop_meta 3 %} &nbsp;,
+         {% contact_metaprop_meta 4 %}  &nbsp;,
+         {% contact_metaprop_meta 5 %} </p>
+    <p> Phone:&nbsp;  {% contact_metaprop_meta 6 %} </p>
+    <p> Fax:&nbsp; {% contact_metaprop_meta 7 %} </p>
+    <p>  {% contact_metaprop_meta 8 %} </p>
+    <p>  {% contact_metaprop_meta 9 %} </p>
+    <p>  {% contact_metaprop_meta 10 %}</p>
+    </div>
+
+    <div class="form" ng-controller="ContactCtrl">
+
+
+
+<div id="success-message" ng-show="sent">
+<p  ng-animate="{show: 'fade'}">Thanks for contacting us.</p>
+</div>
+<div id="failure-message" ng-show="invalid">
+<p ng-animate="{show: 'fade'}">Please fill in all the fields.</p>
+</div>
+<form name="contact_us_form" ng-change="reset()" id="contact-us-form" ng-submit="sendMessage()"  novalidate>
+   {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="contact-valid" id="contact-valid" ng-model='contactvalid' value="{$ invalid $}" />
+    <input type="submit" id="contact-submit" class="SignupForm-submit btn primary-btn" value="Send" ng-click="sendMessage()" />
+
+</form>
+</div>
+<div class="clearfix"></div>
+</div>
+
+
+{% endblock %}
+
+

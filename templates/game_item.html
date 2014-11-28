@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load render from desc_render %}
+
+{% block head_title %}Game - {{ game.title }}{% endblock %}
+
+{% block content %}
+<br/>
+<div class="navbar">
+	<div class="navbar-inner">
+		<div class="container pull-right"><small>
+			By {{ game.reporter.name }} on {{ game.created_date|date:"SHORT_DATETIME_FORMAT" }}
+			<br/>
+			<div align="right">rating</div>
+		</small></div>
+		<h2 style="margin: 10px 10px 10px 0px;">{{ game.title }}</h2>
+		{% if game.short %}{{ game.short }}{% endif %}
+		<a href="{% url 'company' game.company.pk %}" style="color: inherit;" class="pull-right" style="padding: 0px; margin: 0px;">Developer: {{ game.company.title }}</a>
+	</div>
+	<p class="pull-right" style="padding: 0px; margin: 0px;">
+	{% for tag in game.tags.all %}
+		<span class="label">{{tag}}</span>
+	{% endfor %}
+	</p>
+</div>
+<div class="row-fluid">
+<div class="media span12">
+	{% if game.album.available_cover %}
+	<a href="{{ game.album.get_absolute_url }}"><img class="media-object pull-right" style="margin: 10px;" src="{{ game.album.available_cover.cover_image.url }}"/></a>
+	{% endif %}		
+	<div class="media-body">
+		{{ game.description | render }}
+
+		{% if game.urls.all %}
+		<h4>Links:</h4>
+		<ul>
+			{% for rel in game.urls.all %}
+				<li><a href="{{ rel.url }}">{{ rel.desc|capfirst }}</a></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		
+		{% if game.related_to.all %}
+		<h4>Related by:</h4>
+		<ul>
+			{% for rel in game.related_to.all %}
+				<li><a href="{{ rel.a.get_real.get_absolute_url }}">{{ rel.a.title }}</a></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		
+		{% if game.related_from.all %}
+		<h4>Related to:</h4>
+		<ul>
+			{% for rel in game.related_from.all %}
+				<li><a href="{{ rel.b.get_real.get_absolute_url }}">{{ rel.b.title }}</a></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		<br/>
+
+	</div>
+</div>
+</div>
+
+
+
+{% for comment in game.comments.all %}
+<div class="well" style="margin-left: 10px; padding: 10px;">
+	<div class="pull-right">
+		<small>By {{ comment.reporter.name }} on {{ comment.created_date|date:"SHORT_DATETIME_FORMAT" }}</small>
+		<br/>
+		<div align="right">
+			<small>rating</small>
+		</div>
+	</div>
+	<h3 style="margin: 0px;">{{ comment.title }}</h3>
+	{{ comment.description | render }}
+</div>
+{% endfor %}
+
+{% endblock %}
