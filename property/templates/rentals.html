@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load imagekit %}
+{% load pagination_tags %}
+
+{% block title %}Latest Published Properties{% endblock %}
+
+{% block content %}
+
+
+
+{% autopaginate rent_properties 10 %}
+{% if rent_properties %}
+    <div class="properties-listing-head" ng-controller="SortCtrl">
+     <div style="float:left;width:6%;font-weight:bold;">
+        <strong>ID</strong>
+     </div>
+     <div style="float:left;width:10%;">
+        <strong>Property</strong>
+     </div>
+     <div style="float:left;width:9%;">
+        <strong>Type</strong>
+     </div>
+
+     <div style="float:left;width:6%;">
+        <strong>Rooms</strong>
+     </div>
+
+     <div style="float:left;width:6%;">
+        <strong>Baths</strong>
+     </div>
+
+     <div style="float:left;width:9%;">
+        <strong>Size</strong>
+     </div>
+
+     <div style="float:left;width:9%;">
+       <strong>Offer</strong>
+     </div>
+
+    <div style="float:left;width:12%;">
+        <strong>Price</strong>
+    </div>
+
+    <div style="float:left;width:17%;">
+        <strong>Location</strong>
+    </div>
+     <div style="float:left;width:6%;">
+        <strong>Pets</strong>
+    </div>
+    <div style="float:left;width:8%;">
+        <strong>View</strong>
+    </div>
+   </div>
+  <div style="clear:both;"></div>
+  <div style="float:top;">
+   {% for property in rent_properties %}
+      
+    <div style="float:top;width:100%;line-height:1.6em;margin-bottom:0.4em;font-family: Arial,Helvetica,sans-serif;font-weight:normal;">
+
+           <div style="float:left;width:6%;">
+                {{ property.property_id }}
+           </div>
+
+           <div style="float:left;width:10%;">
+                <a href="http://zrealtycorp.com/property/{{ property.property_id }}">{{ property.title }}</a>
+           </div>
+           <div style="float:left;width:9%;">
+                 {{ property.type }}
+           </div>
+
+           <div style="float:left;width:6%;">
+                 {{ property.rooms }}
+           </div>
+ 
+           <div style="float:left;width:6%;">
+                 {{ property.bathrooms }}
+           </div>
+
+           <div style="float:left;width:9%;">
+                 {{ property.size }}
+           </div>
+     
+           <div style="float:left;width:9%;">
+                 {{ property.category }}
+           </div>
+
+           <div style="float:left;width:12%;">
+                 {{ property.price }}
+           </div>
+           <div style="float:left;width:17%;">
+                 {{ property.borough }}&nbsp;/&nbsp;{{ property.neighborhood }}
+           </div>
+
+           <div style="float:left;width:6%;">
+               {% if property.pets_allowed %}
+                    <span>Yes</span>
+               {% else %}
+                    <span>No</span> 
+               {% endif %}
+           </div>        
+           <div style="float:left;width:8%;">
+              {% thumbnail '100x80'  property.picture1 %}
+           </div>
+           <div style="clear:both;"></div>
+      </div>
+      <div style="clear:both;"></div>
+   {% endfor %}
+   </div>
+{% else %}
+    <p>No properties were found.</p>
+{% endif %}
+
+{% paginate %}
+
+{% endblock %}
+
+

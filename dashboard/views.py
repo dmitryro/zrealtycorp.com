@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from braces import views
 from braces.views import AnonymousRequiredMixin
 from braces.views import LoginRequiredMixin
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpRequest
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
 from utils.forms import MemberLoginForm
@@ -15,6 +15,8 @@ class DashboardViewMixin(object):
     def get_context_data(self,**kwargs):
         context = super(DashboardViewMixin,
                   self).get_context_data(**kwargs)
+        user = HttpRequest.user
+        context['user'] = user
         return context
 
 
