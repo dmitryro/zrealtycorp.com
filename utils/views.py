@@ -4,17 +4,36 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import generics
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User, AbstractUser
 from rest_framework.authtoken.models import Token
 from forms import MemberLoginForm, MemberForm
 from property.forms import SearchForm
-from serializers import RegistrationSerializer
+from serializers import UserSerializer, MemberSerializer
 from models import Member
 
 
 for user in User.objects.all():
     Token.objects.get_or_create(user=user)
+
+class UserList(generics.ListAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        users = User.objects.all()
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data)
+
 
 
 

@@ -15,6 +15,7 @@ from dashboard.views import DashboardView
 from dashboard.views import DashboardLogoutView
 from utils.views import MemberLoginView
 from utils.views import MemberSignupView
+from utils.models import Member
 from pages.views import MaintenanceView
 from pages.views import PropertyDetailView 
 from pages.views import HomeView
@@ -42,10 +43,14 @@ class UserViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     model = Group
 
+class MemberViewSet(viewsets.ModelViewSet):
+    model = Member
+
 
 # Routers provide an easy way of automatically determining the URL conf
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'members', MemberViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'properties',views.PropertyViewSet)
 router.register(r'categories',views.CategoryViewSet)
@@ -59,13 +64,6 @@ router.register(r'rooms',views.RoomsViewSet)
 rules_light.autodiscover()
 autocomplete_light.autodiscover()
 admin.autodiscover()
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    model = User
-
-class GroupViewSet(viewsets.ModelViewSet):
-    model = Group
 
 feeds = {
     'rss': RssSiteNewsFeed,

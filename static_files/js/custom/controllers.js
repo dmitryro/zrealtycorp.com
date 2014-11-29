@@ -20,29 +20,48 @@ function PaginationCtrl($scope,$http) {
 function DashboardCtrl($scope,$http) {
     $scope.toggleheader = true;
     $scope.togglenotfound = false;
-
+    $scope.memberprofile = false;
+  
     $scope.postToBlog = function(user) {
-        alert(user.username);
+        $scope.posttoblog = true;
+        $scope.memberprofile = false;
+        $scope.posttoproperties = false;
+        $scope.privatemessage = false;  
+        $scope.posttodiary = false;
     };
 
     $scope.editProfile = function(user) {
-        alert(user.username);
+        $scope.posttoblog = false;
+        $scope.memberprofile = true;
+        $scope.posttoproperties = false;
+        $scope.privatemessage = false;
+        $scope.posttodiary = false;
+         
     };
     
     $scope.postToProperties = function(user) {
-        alert(user.username);
+        $scope.posttoblog = false;
+        $scope.memberprofile = false;
+        $scope.posttoproperties = true;
+        $scope.privatemessage = false;
+        $scope.posttodiary = false;
     };
 
     $scope.sendPrivateMessage = function(user) {
-        alert(user.username);
+        $scope.posttoblog = false;
+        $scope.memberprofile = false;
+        $scope.posttoproperties = false;
+        $scope.privatemessage = true;
+        $scope.posttodiary = false;
     };
 
-    $scope.postToProperties = function(user) {
-        alert(user.username);
-    };
    
     $scope.writeNoteToDiary = function(user) {
-        alert(user.username);
+        $scope.posttoblog = false;
+        $scope.memberprofile = false;
+        $scope.posttoproperties = false;
+        $scope.privatemessage = false;
+        $scope.posttodiary = true;
     };
 
 

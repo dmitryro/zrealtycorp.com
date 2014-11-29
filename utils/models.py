@@ -93,6 +93,7 @@ class Login(models.Model):
 """
 @python_2_unicode_compatible
 class Member(models.Model):
+    user_id = models.ForeignKey(User)
     who_are_you = models.ForeignKey(MemberRole, blank=True, null=True)
     subscription = models.ForeignKey(Subscription,blank=True, null=True)
     confirm_password = models.CharField(max_length=40)

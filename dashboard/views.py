@@ -7,6 +7,7 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpRequest
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
 from utils.forms import MemberLoginForm
+from utils.forms import MemberForm
 from property.forms import SearchForm
 from icon.models import ActionIcon
 
@@ -15,8 +16,10 @@ class DashboardViewMixin(object):
     def get_context_data(self,**kwargs):
         context = super(DashboardViewMixin,
                   self).get_context_data(**kwargs)
+        member = MemberForm()
         user = HttpRequest.user
         context['user'] = user
+        context['member_form'] = member  
         post_action = ActionIcon.objects.get(action_id=1)
         context['post_action'] = post_action
         return context
