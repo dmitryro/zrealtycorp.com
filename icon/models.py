@@ -53,7 +53,31 @@ class SocialIcon(models.Model):
     def __unicode__(self):
         return unicode(self.title)
 
+@python_2_unicode_compatible
+class ActionIcon(models.Model):
+    action_id = models.CharField(max_length=30, blank=True, null=True)
+    title =  models.CharField(max_length=30)
+    icon=  models.ImageField("Action Icon", upload_to="images/", blank=True, null=True)
+    height = models.IntegerField()
+    width = models.IntegerField()
+    url = models.CharField(max_length=500, blank=True, null=True)
+    icon_thumbnail = ImageSpecField(source='icon',
+                                      processors=[ResizeToFit(50,50)],
+                                      format='PNG',
+                                      options={'quality': 80})
+    class Meta:
+        verbose_name = 'action icon'
+        verbose_name_plural = 'action icons'
 
+    def __str__(self):
+        return self.title
+
+    def __unicode__(self):
+        return unicode(self.title)
+
+
+class ActionIconAdmin(admin.ModelAdmin):
+    fields = ('action_id','title','icon','url','height','width')
 
 class SocialIconAdmin(admin.ModelAdmin):
     fields = ('title','icon','url','height','width')
@@ -64,4 +88,5 @@ class IconAdmin(admin.ModelAdmin):
 
 admin.site.register(Icon)
 admin.site.register(SocialIcon)
+admin.site.register(ActionIcon)
 

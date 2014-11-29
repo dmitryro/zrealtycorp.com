@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
 from utils.forms import MemberLoginForm
 from property.forms import SearchForm
-
+from icon.models import ActionIcon
 
 class DashboardViewMixin(object):
 
@@ -17,6 +17,8 @@ class DashboardViewMixin(object):
                   self).get_context_data(**kwargs)
         user = HttpRequest.user
         context['user'] = user
+        post_action = ActionIcon.objects.get(action_id=1)
+        context['post_action'] = post_action
         return context
 
 

@@ -1,4 +1,16 @@
 {% extends 'base.html' %}
+{% load djangular_tags %}
+{% load url from future %}
+{% load uni_form_tags %}
+{% load imagekit %}
+{% load endless %}
+{% load thumbnail %}
+{% load logo_extras %}
+{% load icon_extras %}
+{% load dashboard_extras %}
+{% load metaprop_extras %}
+{% load bootstrap_toolkit %}
+
 
 {% block title %}Latest Published Properties{% endblock %}
 
@@ -9,18 +21,83 @@
 
 <form  methond="post" ng-controller="AuthCtrl"  name="dashboard_form" id="dashboard-form"  ng-submit=""  novalidate>
            {% csrf_token %}
-<p>
-  You are logged in as {% if user %}
-                        {{ user.username }} 
-                       {% endif %}
-</p>
-<ul>
-   <li>
-      <a href="http://zrealtycorp.com/logout/">Logout</a>
-   </li>
-</ul>
 </form>
 </div>
+<div class="clearfix"></div>
+          <!--
+          <div style="float:left;width:50%;min-height:600px;">&nbsp;some content here</div>
+          -->
+          <div id="sidebar-dashboard">
+                 <div class="header-area">
+                    You are logged in as {% if user %}
+                        {{ user.username }}
+                       {% endif %}
+
+                </div>
+                 <div class="main-area">
+                    <br/>
+
+                            <div class="sidebar-dashboard-list">
+                                 <div class="sidebar-dashboard-list-left"> 
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 1 2 %}" height="40" width="40"  />  
+                                 </div>
+                                 <div class="sidebar-dashboard-right">
+                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 1 3 %}">{% dashboard_meta 1 1 %}</a>
+                                 </div>
+                                 <div class="clearfix"></div>
+                            </div> <!-- sidebar list ends -->
+
+                            <div class="sidebar-dashboard-list">
+                                 <div class="sidebar-dashboard-list-left">
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 2 2 %}" height="40" width="40"  /> <a href="#">
+                                 </div>
+                                 <div class="sidebar-dashboard-right">
+                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 2 3 %}">{% dashboard_meta 2 1 %}</a>
+                                 </div>
+                                 <div class="clearfix"></div>
+                            </div> <!-- sidebar -->
+
+                            <div class="sidebar-dashboard-list">
+                                 <div class="sidebar-dashboard-list-left">
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 3 2 %}" height="40" width="40"  /> <a href="#">
+                                 </div>
+                                 <div class="sidebar-dashboard-right">
+                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 3 3 %}">{% dashboard_meta 3 1 %}</a>
+                                 </div>
+                                 <div class="clearfix"></div>
+                            </div> <!-- sidebar -->
+                            <div class="sidebar-dashboard-list">
+                                 <div class="sidebar-dashboard-list-left">
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 4 2 %}" height="40" width="40"  /> <a href="#">
+                                 </div>
+                                 <div class="sidebar-dashboard-right">
+                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 4 3 %}">{% dashboard_meta 4 1 %}</a>
+                                 </div>
+                                 <div class="clearfix"></div>
+                            </div> <!-- sidebar -->
+                            <div class="sidebar-dashboard-list">
+                                 <div class="sidebar-dashboard-list-left">
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 5 2 %}" height="40" width="40"  /> <a href="#">
+                                 </div>
+                                 <div class="sidebar-dashboard-right">
+                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 5 3 %}">{% dashboard_meta 5 1 %}</a>
+                                 </div>
+                                 <div class="clearfix"></div>
+                            </div> <!-- sidebar -->
+                            <div class="sidebar-dashboard-list">
+                                 <div class="sidebar-dashboard-list-left">
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 6 2 %}" height="40" width="40"  /> <a href="#">
+                                 </div>
+                                 <div class="sidebar-dashboard-right">
+                                             <a href="http://zrealtycorp.com/logout/{% dashboard_meta 6 3 %}">{% dashboard_meta 6 1 %}</a>
+                                 </div>
+                                 <div class="clearfix"></div>
+                            </div> <!-- sidebar -->
+                  </div>      <!-- sidebar main ends -->
+                 <div class="footer-area">&nbsp;</div>
+                 <div class="clearfix"></div>
+          </div>
+
 {% endblock %}
 
 

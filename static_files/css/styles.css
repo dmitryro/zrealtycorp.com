@@ -1102,7 +1102,7 @@ width:8%;
   height:40px;
 }
 
-#sidebar-more-properties {
+#sidebar-more-properties{
     float:right;
     width:24%;
     min-height:58%;
@@ -1113,7 +1113,7 @@ width:8%;
     margin-bottom:-17em;
 }
 
-#sidebar-more-properties .header-area{
+#sidebar-more-properties .header-area, #sidebar-dashboard .header-area {
     background-color: #369DD6;
     border-top-width: 1px;
     border-right-width: 1px;
@@ -1137,7 +1137,7 @@ width:8%;
     font-weight:bold;
 }
 
-#sidebar-more-properties .main-area{
+#sidebar-more-properties .main-area, #sidebar-dashboard .main-area{
 
     padding:2% 5% 2% 5%;
     float:top;
@@ -1155,7 +1155,7 @@ width:8%;
     font-size:0.93em;
 }
 
-#sidebar-more-properties .footer-area{
+#sidebar-more-properties .footer-area, #sidebar-dashboard .footer-area{
     float:top;
     background:ffffff;
     border-bottom-width: 1px;
@@ -1169,7 +1169,7 @@ width:8%;
     border-left-style: solid;
     border-bottom-style: solid; 
 }
-.sidebar-apartments-list {
+.sidebar-apartments-list, .sidebar-dashboard-list {
    float:top;
    width:100%;
    margin-bottom:4px;
@@ -1177,12 +1177,12 @@ width:8%;
    padding-bottom:2%;
 }
 
-.sidebar-apartments-list-left {
+.sidebar-apartments-list-left, .sidebar-dashboard-list-left {
    width:29%;
    float:left;
 }
 
-.sidebar-apartments-list-right {
+.sidebar-apartments-list-right, .sidebar-dashboard-list-right {
    width:70%;
    font-size:0.8em;
    float:left;
@@ -2097,4 +2097,42 @@ a:hover, a:focus
   color: #999999;
   cursor: default;
   background-color: transparent;
+}
+
+#sidebar-dashboard {
+    float:left;
+    width:20%;
+    min-height:58%;
+    margin-left:77%;
+    margin-right:2.5%;
+}
+
+
+#sidebar-dashboard .main-area
+{
+  padding-top: 2%;
+  padding-right: 5%;
+  padding-bottom: 2%;
+  padding-left: 5%;
+  background-color: #ffffff;
+  background-image: none;
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-position: 0% 0%;
+  background-clip: border-box;
+  background-origin: padding-box;
+  background-size: auto auto;
+  border-right-color-value: #369dd6;
+  border-bottom-color: #369dd6;
+  border-right-width-value: 1px;
+  border-left-width-value: 1px;
+  border-right-style-value: solid;
+  border-left-style-value: solid;
+  color: #369dd6;
+  font-weight: normal;
+  font-size: 0.93em;
+}
+#dashboard-form {
+  min-height:100%;
+  display:block;
 }
