@@ -9,7 +9,7 @@ function TestCtrl($scope,$http) {
 
     $scope.testCall = function() {
        alert('hi');
-    }
+    };
 }
 
 function PaginationCtrl($scope,$http) {
@@ -20,6 +20,32 @@ function PaginationCtrl($scope,$http) {
 function DashboardCtrl($scope,$http) {
     $scope.toggleheader = true;
     $scope.togglenotfound = false;
+
+    $scope.postToBlog = function(user) {
+        alert(user.username);
+    };
+
+    $scope.editProfile = function(user) {
+        alert(user.username);
+    };
+    
+    $scope.postToProperties = function(user) {
+        alert(user.username);
+    };
+
+    $scope.sendPrivateMessage = function(user) {
+        alert(user.username);
+    };
+
+    $scope.postToProperties = function(user) {
+        alert(user.username);
+    };
+   
+    $scope.writeNoteToDiary = function(user) {
+        alert(user.username);
+    };
+
+
 }
 
 function AuthCtrl($scope,$http) {

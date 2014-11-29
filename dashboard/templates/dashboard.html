@@ -16,10 +16,10 @@
 
 {% block content %}
 <h1>Customer Dashboard</h1>
-<div id="dashboard-form"  ng-controller="AuthCtrl">
+<div id="dashboard-form" >
 
 
-<form  methond="post" ng-controller="AuthCtrl"  name="dashboard_form" id="dashboard-form"  ng-submit=""  novalidate>
+<form  methond="post"  name="dashboard_form" id="dashboard-form"  ng-submit=""  novalidate>
            {% csrf_token %}
 </form>
 </div>
@@ -27,8 +27,10 @@
           <!--
           <div style="float:left;width:50%;min-height:600px;">&nbsp;some content here</div>
           -->
-          <div id="sidebar-dashboard">
-                 <div class="header-area">
+          <div id="sidebar-dashboard" ng-controller="DashboardCtrl" gn-app="zrealty">
+               <form  methond="post"  name="dashboard_toolbar_form" id="dashboard-toolbar-form" ng-app="zrealty"  ng-submit=""  novalidate>  
+               {% csrf_token %}
+               <div class="header-area">
                     You are logged in as {% if user %}
                         {{ user.username }}
                        {% endif %}
@@ -38,11 +40,12 @@
                     <br/>
 
                             <div class="sidebar-dashboard-list">
+                                 <input type="hidden" name="username" ng-model="user.username" value="{{ user.username }}" />
                                  <div class="sidebar-dashboard-list-left"> 
                                          <img src="{{ MEDIA_URL }}{% dashboard_meta 1 2 %}" height="40" width="40"  />  
                                  </div>
                                  <div class="sidebar-dashboard-right">
-                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 1 3 %}">{% dashboard_meta 1 1 %}</a>
+                                             <a href="#" ng-click="postToBlog(user)">{% dashboard_meta 1 1 %}</a>
                                  </div>
                                  <div class="clearfix"></div>
                             </div> <!-- sidebar list ends -->
@@ -52,7 +55,7 @@
                                          <img src="{{ MEDIA_URL }}{% dashboard_meta 2 2 %}" height="40" width="40"  /> <a href="#">
                                  </div>
                                  <div class="sidebar-dashboard-right">
-                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 2 3 %}">{% dashboard_meta 2 1 %}</a>
+                                             <a href="#" ng-click="editProfile(user)">{% dashboard_meta 2 1 %}</a>
                                  </div>
                                  <div class="clearfix"></div>
                             </div> <!-- sidebar -->
@@ -62,7 +65,7 @@
                                          <img src="{{ MEDIA_URL }}{% dashboard_meta 3 2 %}" height="40" width="40"  /> <a href="#">
                                  </div>
                                  <div class="sidebar-dashboard-right">
-                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 3 3 %}">{% dashboard_meta 3 1 %}</a>
+                                             <a href="#" ng-click="postToProperties(user)">{% dashboard_meta 3 1 %}</a>
                                  </div>
                                  <div class="clearfix"></div>
                             </div> <!-- sidebar -->
@@ -71,7 +74,7 @@
                                          <img src="{{ MEDIA_URL }}{% dashboard_meta 4 2 %}" height="40" width="40"  /> <a href="#">
                                  </div>
                                  <div class="sidebar-dashboard-right">
-                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 4 3 %}">{% dashboard_meta 4 1 %}</a>
+                                             <a href="#" ng-click="sendPrivateMessage(user)">{% dashboard_meta 4 1 %}</a>
                                  </div>
                                  <div class="clearfix"></div>
                             </div> <!-- sidebar -->
@@ -80,7 +83,7 @@
                                          <img src="{{ MEDIA_URL }}{% dashboard_meta 5 2 %}" height="40" width="40"  /> <a href="#">
                                  </div>
                                  <div class="sidebar-dashboard-right">
-                                             <a href="http://zrealtycorp.com/action/{% dashboard_meta 5 3 %}">{% dashboard_meta 5 1 %}</a>
+                                             <a href="#" ng-click="writeNoteToDiary(user)">{% dashboard_meta 5 1 %}</a>
                                  </div>
                                  <div class="clearfix"></div>
                             </div> <!-- sidebar -->
@@ -96,6 +99,7 @@
                   </div>      <!-- sidebar main ends -->
                  <div class="footer-area">&nbsp;</div>
                  <div class="clearfix"></div>
+                 </form>
           </div>
 
 {% endblock %}
