@@ -16,10 +16,10 @@ class DashboardViewMixin(object):
     def get_context_data(self,**kwargs):
         context = super(DashboardViewMixin,
                   self).get_context_data(**kwargs)
-        member = MemberForm()
+        member_form = MemberForm()
         user = HttpRequest.user
         context['user'] = user
-        context['member_form'] = member  
+        context['member_form'] = member_form
         post_action = ActionIcon.objects.get(action_id=1)
         context['post_action'] = post_action
         return context

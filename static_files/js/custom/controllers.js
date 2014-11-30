@@ -21,13 +21,15 @@ function DashboardCtrl($scope,$http) {
     $scope.toggleheader = true;
     $scope.togglenotfound = false;
     $scope.memberprofile = false;
-  
+    $scope.memberpanel = true; 
+ 
     $scope.postToBlog = function(user) {
         $scope.posttoblog = true;
         $scope.memberprofile = false;
         $scope.posttoproperties = false;
         $scope.privatemessage = false;  
         $scope.posttodiary = false;
+        $scope.memberpanel = false;
     };
 
     $scope.editProfile = function(user) {
@@ -36,7 +38,7 @@ function DashboardCtrl($scope,$http) {
         $scope.posttoproperties = false;
         $scope.privatemessage = false;
         $scope.posttodiary = false;
-         
+        $scope.memberpanel = false;
     };
     
     $scope.postToProperties = function(user) {
@@ -45,6 +47,7 @@ function DashboardCtrl($scope,$http) {
         $scope.posttoproperties = true;
         $scope.privatemessage = false;
         $scope.posttodiary = false;
+        $scope.memberpanel = false;
     };
 
     $scope.sendPrivateMessage = function(user) {
@@ -53,6 +56,7 @@ function DashboardCtrl($scope,$http) {
         $scope.posttoproperties = false;
         $scope.privatemessage = true;
         $scope.posttodiary = false;
+        $scope.memberpanel = false; 
     };
 
    
@@ -62,6 +66,7 @@ function DashboardCtrl($scope,$http) {
         $scope.posttoproperties = false;
         $scope.privatemessage = false;
         $scope.posttodiary = true;
+        $scope.memberpanel = false;
     };
 
 

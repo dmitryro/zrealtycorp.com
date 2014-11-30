@@ -19,33 +19,78 @@
 <h1>Customer Dashboard</h1>
 
 
-<form  methond="post"  name="dashboard_form" id="dashboard-form"  ng-submit=""  novalidate>
-           {% csrf_token %}
-</form>
-
-<div id="blog-form"  ng-show="posttoblog">
+<div class="clearfix"></div>
+<div id="member-panel"  ng-show="memberpanel" class="panel-section">&nbsp;
+</div>
+<div id="blog-form"  ng-show="posttoblog" class="panel-section">
 Post to blog
 </div>
+<div id="member-form"  ng-show="memberprofile" class="panel-section">
+          <h3>Edit Profile</h3>
+          <form  methond="post"  name="member_form" id="member-form"  ng-submit=""  novalidate> 
+           <div class="dashboard-profile-row">
+                <div class="dashboard-profile-titles"> User Name</div>
+                <div class="dashboard-profile-fields">
+                           <input name="username" type="text" value="{{ user.username  }}" />
+                </div>
+                <div class="clearfix"></div>
+           </div>
+           <div class="clearfix"></div>
 
-<div id="member-form"  ng-show="memberprofile">
-Customer Profile
+           <div  class="dashboard-profile-row">           
+            <div class="dashboard-profile-titles"> Password </div>
+            <div class="dashboard-profile-fields"> <input name="password" type="text" value="" /></div>
+           </div>
+           <div class="clearfix"></div> 
+
+           <div class="dashboard-profile-row">
+            <div class="dashboard-profile-titles"> 
+             Confirm
+            </div>
+            <div class="dashboard-profile-fields">
+                 <input name="password" type="text" value="" />           
+            </div>
+           </div>
+
+           <div class="clearfix"></div>
+           <div  class="dashboard-profile-row"> 
+            <div class="dashboard-profile-titles">  Email </div>
+            <div class="dashboard-profile-fields">  <input name="email" type="text" value="{{ user.email }}" /></div>
+           </div>
+
+           <div class="clearfix"></div>  
+
+           <div class="dashboard-profile-row">
+             <div class="dashboard-profile-titles"> First Name </div>
+             <div class="dashboard-profile-fields"> <input name="first_name" type="text" value="{{ user.first_name }}" /></div>
+           </div>
+
+           <div class="clearfix"></div>
+           <div class="dashboard-profile-row">
+             <div class="dashboard-profile-titles"> Last Name</div>
+             <div class="dashboard-profile-fields"> <input name="last_name" type="text" value="{{ user.last_name }}" /></div>
+           </div> 
+
+ 
+           {% csrf_token %}
+          </form>
+
+          <div class="clearfix"></div>
+
+    </form>
+
 </div>
-
-<div id="private-message-form"  ng-show="privatemessage">
+<div id="private-message-form"  ng-show="privatemessage" class="panel-section">
 Private Message
 </div>
-
-<div id="properties-post-form"  ng-show="posttoproperties">
+<div id="properties-post-form"  ng-show="posttoproperties" class="panel-section">
 Post to properties
 </div>
-
-<div id="diary-form"  ng-show="posttodiary">
+<div id="diary-form"  ng-show="posttodiary" class="panel-section">
 Write note to diary
 </div>
 
 
-
-<div class="clearfix"></div>
           <!--
           <div style="float:left;width:50%;min-height:600px;">&nbsp;some content here</div>
           -->
@@ -64,7 +109,9 @@ Write note to diary
                             <div class="sidebar-dashboard-list">
                                  <input type="hidden" name="username" ng-model="user.username" value="{{ user.username }}" />
                                  <div class="sidebar-dashboard-list-left"> 
+                                       <a href="#" ng-click="postToBlog(user)">
                                          <img src="{{ MEDIA_URL }}{% dashboard_meta 1 2 %}" height="40" width="40"  />  
+                                       </a>
                                  </div>
                                  <div class="sidebar-dashboard-right">
                                              <a href="#" ng-click="postToBlog(user)">{% dashboard_meta 1 1 %}</a>
@@ -74,7 +121,8 @@ Write note to diary
 
                             <div class="sidebar-dashboard-list">
                                  <div class="sidebar-dashboard-list-left">
-                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 2 2 %}" height="40" width="40"  /> <a href="#">
+                                        <a href="#" ng-click="editProfile(user)">
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 2 2 %}" height="40" width="40"  /></a>
                                  </div>
                                  <div class="sidebar-dashboard-right">
                                              <a href="#" ng-click="editProfile(user)">{% dashboard_meta 2 1 %}</a>
@@ -84,7 +132,9 @@ Write note to diary
 
                             <div class="sidebar-dashboard-list">
                                  <div class="sidebar-dashboard-list-left">
+                                        <a href="#" ng-click="postToProperties(user)">
                                          <img src="{{ MEDIA_URL }}{% dashboard_meta 3 2 %}" height="40" width="40"  /> <a href="#">
+                                        </a>
                                  </div>
                                  <div class="sidebar-dashboard-right">
                                              <a href="#" ng-click="postToProperties(user)">{% dashboard_meta 3 1 %}</a>
@@ -93,7 +143,9 @@ Write note to diary
                             </div> <!-- sidebar -->
                             <div class="sidebar-dashboard-list">
                                  <div class="sidebar-dashboard-list-left">
-                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 4 2 %}" height="40" width="40"  /> <a href="#">
+                                       <a href="#" ng-click="sendPrivateMessage(user)">
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 4 2 %}" height="40" width="40"  />
+                                       </a>
                                  </div>
                                  <div class="sidebar-dashboard-right">
                                              <a href="#" ng-click="sendPrivateMessage(user)">{% dashboard_meta 4 1 %}</a>
@@ -102,7 +154,9 @@ Write note to diary
                             </div> <!-- sidebar -->
                             <div class="sidebar-dashboard-list">
                                  <div class="sidebar-dashboard-list-left">
-                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 5 2 %}" height="40" width="40"  /> <a href="#">
+                                      <a href="#" ng-click="writeNoteToDiary(user)">   
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 5 2 %}" height="40" width="40"  />
+                                      </a>
                                  </div>
                                  <div class="sidebar-dashboard-right">
                                              <a href="#" ng-click="writeNoteToDiary(user)">{% dashboard_meta 5 1 %}</a>
@@ -111,7 +165,9 @@ Write note to diary
                             </div> <!-- sidebar -->
                             <div class="sidebar-dashboard-list">
                                  <div class="sidebar-dashboard-list-left">
-                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 6 2 %}" height="40" width="40"  /> <a href="#">
+                                        <a href="http://zrealtycorp.com/logout/{% dashboard_meta 6 3 %}"> 
+                                         <img src="{{ MEDIA_URL }}{% dashboard_meta 6 2 %}" height="40" width="40"  />
+                                        </a>
                                  </div>
                                  <div class="sidebar-dashboard-right">
                                              <a href="http://zrealtycorp.com/logout/{% dashboard_meta 6 3 %}">{% dashboard_meta 6 1 %}</a>

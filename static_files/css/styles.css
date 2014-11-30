@@ -2099,15 +2099,22 @@ a:hover, a:focus
   background-color: transparent;
 }
 
+.panel-section {
+    float:left;
+    width:74%;
+    min-height:58%;
+    padding-left:2.5%;
+}
 #sidebar-dashboard {
     float:left;
     width:20%;
     min-height:58%;
-    margin-left:77%;
     margin-right:2.5%;
 }
 
-
+#dashboard {
+   width:100%;
+}
 #sidebar-dashboard .main-area
 {
   padding-top: 2%;
@@ -2132,7 +2139,22 @@ a:hover, a:focus
   font-weight: normal;
   font-size: 0.93em;
 }
+
 #dashboard-form {
   min-height:100%;
   display:block;
+}
+.dashboard-profile-row {
+   width: 100%;
+   float:top;
+}
+.dashboard-profile-titles {
+   float:left;
+   width:14%;
+   color:#0895D3;
+}
+
+.dashboard-profile-fields {
+   float:left;
+   width:85%;
 }
