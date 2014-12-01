@@ -13,13 +13,17 @@ Motivation
 ----------
 The project provides out of the box RESTful Real Estate Listing feauturing useful functionality tools
 such as
-1. Adding Properties, creating categories,
-2. Search filters
-3. Per property reach back functionality - allowing to contact the publisher on a per property base
-   allowing to focus on processing specific published proceprty and unique customer needs
+<br/>
+1. Publishing categorized properties into RESTful listing
+2. Search properties usingi search filters
+3. Per property reach back functionality - <br/>
+   - allowing to contact the publisher on a per property base
+   - allowing to focus on processing specific published proceprty
+   - allowing to satify requests on a per item base
 4. Customer Dashboard
-5. Blog
-6. Social Authentication and registration for customers using Django's social_auth
+   - allowing a registered customer to keep track of their data
+   - allowing a registered customer publish properties or blog tweets
+5. Social Authentication and registration for customers using Django's social_auth
 
 
 ======================================================================================================
