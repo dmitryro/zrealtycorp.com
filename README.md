@@ -36,8 +36,19 @@ feauturing useful functionality tools:<br/>
      - allowing to satify requests on a per item base.<br/>
 
   4. Customer Dashboard - <br/>
+     - if you're a returning customer use http://zrealtycorp.com/signin
+       (if deployed on your domain, use http://yourdomain.com/signin to enter
+       the Dashboard).
+     - if you don't have an account please register a new one by going to
+       zrealtycorp.com/signup (if deployed on your domain, use 
+       http://yourdomain.com/signup to create a new account). The confirmation
+       email will be sent to the email you will provide.
      - allowing a registered customer to keep track of their data
-     - allowing a registered customer publish properties or blog tweets.<br/>
+     - a logged in customer can edit his profile
+     - a logged in customer can publish properties.<br/>
+     - a logged in customer can publish new messages to blog.<br/>
+     - a logged in customer can send private messages to another registered
+       customers.<br/>
 
   5. Social Authentication and Registration for customers 
      - utilizing Ouath2 and Django's social_auth. <br/>
