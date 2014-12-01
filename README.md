@@ -15,26 +15,25 @@ This project is built with Django 1.7.1, DRF and Python 2.7.8
 Motivation
 ----------
 The project provides out of the box RESTful Real Estate Listing <br/>
-feauturing useful functionality tools such as:
-<br/><br/>
-1. Publishing categorized properties into RESTful listing:
-   - Properties offered for sale. <br/>
-   - Properties offered for rent. <br/>
-   - Featured properties. <br/>
+feauturing useful functionality tools:<br/>
+  1. Publishing categorized properties into RESTful listing:
+     - Properties offered for sale. <br/>
+     - Properties offered for rent. <br/>
+     - Featured properties. 
 
-2. Search properties using search filters <br/>
-   - The filters open by clicking the search icon in the top right corner.<br/>
-   - The customer is offered to select one or more criteria to search.<br/>
-   - The requested search query acts on top of Django Rest Framework.<br/>
+  2. Search properties using search filters <br/>
+     - The filters open by clicking the menu's search icon.<br/>
+     - The customer is offered to select one or more criteria to search.<br/>
+     - The requested search query acts on top of Django Rest Framework.
 
-3. Per property reach back functionality - <br/>
-   - this feature allows a customer, viewing the details of a specific <br/>
+  3. Per property reach back functionality - <br/>
+     - this feature allows a customer, viewing the details of a specific <br/>
      property, to reach back the publisher immediately using the property ID <br/>
      and customer's reach back info - this invalidates the need of any office <br/>
      calls and makes negotiation focused on a specific published property. <br/>
-   - allowing to contact the publisher on a per property base
-   - allowing to focus on processing specific published proceprty
-   - allowing to satify requests on a per item base
+     - allowing to contact the publisher on a per property base
+     - allowing to focus on processing specific published proceprty
+     - allowing to satify requests on a per item base
 4. Customer Dashboard
    - allowing a registered customer to keep track of their data
    - allowing a registered customer publish properties or blog tweets
