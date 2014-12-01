@@ -1,3 +1,5 @@
+======================================================================================================
+
 ZRealty Corp Apartment Listing project.
 
 ======================================================================================================
@@ -8,15 +10,28 @@ This project is built with Django 1.7.1, DRF and Python 2.7.8
 2. DRF
 3. AngularJS
 
+
 ======================================================================================================
 Motivation
 ----------
-The project provides out of the box RESTful Real Estate Listing feauturing useful functionality tools
-such as
-<br/>
-1. Publishing categorized properties into RESTful listing
-2. Search properties usingi search filters
+The project provides out of the box RESTful Real Estate Listing <br/>
+feauturing useful functionality tools such as:
+<br/><br/>
+1. Publishing categorized properties into RESTful listing:
+   - Properties offered for sale. <br/>
+   - Properties offered for rent. <br/>
+   - Featured properties. <br/>
+
+2. Search properties using search filters <br/>
+   - The filters open by clicking the search icon in the top right corner.
+   - The customer is offered to select one or more criteria to search.
+   - The requested search query acts on top of Django Rest Framework.
+
 3. Per property reach back functionality - <br/>
+   - this feature allows a customer, viewing the details of a specific <br/>
+     property, to reach back the publisher immediately using the property ID <br/>
+     and custoer's reach back info - this invalidates the need of any office <br/>
+     calls and makes negotiation focused on a specific published property. <br/>
    - allowing to contact the publisher on a per property base
    - allowing to focus on processing specific published proceprty
    - allowing to satify requests on a per item base
