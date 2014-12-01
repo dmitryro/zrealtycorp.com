@@ -31,13 +31,16 @@ feauturing useful functionality tools:<br/>
      property, to reach back the publisher immediately using the property ID <br/>
      and customer's reach back info - this invalidates the need of any office <br/>
      calls and makes negotiation focused on a specific published property. <br/>
-     - allowing to contact the publisher on a per property base
-     - allowing to focus on processing specific published proceprty
-     - allowing to satify requests on a per item base
-4. Customer Dashboard
-   - allowing a registered customer to keep track of their data
-   - allowing a registered customer publish properties or blog tweets
-5. Social Authentication and registration for customers using Django's social_auth
+     - allowing to contact the publisher on a per property base.
+     - allowing to focus on processing specific published property.
+     - allowing to satify requests on a per item base.<br/>
+
+  4. Customer Dashboard - <br/>
+     - allowing a registered customer to keep track of their data
+     - allowing a registered customer publish properties or blog tweets.<br/>
+
+  5. Social Authentication and Registration for customers 
+     - utilizing Ouath2 and Django's social_auth. <br/>
 
 
 ======================================================================================================
