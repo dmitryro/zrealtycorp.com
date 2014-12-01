@@ -2,44 +2,62 @@ ZRealty Corp Apartment Listing project.
 
 ======================================================================================================
 
-This project is built with Django 1.6, DRF and Python 2.7.8
+This project is built with Django 1.7.1, DRF and Python 2.7.8
 
-1. Django 1.65
+1. Django 1.7
 2. DRF
 3. AngularJS
-4. Bower
-5. Grunt
-6. Node.js
 
 ======================================================================================================
+Motivation
+----------
+The project provides out of the box RESTful Real Estate Listing feauturing useful functionality tools
+such as
+1. Adding Properties, creating categories,
+2. Search filters
+3. Per property reach back functionality - allowing to contact the publisher on a per property base
+   allowing to focus on processing specific published proceprty and unique customer needs
+4. Customer Dashboard
+5. Blog
+6. Social Authentication and registration for customers using Django's social_auth
 
+
+======================================================================================================
 Models: 
 ---------
 1. Agent
 2. Borough
 3. Cateogory
-4. Icon
-5. Neighborhood
+4. Icon (general purpose image-link model)
+5. Neighborhood (chained to Borough model)
 6. Page
 7. Property
 8. Role
 9. Status 
+10. Type
+11. Room (we need this as we have 0 - studio)
+12. Member (dahsboard customer profile)
 
 ======================================================================================================
 STARTING THE APPICLATION
 ------------------------
-
-1. Configure uwsgi with nginx and create a cluster on ports 8001 8002 8003 8004 8005
-2. sudo bower install angular-django-rest-resource  --allow-root
-4. sudo npm install grunt
-5. sudo npm install grunt-contrib-coffee
-6. sudo grunt
-7. copy the last static files located in static_files dir by running
-   python2.7 manage.py collectstatic
-8. python2.7 manage.py syncdb --migrate
-9. run bash start.sh or run the following command from the project's root directory:
+1. Clone the repository into your local server root.
+2. Set up your local nginx to point to your domain's location .
+3. Install django, setuptools, pip and other relevant modules.
+4. Install postgresql version 8 or higher. Make sure your log in creds match what's in zrealty/local_settings.py
+5. Create Django admin superuser by running
+   python manage.py createsuperuser
+6. Run
+   python manage.py makemigrations    - to generate migrations
+   python manage.py migrate           - to migrate your new models
+   python manage.py syncdb            - to sync your tables
+   python manage.py collectstatic     - to copy your static files
+   to set up your local schema and copy the static files.
+9. Run bash start.sh (assuming modifications matching your local configs) 
+   or run the following command from the project's root directory:
+   
    <br/>
-   uwsgi --socket :8001 --module zrealty.wsgi --emperor /etc/uwsgi/vassals --uid root --gid root --master --processes 4 --threads 2 --stats 127.0.0.1:8181 --daemonize=/var/www/vhosts/zrealtycorp.com/logs/uwsg.log
+   uwsgi --socket :8001 --module zrealty.wsgi --emperor /etc/uwsgi/vassals --uid root --gid root --master --processes 4 --threads 2 --stats 127.0.0.1:8181 --daemonize=/var/www/vhosts/yourdomain.com/logs/uwsg.log
    <br/>
 
 
