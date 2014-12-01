@@ -23,14 +23,14 @@ feauturing useful functionality tools such as:
    - Featured properties. <br/>
 
 2. Search properties using search filters <br/>
-   - The filters open by clicking the search icon in the top right corner.
-   - The customer is offered to select one or more criteria to search.
-   - The requested search query acts on top of Django Rest Framework.
+   - The filters open by clicking the search icon in the top right corner.<br/>
+   - The customer is offered to select one or more criteria to search.<br/>
+   - The requested search query acts on top of Django Rest Framework.<br/>
 
 3. Per property reach back functionality - <br/>
    - this feature allows a customer, viewing the details of a specific <br/>
      property, to reach back the publisher immediately using the property ID <br/>
-     and custoer's reach back info - this invalidates the need of any office <br/>
+     and customer's reach back info - this invalidates the need of any office <br/>
      calls and makes negotiation focused on a specific published property. <br/>
    - allowing to contact the publisher on a per property base
    - allowing to focus on processing specific published proceprty
