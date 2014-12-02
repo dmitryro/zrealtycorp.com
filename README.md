@@ -7,7 +7,7 @@ ZRealty Corp Apartment Listing project.
 This project is built with Django 1.7.1, DRF and Python 2.7.8
 
 1. Django 1.7
-2. DRF
+2. Django Rest Framework
 3. AngularJS
 
 
@@ -52,6 +52,12 @@ feauturing useful functionality tools:<br/>
 
   5. Social Authentication and Registration for customers 
      - utilizing Ouath2 and Django's social_auth. <br/>
+
+======================================================================================================
+Configuration
+-------------
+1. The default time is set to EST - you might wish to configure it for your timezone.<br/>
+2. The pagination is set to 10 items per page - you might wish to configure it to any other amount.<br/>
 
 
 ======================================================================================================
