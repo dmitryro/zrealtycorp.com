@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load imagekit %}
+{% load pagination_tags %}
+
+{% block title %}Latest Published Properties{% endblock %}
+
+{% block content %}
+
+
+
+{% autopaginate agents 10 %}
+    {% if agents %}
+         {% for agent in agents %}
+              <div class="agent-wrapper">
+                     <div class="agent-wrapper-left">
+                          <div class="avatar">
+                              <img src="{{ agent.avatar }}" />
+                          </div>
+                          <div class="agent-data">
+                              {{ agent.first_name }} &nbsp;{{ agent.last_name }}&nbsp;,&nbsp;{{ agent.role }}
+                          </div>
+                          <div class="clearfix"></div>           
+                     </div>
+                     <div class="agent-wrapper-right">
+                             {{ agent.bio }} 
+                     </div>
+                     <div class="clearfix"></div>
+              </div>
+         {% endfor %}
+    {% endif %}
+{% endblock %}
+
