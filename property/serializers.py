@@ -4,7 +4,7 @@ from models import Property, Room, Category, Neighborhood, Borough, Type, Status
 
 class BoroughSerializer(serializers.Serializer):
     pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    borough = serializers.CharField(max_length=30)
+    borough = serializers.CharField(max_length=30,read_only=True)
 
     def restore_object(self, attrs, instance=None):
         if instance:
@@ -15,7 +15,7 @@ class BoroughSerializer(serializers.Serializer):
 
 class NeighborhoodSerializer(serializers.Serializer):
     pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    neighborhood = serializers.CharField(max_length=30)
+    neighborhood = serializers.CharField(max_length=30,read_only=True)
 
     def restore_object(self, attrs, instance=None):
         if instance:
@@ -26,7 +26,7 @@ class NeighborhoodSerializer(serializers.Serializer):
 
 class CategorySerializer(serializers.Serializer):
     pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    category = serializers.CharField(max_length=30)
+    category = serializers.CharField(max_length=30,read_only=True)
 
     def restore_object(self, attrs, instance=None):
         if instance:
@@ -37,7 +37,7 @@ class CategorySerializer(serializers.Serializer):
 
 class RoomsSerializer(serializers.Serializer):
     pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    rooms = serializers.CharField(max_length=30)
+    rooms = serializers.CharField(max_length=30,read_only=True)
 
     def restore_object(self, attrs, instance=None):
         if instance:
@@ -49,7 +49,7 @@ class RoomsSerializer(serializers.Serializer):
 
 class TypeSerializer(serializers.Serializer):
     pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    type = serializers.CharField(max_length=30)
+    type = serializers.CharField(max_length=30,read_only=True)
 
     def restore_object(self, attrs, instance=None):
         if instance:
@@ -60,7 +60,7 @@ class TypeSerializer(serializers.Serializer):
 
 class StatusSerializer(serializers.Serializer):
     pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    status = serializers.CharField(max_length=30)
+    status = serializers.CharField(max_length=30,read_only=True)
 
     def restore_object(self, attrs, instance=None):
         if instance:
@@ -73,28 +73,28 @@ class StatusSerializer(serializers.Serializer):
 
 class PropertySerializer(serializers.Serializer):
     pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    property_id = serializers.IntegerField()
-    title = serializers.CharField(max_length=30)
-    category  = serializers.RelatedField(many=False)
-    type  = serializers.RelatedField(many=False)
-    status  = serializers.RelatedField(many=False)
-    neighborhood  = serializers.RelatedField(many=False)
-    borough = serializers.RelatedField(many=False)
-    price = serializers.CharField(max_length=30)
-    size = serializers.CharField(max_length=30)
-    rooms =  serializers.CharField(max_length=30)
-    bathrooms = serializers.CharField(max_length=30)
-    pets_allowed =  serializers.BooleanField(default=False)
-    is_featured = serializers.BooleanField(default=False)
-    property_url = serializers.CharField(max_length=200)
-    description = serializers.CharField(max_length=500)
-    published = serializers.DateTimeField()
-    expires = serializers.DateTimeField()
-    picture1 =  serializers.ImageField()
-    picture2 =  serializers.ImageField()
-    picture3 =  serializers.ImageField()
-    picture4 =  serializers.ImageField()
-    avatar_thumbnail = serializers.ImageField()
+    property_id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(max_length=30,read_only=True)
+    category  = serializers.RelatedField(many=False,read_only=True)
+    type  = serializers.RelatedField(many=False,read_only=True)
+    status  = serializers.RelatedField(many=False,read_only=True)
+    neighborhood  = serializers.RelatedField(many=False,read_only=True)
+    borough = serializers.RelatedField(many=False,read_only=True)
+    price = serializers.CharField(max_length=30,read_only=True)
+    size = serializers.CharField(max_length=30,read_only=True)
+    rooms =  serializers.CharField(max_length=30,read_only=True)
+    bathrooms = serializers.CharField(max_length=30,read_only=True)
+    pets_allowed =  serializers.BooleanField(default=False,read_only=True)
+    is_featured = serializers.BooleanField(default=False,read_only=True)
+    property_url = serializers.CharField(max_length=200,read_only=True)
+    description = serializers.CharField(max_length=500,read_only=True)
+    published = serializers.DateTimeField(read_only=True)
+    expires = serializers.DateTimeField(read_only=True)
+    picture1 =  serializers.ImageField(read_only=True)
+    picture2 =  serializers.ImageField(read_only=True)
+    picture3 =  serializers.ImageField(read_only=True)
+    picture4 =  serializers.ImageField(read_only=True)
+    avatar_thumbnail = serializers.ImageField(read_only=True)
 
     class Meta:
         model = Property
