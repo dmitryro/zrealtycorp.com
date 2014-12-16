@@ -70,10 +70,10 @@ FEEDBURNER_URLS = {
 
 EASY_MAPS_CENTER = (-41.3, 32)
 
-SOUTH_MIGRATION_MODULES = {
-    'easy_thumbnails': 'easy_thumbnails.south_migrations',
-    'taggit': 'taggit.south_migrations',
-}
+#SOUTH_MIGRATION_MODULES = {
+#    'easy_thumbnails': 'easy_thumbnails.south_migrations',
+#    'taggit': 'taggit.south_migrations',
+#}
 
 INSTALLED_APPS = (
     'grappelli',
@@ -163,6 +163,7 @@ INSTALLED_APPS = (
     'selenium',
     'socialauth',
     'social',
+    'twitter',
     'twitter_api',
     'taxonomy',
     'tastypie',
@@ -245,7 +246,7 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
     'social_auth.backends.contrib.readability.ReadabilityBackend',
     'social_auth.backends.contrib.fedora.FedoraBackend',
-    'social_auth.backends.OpenIDBackend',
+
     'django.contrib.auth.backends.ModelBackend',
 )
    
@@ -348,6 +349,8 @@ DATABASES = {
 }
 
 DEFAULT_AUTHENTICATION = (
+   # 'rest_framework.authentication.BasicAuthentication',
+   # 'rest_framework.authentication.SessionAuthentication',
     'rest_framework.authentication.OAuth2Authentication',
 )
 
@@ -373,23 +376,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    #    'rest_framework.permissions.IsAuthenticated',
-        #'rest_framework.permissions.IsAdminUser',  
     ),
     'PAGINATE_BY': 1000, 
 
-   # Use hyperlinked styles by default.
-    # Only used if the `serializer_class` attribute is not set on a view.
     'DEFAULT_MODEL_SERIALIZER_CLASS':
         'rest_framework.serializers.ModelSerializer',
-#        'rest_framework.serializers.HyperlinkedModelSerializer',
-
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-#  'DEFAULT_PERMISSION_CLASSES': [
-#       'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-#        'rest_framework.permissions.IsAdminUser'
-#    ]
  
 }
 # Internationalization
@@ -511,7 +502,7 @@ STATICFILES_DIRS = (
   './static_files/js/require',
   './static_files/js/jquery',
   '/usr/local/lib/python2.7/site-packages/grappelli/static',
-  '/usr/local/lib/python2.7/site-packages/rest_framework/static',
+#  '/usr/local/lib/python2.7/site-packages/rest_framework/static',
 )
 
 STATICFILES_FINDERS = (
