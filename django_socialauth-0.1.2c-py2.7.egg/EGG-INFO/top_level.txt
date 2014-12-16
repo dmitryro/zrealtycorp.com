@@ -1,0 +1,4 @@
+openid_consumer
+socialauth
+socialauth/lib
+socialauth/templatetags
