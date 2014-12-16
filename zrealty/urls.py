@@ -47,6 +47,7 @@ class MemberViewSet(viewsets.ModelViewSet):
     model = Member
 
 
+
 # Routers provide an easy way of automatically determining the URL conf
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -69,6 +70,7 @@ feeds = {
     'rss': RssSiteNewsFeed,
     'atom': AtomSiteNewsFeed,
 }
+
 
 urlpatterns = patterns('',
     url(r'^home/$', HomeView.as_view()),
@@ -117,7 +119,15 @@ urlpatterns = patterns('',
         name='property_detail'
     ),
     url(r'^oauth2/', include('provider.oauth2.urls', namespace = 'oauth2')),
-    url(r'^properties/(?P<type>.+)/$', views.PropertyTypeViewSet.as_view()),
+    url(r'^properties/(?P<type>.+)/$', views.PropertyTypeViewSet.as_view({
+      'get': 'list'
+    }
+    )),
+    url(r'^categories/(?P<type>.+)/$', views.CategoryViewSet.as_view({
+      'get': 'list'
+    }
+    )),
+
     url(r'^admin/lookups/', include(ajax_select_urls)),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
