@@ -3,19 +3,6 @@
  * All rights reserved. 
  */
 
-function TestCtrl($scope,$http) {
-    $scope.toggleheader = true;
-    $scope.togglenotfound = false;
-
-    $scope.testCall = function() {
-       alert('hi');
-    };
-}
-
-function PaginationCtrl($scope,$http) {
-
-
-}
 
 function DashboardCtrl($scope,$http) {
     $scope.toggleheader = true;
@@ -77,13 +64,15 @@ function AuthCtrl($scope,$http) {
     $scope.togglenotfound = false;
 
     $scope.loginMember = function(login) {
+
         if  (login.password==undefined || login.username==undefined) {
             $scope.authenticated = false;
             $scope.unauthenticated = true;
         }
         else {
-                var url = 'http://zrealtycorp.com/rest-auth/login/';
-                var values = 'username='+login.username+'&password='+login.password;
+                var url = 'http://zrealtycorp.com/rest/login/';
+                
+                 var values = 'username='+login.username+'&password='+login.password;
 	        $http({
         	     method: 'POST',
           	     url: url,
@@ -397,14 +386,17 @@ function SearchCtrl($scope,$http) {
 
 
          if  ($scope.category!=undefined) {
-
             $http.get(category_url).
                error(function(data) {
-           //    alert('we got an error');
                   $scope.category_name = undefined;
                }).
                success(function(data) {
-                  $scope.category_name =  data.category;          
+                  categories = data.results;
+                  angular.forEach(categories, function (cat) {
+                         if  (category==cat.id)   {
+                             $scope.category_name = cat.category;
+                         }
+                  });
                });
 
           }  else {
@@ -416,11 +408,11 @@ function SearchCtrl($scope,$http) {
 
              $http.get(rooms_url).
                 error(function(data) {
-           //  alert('we got an error');
                 $scope.rooms_name = undefined;   
              }).
              success(function(data) {
-                 $scope.rooms_name =  data.rooms;
+                  rooms = data.results;
+                  $scope.rooms_name = data.rooms;
              });
 
           } else {
@@ -435,7 +427,9 @@ function SearchCtrl($scope,$http) {
                    $scope.borough_name = undefined;
                }).
               success(function(data) {
-               $scope.borough_name =  data.borough;
+                  boroughs = data.results;
+                  $scope.borough_name = data.borough;
+
             });
 
          } else {
@@ -449,12 +443,12 @@ function SearchCtrl($scope,$http) {
                    $scope.neighborhood_name =  undefined;
                }).
                success(function(data) {
+
                    $scope.neighborhood_name =  data.neighborhood;
                });
          }  else {
               $scope.neighborhood_name = undefined;
          }
-
 
          if  ($scope.type!=undefined) {
              $http.get(type_url).
@@ -462,7 +456,7 @@ function SearchCtrl($scope,$http) {
                 $scope.type_name = undefined;
              }).
              success(function(data) {
-                $scope.type_name =  data.type;
+                    $scope.type_name=data.type;
              });
          } 
          else {
@@ -488,7 +482,6 @@ function SearchCtrl($scope,$http) {
          success(function(data) {
             $scope.properties = data;
               //  alert($scope.properties.results[0].property_id);
-
             angular.forEach($scope.properties.results, function (property) {
                         if  (property.rooms==$scope.rooms_name) {
                             if  (property.type == $scope.type_name)  {
