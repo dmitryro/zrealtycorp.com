@@ -20,6 +20,7 @@ from rest_framework import generics
 from djangular.views.mixins import JSONResponseMixin, allow_remote_invocation
 from property.models import Property
 from property.serializers import PropertySerializer
+from property.serializers import CategorySerializer
 from forms import SearchForm
 
 class PropertyList(APIView):
@@ -33,6 +34,22 @@ class PropertyList(APIView):
 
     def post(self, request, format=None):
         serializer = SnippetSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CategoryList(APIView):
+    """
+    List all snippets, or create a new snippet.
+    """
+    def get(self, request, format=None):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CategorySerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
