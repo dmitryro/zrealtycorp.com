@@ -480,9 +480,8 @@ function SearchCtrl($scope,$http) {
 
          $http.get(url).
             error(function(data) {
-            //   alert('we got an error');
          }).
-         success(function(data) {
+         success(function(data) {  // We got some items - lets process them
             $scope.properties = data;
               //  alert($scope.properties.results[0].property_id);
             angular.forEach($scope.properties.results, function (property) {
@@ -591,7 +590,8 @@ function SearchCtrl($scope,$http) {
                                         else  {
                                           property.pets_allowed='No';
                                         }
-                                        if  (property.category==$scope.category_name && property.neighborhood==$scope.neighborhood_name) {
+                                        if  (property.category==$scope.category_name && 
+                                             property.neighborhood==$scope.neighborhood_name) {
                                                  $scope.items.push(property);
                                         }
                                         if  ($scope.items.length>10) {
@@ -620,7 +620,8 @@ function SearchCtrl($scope,$http) {
                                         else  {
                                           property.pets_allowed='No';
                                         }
-                                        if  (property.category==$scope.category_name && property.borough==$scope.borough_name) {
+                                        if  (property.category==$scope.category_name && 
+                                             property.borough==$scope.borough_name) {
                                                  $scope.items.push(property);
                                         }
                                         if  ($scope.items.length>10) {
@@ -643,7 +644,8 @@ function SearchCtrl($scope,$http) {
                              if($scope.pets_allowed!=undefined) {
                                     angular.forEach($scope.properties.results, function (property) {
 
-                                        if  (property.category==$scope.category_name && property.pets_allowed==$scope.pets_allowed) {
+                                        if  (property.category==$scope.category_name && 
+                                             property.pets_allowed==$scope.pets_allowed) {
                                                  if  (property.pets_allowed)  {
                                                         property.pets_allowed='Yes';
                                                  }
@@ -672,8 +674,8 @@ function SearchCtrl($scope,$http) {
 
                 }      
                 
-              else
-                if(!all_set(prop) && $scope.type_name!=undefined) {
+                else
+                if  (!all_set(prop) && $scope.type_name!=undefined) {
                              if($scope.neighborhood_name!=undefined) {
                                     angular.forEach($scope.properties.results, function (property) {
 
@@ -735,7 +737,8 @@ function SearchCtrl($scope,$http) {
                              if($scope.pets_allowed!=undefined) {
                                     angular.forEach($scope.properties.results, function (property) {
 
-                                        if  (property.type==$scope.type_name && property.pets_allowed==$scope.pets_allowed) {
+                                        if  (property.type==$scope.type_name && 
+                                             property.pets_allowed==$scope.pets_allowed) {
                                                  if  (property.pets_allowed)  {
                                                         property.pets_allowed='Yes';
                                                  }
@@ -894,7 +897,6 @@ function SearchCtrl($scope,$http) {
                 }
                 if(!all_set(prop) &&  all_empty(prop,6)) {
                     angular.forEach($scope.properties.results, function (property) {
-                       alert('prop6');
                        if  (!property.pets_allowed && !$scope.prop.pets) {
                               property.pets_allowed='No';
                               $scope.items.push(property);
