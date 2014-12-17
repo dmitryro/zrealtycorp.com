@@ -3,6 +3,9 @@
  * All rights reserved. 
  */
 
+/**
+ * Dashboard Controller - we use it for user operations
+ */
 
 function DashboardCtrl($scope,$http) {
     $scope.toggleheader = true;
@@ -824,16 +827,14 @@ function SearchCtrl($scope,$http) {
 
                 }
                 if(!all_set(prop) &&  all_empty(prop,5)) {
-
                     angular.forEach($scope.properties.results, function (property) {
-
                         if  (property.pets_allowed)  {
                           property.pets_allowed='Yes';
                         }
                         else  {
                               property.pets_allowed='No';
                         }
-                        if  (property.neighborhood==$scope.neighborhood_name) {
+                        if  (property.borough==$scope.borough_name) {
                                                  $scope.items.push(property);
                         }
 
@@ -893,14 +894,14 @@ function SearchCtrl($scope,$http) {
                 }
                 if(!all_set(prop) &&  all_empty(prop,6)) {
                     angular.forEach($scope.properties.results, function (property) {
-
+                       alert('prop6');
                        if  (!property.pets_allowed && !$scope.prop.pets) {
                               property.pets_allowed='No';
                               $scope.items.push(property);
                        }
                        else if (property.pets_allowed && $scope.prop.pets) {
                               property.pets_allowed='Yes';
-                              $scope.items.push(property);
+                              $scope.items.push(propertddy);
                        }
 
                        if  ($scope.items.length>10) {
