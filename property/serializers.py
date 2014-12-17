@@ -4,7 +4,8 @@ from rest_framework import serializers
 from models import Property, Room, Category, Neighborhood, Borough, Type, Status
 import json
 
-class BoroughSerializer(serializers.Serializer):
+
+class BoroughSerializer(serializers.ModelSerializer):
     id = serializers.Field()
     borough = serializers.CharField(max_length=30,read_only=True)
 

@@ -108,6 +108,10 @@ class Borough(models.Model):
     def __getitem__(self,items):
         return self.borough
 
+    class Meta:
+        verbose_name = 'borough'
+        verbose_name_plural = 'boroughs'
+
  
 """
   Neighborhood model - an arbitrary city neighborhood chained to borough
