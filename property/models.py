@@ -42,6 +42,9 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
+ 
+    def __getitem__(self,items):
+        return self.category
 
     def __str__(self):
         return self.category
@@ -62,6 +65,9 @@ class Room(models.Model):
     def __unicode__(self):
         return unicode(self.rooms)
 
+    def __getitem__(self,items):
+        return self.rooms
+
     class Meta:
         verbose_name = 'bed rooms'
         verbose_name_plural = 'bed rooms'
@@ -79,6 +85,10 @@ class Type(models.Model):
     def __unicode__(self):
         return unicode(self.type)
 
+    def __getitem__(self,items):
+        return self.type
+
+
     class Meta:
         verbose_name = 'property type'
         verbose_name_plural = 'property types'
@@ -94,6 +104,10 @@ class Borough(models.Model):
 
     def __unicode__(self):
         return unicode(self.borough)
+
+    def __getitem__(self,items):
+        return self.borough
+
  
 """
   Neighborhood model - an arbitrary city neighborhood chained to borough
@@ -111,6 +125,10 @@ class Neighborhood(models.Model):
 
     def __unicode__(self):
         return unicode(self.neighborhood)
+
+    def __getitem__(self,items):
+        return self.neighborhood
+
 """
   Location model - a generalized type incluging borough and neighborhood
 """
@@ -146,6 +164,9 @@ class Status(models.Model):
 
     def __unicode__(self):
         return unicode(self.status)
+
+    def __getitem__(self,items):
+        return self.status
  
 
 """
