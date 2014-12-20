@@ -5,9 +5,10 @@ Created on Jul 6, 2014
 import django_filters
 import smtplib
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.forms.formsets import formset_factory
-from django.shortcuts import render_to_response
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import TemplateView
 from django.template.context import RequestContext
 from django import template
@@ -16,6 +17,7 @@ from django.utils.safestring import mark_safe
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from rest_framework import viewsets
+from registration_api import utils
 from restless.views import Endpoint
 from property.serializers import PropertySerializer
 from property.serializers import CategorySerializer
@@ -28,6 +30,7 @@ from property.models import Property, Room, Category, Type, Status, Neighborhood
 from property.views import JSONResponse
 from metaprop.models import ProfileMetaProp
 from utils.models import Member
+from models import UserProfile
 
 register = template.Library()
 
@@ -215,8 +218,10 @@ class NotifyView(EmailView):
         password = request.params.get('password','')
         email = request.params.get('email','')
         mess = 'A new account has been created for you. We will activate it shortly'
- 
+        user = User.objects.get(username=username)  
+        activation = utils.create_activation_key(user)
         # Set the general SMTP server 
+        link = 'http://zrealtycorp.com/accounts/activate/%s'%activation
         profile = ProfileMetaProp.objects.get(pk=1)
         FROM = profile.email
         TO = profile.email
@@ -230,6 +235,8 @@ class NotifyView(EmailView):
         BODY+='</strong><br/><strong>PASSWORD</strong> %s'%password
         BODY+='</strong><br/><strong>EMAIL</strong> %s'%email
         BODY+='</strong><br/><strong>MESSAGE</strong> %s'%mess
+        BODY+='</strong><br/><strong>FOLLOW TO ACTIVATE: </strong> '
+        BODY+='<a href="%s">activate</a>'%link
         BODY+='</strong></body></html>'
 
         SUBJECT = 'New account notification for %s'%username
@@ -356,6 +363,25 @@ class PropertyTypeViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(type=propertytype)
         return queryset
 
+"""
+Activate
+"""
+def register_activate(request, activation_key):
+    #check if user is already logged in and if he is redirect him to some other url, e.g. home
+    if request.user.is_authenticated():
+        HttpResponseRedirect('/home')
+
+    # check if there is UserProfile which matches the activation key (if not then display 404)
+    user_profile = get_object_or_404(UserProfile, activation_key=activation_key)
+
+    #check if the activation key has expired, if it hase then render confirm_expired.html
+    if user_profile.key_expires < timezone.now():
+        return render_to_response('user_profile/confirm_expired.html')
+    #if the key hasn't expired save user and set him as active and render some template to confirm activation
+    user = user_profile.user
+    user.is_active = True
+    user.save()
+    return render_to_response('user_profile/confirm.html')
 
       
 

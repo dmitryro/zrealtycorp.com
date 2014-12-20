@@ -15,6 +15,7 @@ from dashboard.views import DashboardView
 from dashboard.views import DashboardLogoutView
 from utils.views import MemberLoginView
 from utils.views import MemberSignupView
+from utils.views import DirectTemplateView
 from utils.models import Member
 from pages.views import MaintenanceView
 from pages.views import PropertyDetailView 
@@ -91,6 +92,9 @@ urlpatterns = patterns('',
     url(r'^mobile/', MobileView.as_view()),
     url(r'^post/$', views.EmailView.as_view()), #this endpoint is used to send emails
     url(r'^notifynew/$', views.NotifyView.as_view()), #this endpoint is used to send emails
+    #url(r'^activate/complete/$',
+     #                         DirectTemplateView.as_view(template_name='activation_complete.html')),
+    #url(r'^accounts/', include('registration.urls')),
     url(r'^sale/', SalesView.as_view()),
     url(r'^sales/', SalesView.as_view()),
     url(r'^rent/', RentView.as_view()),
@@ -131,6 +135,7 @@ urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/profile/', include(admin.site.urls)),
+    url(r'^accounts/activate/(?P<activation_key>\w+)/', ('api.views.register_activate')),
     url(r'^admin/property/',include(admin.site.urls)),
     url(r'^admin/property/borough/$',include(admin.site.urls)),
     url(r'^admin/property/location/$',include(admin.site.urls)),   

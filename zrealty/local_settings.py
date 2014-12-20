@@ -633,6 +633,7 @@ EMAIL_HOST_USER = 'allseeingeye1003@gmail.com'
 EMAIL_HOST_PASSWORD = 'nu45edi1'
 DEFAULT_FROM_EMAIL = 'info@zrealtycorp.com'
 DEFAULT_TO_EMAIL = 'dmitryro@gmail.com'
+ACCOUNT_ACTIVATION_DAYS=7
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
