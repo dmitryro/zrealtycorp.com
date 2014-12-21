@@ -182,8 +182,8 @@ INSTALLED_APPS = (
     'metaprop',
     'pages',
     'property',
-    'api',
     'utils',
+    'api',
 )
 
 
@@ -548,12 +548,14 @@ TEMPLATE_LOADERS = (
 )
 TEMPLATE_DIRS = (
     '/var/www/vhosts/zrealtycorp.com/zrealty/templates/',
+    '/var/www/vhosts/zrealtycorp.com/zrealty/api/templates/',   
     '/var/www/vhosts/zrealtycorp.com/zrealty/pages/templates/',
     '/usr/local/lib/python2.7/site-packages/pinax_theme_bootstrap/templates',
     '/usr/local/lib/python2.7/site-packages/djfrontend/templates',
     '/usr/local/lib/python2.7/site-packages/sekizai/test_templates',
     '/usr/local/lib/python2.7/site-packages/bootstrap_toolkit/templates',
     '/var/www/vhosts/zrealtycorp.com/zrealty/Django-Socialauth/build/lib/socialauth/templates',
+    '/usr/local/lib/python2.7/site-packages/grappelli/templates',
 )
 CORS_ORIGIN_ALLOW_ALL = True
 # Backend to use

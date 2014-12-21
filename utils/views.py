@@ -116,3 +116,16 @@ class RegistrationView(APIView):
                 client_id=name, client_secret='', client_type=1)
         client.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class DirectTemplateView(TemplateView):
+    extra_context = None
+    def get_context_data(self, **kwargs):
+        context = super(self.__class__, self).get_context_data(**kwargs)
+        if self.extra_context is not None:
+            for key, value in self.extra_context.items():
+                if callable(value):
+                    context[key] = value()
+                else:
+                    context[key] = value
+        return context

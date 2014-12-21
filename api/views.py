@@ -29,8 +29,8 @@ from property.serializers import RoomsSerializer
 from property.models import Property, Room, Category, Type, Status, Neighborhood, Borough
 from property.views import JSONResponse
 from metaprop.models import ProfileMetaProp
-from utils.models import Member
 from models import UserProfile
+from utils.models import Member
 
 register = template.Library()
 
@@ -207,21 +207,30 @@ class ContactView(EmailView):
         return {'message': 'Hello, %s!' % name}
 
 
+
 """
-  Notify View - processing the general contact form
+  Activate View - processing the activation email notification
 """
-class NotifyView(EmailView):
+class ActivateView(EmailView):
 
     def get(self, request):
         # Populate the user credentials
         username = request.params.get('username','')
         password = request.params.get('password','')
         email = request.params.get('email','')
-        mess = 'A new account has been created for you. We will activate it shortly'
+        mess = 'Welcome to ZRealty.'
+        
         user = User.objects.get(username=username)  
         activation = utils.create_activation_key(user)
-        # Set the general SMTP server 
         link = 'http://zrealtycorp.com/accounts/activate/%s'%activation
+
+        try:
+            member = UserProfile(user_id=user.id, activation_key=activation)
+            member.save()
+        except:
+            pass
+           # new_profile.save()
+
         profile = ProfileMetaProp.objects.get(pk=1)
         FROM = profile.email
         TO = profile.email
@@ -235,8 +244,67 @@ class NotifyView(EmailView):
         BODY+='</strong><br/><strong>PASSWORD</strong> %s'%password
         BODY+='</strong><br/><strong>EMAIL</strong> %s'%email
         BODY+='</strong><br/><strong>MESSAGE</strong> %s'%mess
-        BODY+='</strong><br/><strong>FOLLOW TO ACTIVATE: </strong> '
+        BODY+='</strong><br/><strong>PLEASE FOLLOW THE LINK: </strong> '
         BODY+='<a href="%s">activate</a>'%link
+        BODY+='</strong></body></html>'
+
+        SUBJECT = 'New account notification for %s'%username
+        message = 'Subject: %s\n\n%s' % (SUBJECT, BODY)
+
+
+        MESSAGE = MIMEMultipart('alternative')
+        MESSAGE['subject'] = SUBJECT
+        MESSAGE['To'] = TO
+        MESSAGE['From'] = FROM
+        MESSAGE.preamble = """
+            Your mail reader does not support the report format.
+            Please visit us <a href="http://www.mysite.com">online</a>!"""
+
+        HTML_BODY  = MIMEText(BODY.encode('utf-8'), 'html','utf-8')
+
+
+    # Attach parts into message container.
+    # According to RFC 2046, the last part of a multipart message, in this case
+    # the HTML message, is best and preferred.
+        MESSAGE.attach(HTML_BODY)
+        msg = MESSAGE.as_string()
+        server = smtplib.SMTP(SERVER+':'+PORT)
+        server.ehlo()
+        server.starttls()
+        server.login(USER,PASSWORD)
+        server.sendmail(FROM, TO, msg)
+        server.quit()
+
+
+        return {'message': 'Hello, %s!' % name}
+
+
+"""
+  Notify View - processing the general contact form
+"""
+class NotifyView(EmailView):
+
+    def get(self, request):
+        # Populate the user credentials
+        username = request.params.get('username','')
+        password = request.params.get('password','')
+        email = request.params.get('email','')
+        mess = 'A new account has been created for you. We will activate it shortly'
+ 
+        # Set the general SMTP server 
+        profile = ProfileMetaProp.objects.get(pk=1)
+        FROM = profile.email
+        TO = profile.email
+        USER = profile.user_name
+        PASSWORD = profile.password
+        PORT = profile.smtp_port
+        SERVER = profile.smtp_server
+
+        #contstruct the message
+        BODY='<html><body><strong>USERNAME</strong> %s'%username
+        BODY+='</strong><br/><strong>PASSWORD</strong> %s'%password
+        BODY+='</strong><br/><strong>EMAIL</strong> %s'%email
+        BODY+='</strong><br/><strong>MESSAGE</strong> %s'%mess
         BODY+='</strong></body></html>'
 
         SUBJECT = 'New account notification for %s'%username
@@ -374,14 +442,10 @@ def register_activate(request, activation_key):
     # check if there is UserProfile which matches the activation key (if not then display 404)
     user_profile = get_object_or_404(UserProfile, activation_key=activation_key)
 
-    #check if the activation key has expired, if it hase then render confirm_expired.html
-    if user_profile.key_expires < timezone.now():
-        return render_to_response('user_profile/confirm_expired.html')
-    #if the key hasn't expired save user and set him as active and render some template to confirm activation
-    user = user_profile.user
+    user = User.objects.get(id=user_profile.user_id)
     user.is_active = True
     user.save()
-    return render_to_response('user_profile/confirm.html')
+    return render_to_response('activated.html')
 
       
 

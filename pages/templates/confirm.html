@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load pages_extras %}
+{% load metaprop_extras %}
+{% block title %}Account Activated {% endblock %}
+
+
+{% block content %}
+<div id="sign-in-form" class="well-login" ng-controller="AuthCtrl">
+<h1>Sign Up</h1>
+
+<div id="activate-success-message">
+<p  ng-animate="{show: 'fade'}">Your account is activated.</p>
+<p  ng-animate="{show: 'fade'}">You can now <a href="http://zrealtycorp.com/signin">log in</a> to start using it.</p>
+</div>
+
+
+
+<form  name="member_form" id="member-form"  ng-submit=""  novalidate>
+           {% csrf_token %}
+          {{ member_form }}
+ <div class="clearfix"></div>
+
+     <div class="submit-wrapper">
+         <input type="button" name=register" value=" Sign up " class="btn-login btn-primary" id="submit-id-register-submit" ng-click="registerMember(member)"/>
+     </div>
+
+</form>
+
+</div>
+
+{% endblock %}
+

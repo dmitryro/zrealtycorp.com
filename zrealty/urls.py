@@ -92,9 +92,7 @@ urlpatterns = patterns('',
     url(r'^mobile/', MobileView.as_view()),
     url(r'^post/$', views.EmailView.as_view()), #this endpoint is used to send emails
     url(r'^notifynew/$', views.NotifyView.as_view()), #this endpoint is used to send emails
-    #url(r'^activate/complete/$',
-     #                         DirectTemplateView.as_view(template_name='activation_complete.html')),
-    #url(r'^accounts/', include('registration.urls')),
+    url(r'^activatenew/$', views.ActivateView.as_view()), #this endpoint is used to send emails
     url(r'^sale/', SalesView.as_view()),
     url(r'^sales/', SalesView.as_view()),
     url(r'^rent/', RentView.as_view()),
