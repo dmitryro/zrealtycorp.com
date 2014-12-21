@@ -14,8 +14,8 @@ This project is built with Django 1.7.1, DRF and Python 2.7.8
 ======================================================================================================
 RATIONALE
 ----------
-This is a good starting point for your online business to build <br/>
-a feature reach social networking and marketing web application. <br/><br/>
+This is a good starting point for your online business to build  a<br/>
+feature rich social networking and marketing web application. <br/><br/>
 The project provides out of the box RESTful Real Estate Listing <br/>
 feauturing useful functionality tools:<br/>
   1. Publishing categorized properties into RESTful listing:
