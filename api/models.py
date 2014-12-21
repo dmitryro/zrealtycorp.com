@@ -15,12 +15,13 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 """
-  Property implementation
+  User Profile
 """
 @python_2_unicode_compatible
 class UserProfile(models.Model):
     user_id = models.IntegerField(blank=True)
     activation_key = models.CharField(max_length=200, blank=True)
+        
 
     def __str__(self):
         return self.user_id
