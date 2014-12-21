@@ -6,13 +6,13 @@ ZRealty Corp Apartment Listing project.
 
 This project is built with Django 1.7.1, DRF and Python 2.7.8
 
-1. Django 1.7
-2. Django Rest Framework
-3. AngularJS
+1. Django 1.7.1
+2. Django Rest Framework 3.0.1
+3. AngularJS 1.3
 
 
 ======================================================================================================
-Motivation
+RATIONALE
 ----------
 The project provides out of the box RESTful Real Estate Listing <br/>
 feauturing useful functionality tools:<br/>
@@ -52,6 +52,16 @@ feauturing useful functionality tools:<br/>
 
   5. Social Authentication and Registration for customers 
      - utilizing Ouath2 and Django's social_auth. <br/>
+
+  6. Dedicated contact form - <br/>
+     - Once viewing details of the specific property you might wish to <br/>
+       reach the vendor to discuss possible deal omiting calling or <br/>
+       otherwise describing your needs or likes. The draggable contact <br/>
+       form (implemented using Angular Draggable module) allows better <br/>
+       interativity through keeping the contact focused on specific item.<br/>
+       The contact form, once open, will include the property ID as well <br/>
+       as description, so the message sent will have all the details the <br/>
+       selling or renting party needs for fast and focused negotiation.<br/> 
 
 ======================================================================================================
 Configuration
