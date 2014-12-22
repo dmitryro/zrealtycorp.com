@@ -15,20 +15,26 @@ class PropertyTest(TestCase):
     def test_serialization(self):
         pass
 
+"""
+ Test Room creation
+"""
 
-
-class StatusTestCase(TestCase):
+class RoomTestCase(TestCase):
     
     def setUp(self):
-        st = Status.objects.create(status='mock')
+        st = Room.objects.create(rooms='mock')
 
     def tearDown(self):
         pass
  
-    def test_status_creation(self):
-        status = Status.objects.get(status='mock')
-        self.assertEqual(status.status,'mock')
-        status.delete() # Hust clean up
+    def test_room_creation(self):
+        rooms = Room.objects.get(rooms='mock')
+        self.assertEqual(rooms.rooms,'mock')
+        rooms.delete() # Hust clean up
+
+"""
+ Test Status creation
+"""
 
 class StatusTestCase(TestCase):
 
@@ -42,6 +48,10 @@ class StatusTestCase(TestCase):
         status = Status.objects.get(status='mock')
         self.assertEqual(status.status,'mock')
         status.delete() # Hust clean up
+
+"""
+ Test Type creation
+"""
 
 class TypeTestCase(TestCase):
 
@@ -56,6 +66,10 @@ class TypeTestCase(TestCase):
         self.assertEqual(type.type,'mock')
         type.delete() # Hust clean up
 
+
+"""
+ Test Category creation
+"""
 
 class CategoryTestCase(TestCase):
 

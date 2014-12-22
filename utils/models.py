@@ -132,8 +132,14 @@ class Member(models.Model):
         self.who_are_you = who
 
 
+################################
+#  Register with Django Admin  # 
+################################
+
 class MemberAdmin(admin.ModelAdmin):
-    fields = ('first','last','email','username','password','confirm_password','who_are_you','subscribe_to','webpage','twitter','linkedin','facebook','google','about')
+    fields = ('first','last','email','username','password','confirm_password',
+              'who_are_you','subscribe_to','webpage','twitter',
+              'linkedin','facebook','google','about')
 
 
 class MemberRoleAdmin(admin.ModelAdmin):
