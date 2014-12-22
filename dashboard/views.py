@@ -10,6 +10,7 @@ from utils.forms import MemberLoginForm
 from utils.forms import MemberForm
 from property.forms import SearchForm
 from icon.models import ActionIcon
+from forms import MessageForm
 
 class DashboardViewMixin(object):
 
@@ -20,8 +21,10 @@ class DashboardViewMixin(object):
         user = HttpRequest.user
         context['user'] = user
         context['member_form'] = member_form
+        context['form'] = MessageForm()
         post_action = ActionIcon.objects.get(action_id=1)
         context['post_action'] = post_action
+        context.update(message_form=MessageForm())
         return context
 
 
@@ -40,11 +43,14 @@ class DashboardView(LoginRequiredMixin, DashboardViewMixin, TemplateView):
     template_name = "dashboard.html"
     
     def get(self, request):
+         
         if not request.user.is_authenticated():
             #return render_to_response('signin.html')  
             return render_to_response('signin.html', c, context_instance=RequestContext(request)) 
 
-        return render(request, 'dashboard.html')
+        message_form = MessageForm()
+
+        return render(request, 'dashboard.html',{'message_form': message_form })
 
 
 class DashboardLogoutView(LoginRequiredMixin, DashboardLogoutViewMixin, TemplateView):

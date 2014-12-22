@@ -80,8 +80,12 @@ Post to blog
     </form>
 
 </div>
-<div id="private-message-form"  ng-show="privatemessage" class="panel-section">
-Private Message
+<div id="pr-message-form"  ng-show="privatemessage" class="panel-section">
+<form ng-controller="AuthCtrl" name="message_form">
+    {{message_form.as_p}}
+    <br/>
+    <button ng-click="submit()">Send</button>
+</form>
 </div>
 <div id="properties-post-form"  ng-show="posttoproperties" class="panel-section">
 Post to properties
