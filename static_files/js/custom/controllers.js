@@ -98,10 +98,12 @@ function AuthCtrl($scope,$http) {
      * Register a new member
      */
     $scope.registerMember = function(member) {
+
         $scope.registered = false;
         $scope.unregistered = false;
         $scope.nonequalpass = false;
         $scope.valid = true;
+        $scope.duplicate = false;
 
         if  (member.username==undefined) {
             $scope.unregistered = true;
@@ -129,6 +131,29 @@ function AuthCtrl($scope,$http) {
             $scope.nonequalpass = true;
             $scope.valid = false;
         }
+  
+        else {
+            var users_url = 'http://zrealtycorp.com/profiles';
+            $http.get(users_url).
+               error(function(data) {
+                  $scope.usenrmame = undefined;
+                  $scope.duplicate = false;
+                  $scope.valid = false;
+                  $scope.unregistered = false;
+               }).
+               success(function(data) {
+                  profiles = data.results;
+                  angular.forEach(profiles, function (profile) {
+                         if  (member.username==profile.username)   {
+                             $scope.unregistered = false;
+                             $scope.duplicate = true;
+                             $scope.valid = false;
+                         }
+                  });
+               });
+
+             
+        }
 
         if($scope.valid == true) {
                 var url = 'http://zrealtycorp.com/accounts_api/register/';
@@ -143,9 +168,11 @@ function AuthCtrl($scope,$http) {
                      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
                      $scope.registered = true;
+                     $scope.duplicate = false;
                      $scope.unregistered = false;
                 }).error(function(data) {
                      $scope.registered = false;
+                     $scope.duplicate = false;
                      $scope.unregistered = true;
                 });
 

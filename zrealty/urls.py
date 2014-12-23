@@ -130,6 +130,10 @@ urlpatterns = patterns('',
       'get': 'list'
     }
     )),
+    url(r'^profiles/(?P<username>.+)/$', views.UserProfileViewSet.as_view({
+      'get': 'list'
+    }
+    )),
     url(r'^admin/lookups/', include(ajax_select_urls)),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),

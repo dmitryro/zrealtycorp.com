@@ -23,7 +23,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return UserProfile(**attrs)
 
     def create(self, validated_data):
-        return UserProfle.objects.create(**validated_data)
+        return UserProfile.objects.create(**validated_data)
 
     def to_representation(self, instance):
         if instance:

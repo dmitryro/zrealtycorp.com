@@ -18,6 +18,10 @@
 <p ng-animate="{show: 'fade'}">Invalid credentials.</p>
 </div>
 
+<div id="duplicate-user-message" ng-show="duplicate">
+<p style="color:red,font-weight:bold;" ng-animate="{show: 'fade'}">This user already exists.</p>
+</div>
+
 <div id="password-failure-message" ng-show="nonequalpass">
 <p ng-animate="{show: 'fade'}">Two passwords do not match.</p>
 </div>
