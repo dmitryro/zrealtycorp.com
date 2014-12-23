@@ -15,6 +15,7 @@ from imagekit.processors import ResizeToFill
 """
 @python_2_unicode_compatible
 class UserProfile(models.Model):
+
     user = models.OneToOneField(User) 
     username = models.CharField(max_length=20, blank=True)
     password = models.CharField(max_length=20, blank=True)
@@ -36,19 +37,60 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name_plural=u'User profiles'
 
+
 """
-  FriendLists in Dashboard
+  Friend List - a list of friends of the user in Dashboard
 """
 @python_2_unicode_compatible
 class FriendList(models.Model):
-    owner = models.ForeignKey(User)
+    title = models.CharField(max_length=50, blank=True)
+    owner = models.OneToOneField(UserProfile)
 
     def __str__(self):
-        return self.owner.username
+        return self.nickname
 
     def __unicode__(self):
-        return self.owner.username
+        return self.nickname
 
     class Meta:
-        verbose_name_plural=u'List owner'
+        verbose_name_plural=u'Friends'
 
+"""
+  Friend - a Member of the Friend List in Dashboard
+"""
+@python_2_unicode_compatible
+class Friend(models.Model):
+    nickname = models.CharField(max_length=20)
+    list = models.ForeignKey(FriendList,default=None,blank=True)
+    def __str__(self):
+        return self.nickname
+
+    def __unicode__(self):
+        return self.nickname
+
+    class Meta:
+        verbose_name_plural=u'Friends'
+
+
+"""
+  PrivateMessage in Dashboard
+"""
+@python_2_unicode_compatible
+class PrivateMessage(models.Model):
+    author = models.OneToOneField(UserProfile, blank=True)
+    receiver = models.CharField(max_length=50, blank=True)
+    title = models.CharField(max_length=50)
+    message = models.TextField(max_length=2400)
+  
+
+    def __str__(self):
+        return self.author.username
+
+    def __unicode__(self):
+        return self.author.username
+
+    class Meta:
+        verbose_name_plural=u'Private Message'
+    
+
+ 
