@@ -1,23 +1,35 @@
 from django.contrib.auth.models import User, Group
-from property.models import Property
 from rest_framework import serializers
+from models import UserProfile
+import json
 
-class PropertySerializer(serializers.Serializer):
-    pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    type = serializers.CharField(required=False,
-                                  max_length=100)
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    id = serializers.Field()
+    username = serializers.CharField(max_length=140,read_only=True)
+    activation_key = serializers.CharField(max_length=140,read_only=True)
 
     class Meta:
-        model = Property
-        fields = ('type', 'borough', 'neighborhood','price')
+        model = UserProfile
+        fields = []
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'groups')
+    def update(self, instance, validated_data):
+        if instance:
+            instance.username = validated_data.get('username', instance.username)
+            instance.activation_key = validated_data.get('activation_key', instance.activation_key)
+            instance.id = validated_data.get('id', instance.id)
+            instance.save()
+            return instance
+        return UserProfile(**attrs)
 
+    def create(self, validated_data):
+        return UserProfle.objects.create(**validated_data)
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ('url', 'name')
+    def to_representation(self, instance):
+        if instance:
+           ret = super(UserProfileSerializer, self).to_representation(self)
+           ret['id']= instance.id
+           ret['username']= instance.username
+           ret['activation_key']= instance.activation_key
+           return ret
+

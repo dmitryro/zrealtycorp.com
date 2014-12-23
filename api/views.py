@@ -17,8 +17,16 @@ from django.utils.safestring import mark_safe
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from rest_framework import viewsets
+from django.views.generic import TemplateView
+from django.template.context import RequestContext
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from registration_api import utils
 from restless.views import Endpoint
+from serializers import UserProfileSerializer
 from property.serializers import PropertySerializer
 from property.serializers import CategorySerializer
 from property.serializers import StatusSerializer
@@ -33,6 +41,23 @@ from models import UserProfile
 from utils.models import Member
 
 register = template.Library()
+
+class UserProfileList(APIView):
+    """
+    List all snippets, or create a new snippet.
+    """
+    def get(self, request, format=None):
+        userprofile = UserProfile.objects.all()
+        serializer = UserProfileSerializer(userprofile, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserProfileSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SearchViewMixin(object):
     def get_context_data(self,**kwargs):
@@ -338,7 +363,18 @@ class NotifyView(EmailView):
 
 
 """
-Category ViewSet
+User Profile ViewSet
+"""
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows categories to be viewed or edited.
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+
+"""
+Property ViewSet
 """
 class PropertyViewSet(viewsets.ModelViewSet):
     """

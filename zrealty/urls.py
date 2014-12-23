@@ -61,7 +61,7 @@ router.register(r'statuses',views.StatusViewSet)
 router.register(r'neighborhoods',views.NeighborhoodViewSet)
 router.register(r'boroughs',views.BoroughViewSet)
 router.register(r'rooms',views.RoomsViewSet)
-
+router.register(r'profiles',views.UserProfileViewSet)
 
 rules_light.autodiscover()
 autocomplete_light.autodiscover()
