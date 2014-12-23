@@ -219,17 +219,16 @@ class ActivateView(EmailView):
         password = request.params.get('password','')
         email = request.params.get('email','')
         mess = 'Welcome to ZRealty.'
-        
+       
         user = User.objects.get(username=username)  
         activation = utils.create_activation_key(user)
-        link = 'http://zrealtycorp.com/accounts/activate/%s'%activation
 
+        link = 'http://zrealtycorp.com/accounts/activate/%s'%activation
         try:
-            member = UserProfile(user_id=user.id, activation_key=activation)
+            member = UserProfile(id=int(user.id),username=username, activation_key=activation)
             member.save()
         except:
             pass
-           # new_profile.save()
 
         profile = ProfileMetaProp.objects.get(pk=1)
         FROM = profile.email
@@ -442,10 +441,10 @@ def register_activate(request, activation_key):
     # check if there is UserProfile which matches the activation key (if not then display 404)
     user_profile = get_object_or_404(UserProfile, activation_key=activation_key)
 
-    user = User.objects.get(id=user_profile.user_id)
+    user = User.objects.get(id=user_profile.id)
     user.is_active = True
     user.save()
-    return render_to_response('activated.html')
+    return render_to_response('confirm.html')
 
       
 

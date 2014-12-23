@@ -14,22 +14,21 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
-"""
-  User Profile
-"""
 @python_2_unicode_compatible
 class UserProfile(models.Model):
-    user_id = models.IntegerField(blank=True)
-    activation_key = models.CharField(max_length=200, blank=True)
-        
+    username = models.CharField(max_length=140, blank=True)
+    activation_key = models.CharField(max_length=140, blank=True)
 
     def __str__(self):
-        return self.user_id
+        return self.type
 
     def __unicode__(self):
-        return self.user_id
+        return unicode(self.type)
+
+    def __getitem__(self,items):
+        return self.type
 
     class Meta:
-        verbose_name_plural=u'User profiles'
-
+        verbose_name = 'profile'
+        verbose_name_plural = 'profiles'
 

@@ -134,7 +134,7 @@ function AuthCtrl($scope,$http) {
                 var url = 'http://zrealtycorp.com/accounts_api/register/';
                 var nurl = 'http://zrealtycorp.com/notifynew/';
                 var values = 'username='+member.username+'&password='+member.password+'&email='+member.email;
-
+                var activate_url = 'http://zrealtycorp.com/activatenew?'+values;
 
                 $http({ // The actual registration happens here
                      method: 'POST',
@@ -149,9 +149,7 @@ function AuthCtrl($scope,$http) {
                      $scope.unregistered = true;
                 });
 
-                $http.get('http://zrealtycorp.com/notifynew?username='+member.username+
-                       "&password="+member.password+"&email="+member.email
-                ).success(function(data) {
+                $http.get(activate_url).success(function(data) {
                 }).error(function(data) {
                 });
 
@@ -1050,5 +1048,4 @@ function SortCtrl($scope) {
            if(column== 10) { alert('Pets');}
    };
 }
-
 
