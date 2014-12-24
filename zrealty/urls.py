@@ -30,6 +30,8 @@ from pages.views import SalesView
 from pages.views import AgentView
 from pages.views import RssView
 from api import views
+from tastypie.api import Api
+from api.api import ProfileResource
 import rest_auth
 import rules_light
 import autocomplete_light
@@ -37,6 +39,8 @@ import smart_selects
 import socialregistration
 import podcast
 
+v1_api = Api(api_name='v1')
+v1_api.register(ProfileResource())
 # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
     model = User
@@ -67,6 +71,8 @@ rules_light.autodiscover()
 autocomplete_light.autodiscover()
 admin.autodiscover()
 
+rules_light.registry['api.models.UserProfile.read'] = True
+
 feeds = {
     'rss': RssSiteNewsFeed,
     'atom': AtomSiteNewsFeed,
@@ -94,6 +100,7 @@ urlpatterns = patterns('',
     url(r'^post/$', views.EmailView.as_view()), #this endpoint is used to send emails
     url(r'^notifynew/$', views.NotifyView.as_view()), #this endpoint is used to send emails
     url(r'^activatenew/$', views.ActivateView.as_view()), #this endpoint is used to send emails
+    url(r'^rules/', include('rules_light.urls')),
     url(r'^sale/', SalesView.as_view()),
     url(r'^sales/', SalesView.as_view()),
     url(r'^rent/', RentView.as_view()),
@@ -148,13 +155,15 @@ urlpatterns = patterns('',
     url(r'^complete/twitter/?oauth_token$',RedirectView.as_view(url='/dashboard/')),
     url(r'^accounts/login/',RedirectView.as_view(url='/dashboard/')),
     url(r'^rest/$', RedirectView.as_view(url='/rest/login')),
-    url(r'^login/$', RedirectView.as_view(url='/rest/login')),
-    url(r'^ogin/$', RedirectView.as_view(url='/rest/login')),
-    url(r'^gin/$', RedirectView.as_view(url='/rest/login')),
-    url(r'^in/$', RedirectView.as_view(url='/rest/login')),
+    url(r'^login/$', RedirectView.as_view(url='/signin')),
+    url(r'^ogin/$', RedirectView.as_view(url='/signin')),
+    url(r'^gin/$', RedirectView.as_view(url='/signin')),
+    url(r'^in/$', RedirectView.as_view(url='/signin')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    url(r'^dashboard/$',RedirectView.as_view(url='/dashboard')),
     url(r'^$', HomeView.as_view(), name="home"),
+    url(r'^next/$', RedirectView.as_view(url='/rest/login/')),
     url(r'^buttons$', TemplateView.as_view(template_name='buttons.html'), name="buttons"),
     url(r'^facebook_login/xd_receiver.htm$', TemplateView.as_view(template_name='socialauth/xd_receiver.htm'), name='socialauth_xd_receiver'),
     url(r'^facebook_login/$', 'facebook_login', name='socialauth_facebook_login'),
@@ -168,6 +177,7 @@ urlpatterns = patterns('',
     url(r'^facebook/', include('django_facebook.urls')),
     url(r'^oauth2/', include('provider.oauth2.urls', namespace='oauth2')),
     url(r'^api-auth/', include('rest_framework.urls',namespace='rest_framework')),
+    url(r'^api/', include(v1_api.urls)), 
     url(r'^feedreader/', include('feedreader.urls')),
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^admin/property/neighborhood/add/$',include('smart_selects.urls')),

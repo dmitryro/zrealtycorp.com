@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     'braces',
     'corsheaders',
     'coffeescript',
+    'debug_toolbar',
     'django_actions',
     'django_extensions',
     'django_facebook',
@@ -206,6 +207,7 @@ MIDDLEWARE_CLASSES = (
     'rules_light.middleware.Middleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'api.middlewares.LoginMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = {
@@ -248,6 +250,7 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.contrib.fedora.FedoraBackend',
 
     'django.contrib.auth.backends.ModelBackend',
+    'django_rules.backends.ObjectPermissionBackend',
 )
    
 LOGIN_REDIRECT_URL = '/dashboard/'
@@ -273,7 +276,7 @@ GOOGLE_OAUTH2_CLIENT_ID      = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr.ap
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'QQ8YyWvLXWdSFAUjZyMbgYNS'
 GOOGLE_OAUTH2_CLEINT_EMAIL   = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr@developer.gserviceaccount.com'
 GOOGLE_WHITE_LISTED_DOMAINS = ['zrealtycorp.com']
-
+GOOGLE_WHITE_LISTED_EMAILS= ['dmitryro@gmail.com','416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr@developer.gserviceaccount.com ']
 # 'magic' settings
 SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'associate_complete'
@@ -647,4 +650,4 @@ TEST_GOOGLE_USER = 'dmitryro@gmail.com'
 TEST_GOOGLE_PASSWORD = 'nu45edi1'
 REGISTRATION_API_ACTIVATION_SUCCESS_URL = '/'
 # Social Authentication Settings
-
+APPEND_SLASH = True
