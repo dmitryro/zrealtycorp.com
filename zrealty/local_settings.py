@@ -468,6 +468,11 @@ CACHES = {
                 #'PASSWORD': 'yadayada',
                 'PARSER_CLASS': 'redis.connection.HiredisParser'
                }
+    },
+    'resources': {
+        'BACKEND': 'redis_cache.cache.RedisCache',
+        'LOCATION': '127.0.0.1:6379:1',
+        'TIMEOUT': 60
     }
 }
 

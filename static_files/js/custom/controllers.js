@@ -132,7 +132,7 @@ function AuthCtrl($scope,$http) {
             $scope.valid = false;
         }
   
-        else {
+         {
             var users_url = 'http://zrealtycorp.com/profiles';
             $http.get(users_url).
                error(function(data) {
@@ -160,25 +160,46 @@ function AuthCtrl($scope,$http) {
                 var nurl = 'http://zrealtycorp.com/notifynew/';
                 var values = 'username='+member.username+'&password='+member.password+'&email='+member.email;
                 var activate_url = 'http://zrealtycorp.com/activatenew?'+values;
-
                 $http({ // The actual registration happens here
                      method: 'POST',
                      url: url,
                      data: values,
                      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
+                     
+                      $http.get(activate_url).
+                       success(function(data) {
+                      }).error(function(data) {
+                      });
+
                      $scope.registered = true;
                      $scope.duplicate = false;
                      $scope.unregistered = false;
                 }).error(function(data) {
+                     var users_url = 'http://zrealtycorp.com/profiles';
+                     $http.get(users_url).
+                     error(function(data) {
+                     $scope.usenrmame = undefined;
+                     $scope.duplicate = false;
+                        $scope.valid = false;
+                        $scope.unregistered = false;
+                     }).
+                     success(function(data) {
+                        profiles = data.results;
+                          angular.forEach(profiles, function (profile) {
+                             if  (member.username==profile.username)   {
+                                 $scope.unregistered = false;
+                                 $scope.duplicate = true;
+                                 $scope.valid = false;
+                             }
+                         });
+                    });
+
                      $scope.registered = false;
                      $scope.duplicate = false;
                      $scope.unregistered = true;
                 });
 
-                $http.get(activate_url).success(function(data) {
-                }).error(function(data) {
-                });
 
         }
     };
