@@ -94,6 +94,31 @@ INSTALLED_APPS = (
   #  'ajax_select',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    'allauth.socialaccount.providers.amazon',
+    'allauth.socialaccount.providers.angellist',
+    'allauth.socialaccount.providers.bitbucket',
+    'allauth.socialaccount.providers.bitly',
+    'allauth.socialaccount.providers.dropbox',
+    'allauth.socialaccount.providers.flickr',
+    'allauth.socialaccount.providers.feedly',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.hubic',
+    'allauth.socialaccount.providers.instagram',
+    'allauth.socialaccount.providers.linkedin',
+    'allauth.socialaccount.providers.linkedin_oauth2',
+    'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.persona',
+    'allauth.socialaccount.providers.soundcloud',
+    'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.tumblr',
+    'allauth.socialaccount.providers.twitch',
+    'allauth.socialaccount.providers.vimeo',
+    'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.weibo',
+    'allauth.socialaccount.providers.xing',
     'any_urlfield',
     'autocomplete_light',
   #  'bbfreeze',
@@ -143,8 +168,6 @@ INSTALLED_APPS = (
     'navigation',
     'notifications', 
     'oauth_access',
-    'openid',
-    'oauth2client',
     'pagination',
     'permission',
     'pipeline',
@@ -232,9 +255,9 @@ TEMPLATE_CONTEXT_PROCESSORS = {
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
-    'social_auth.backends.google.GoogleOAuthBackend',
+#    'social_auth.backends.google.GoogleOAuthBackend',
     'social_auth.backends.google.GoogleOAuth2Backend',
-    'social_auth.backends.google.GoogleBackend',
+#    'social_auth.backends.google.GoogleBackend',
     'social_auth.backends.yahoo.YahooBackend',
     'social_auth.backends.browserid.BrowserIDBackend',
     'social_auth.backends.contrib.linkedin.LinkedinBackend',
@@ -249,9 +272,10 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
     'social_auth.backends.contrib.readability.ReadabilityBackend',
     'social_auth.backends.contrib.fedora.FedoraBackend',
-
-    'django.contrib.auth.backends.ModelBackend',
     'django_rules.backends.ObjectPermissionBackend',
+#    'social_auth.backends.google.GoogleBackend',
+    'django.contrib.auth.backends.ModelBackend', 
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
    
 LOGIN_REDIRECT_URL = '/dashboard/'
@@ -281,9 +305,7 @@ GOOGLE_WHITE_LISTED_EMAILS= ['dmitryro@gmail.com','416241165113-rl80a3mehm6ghoq8
 # 'magic' settings
 SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'associate_complete'
-GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = { 
-    'access_type':'offline'
-}
+
 
 SOCIAL_AUTH_ENABLED_BACKENDS = ('google', 'google-oauth', 'facebook','twitter','github','linkedin')
 """
@@ -358,7 +380,6 @@ DEFAULT_AUTHENTICATION = (
    # 'rest_framework.authentication.BasicAuthentication',
    # 'rest_framework.authentication.SessionAuthentication',
     'rest_framework.authentication.OAuth2Authentication',
-    'rest_framework.authentication.SessionAuthentication',
 )
 
 GRAPPELLI_ADMIN_TITLE = 'ZRealty Corp'
