@@ -255,9 +255,13 @@ class ActivateView(EmailView):
         except:
             pass
 
+        if not email:
+           TO = profile.email
+        else:
+           TO = email
+
         profile = ProfileMetaProp.objects.get(pk=1)
         FROM = profile.email
-        TO = profile.email
         USER = profile.user_name
         PASSWORD = profile.password
         PORT = profile.smtp_port
@@ -482,6 +486,30 @@ def register_activate(request, activation_key):
     user.save()
     return render_to_response('confirm.html')
 
-      
+"""
+Verify
+"""
+def verify_dashboard(request):
+    if request.user.is_authenticated():
+       return HttpResponseRedirect('/dashboard')
+    else:
+       return HttpResponseRedirect('/signin')  
+"""
+Verify
+"""
+def google_authenticate(request):
+     return HttpResponseRedirect('/signin/')
+
+"""
+Forced Log In  
+"""
+
+def login_force(request, hash):
+    user = authenticate(hash=hash)
+    if user:
+        # check if user is_active, and any other checks
+        login(request, user)
+    else:
+        return user_not_found_bad_hash_message    
 
 

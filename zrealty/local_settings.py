@@ -33,9 +33,9 @@ TWITTER_CONSUMER_KEY = 'juXvnN6hyNhEK7refjdQ'
 TWITTER_CONSUMER_SECRET = 'A1PEleM5SMFDtR57AJUFdPB2iKjEH4ROgSoeQiY5Aeo' 
 TWITTER_API_ACCESS_TOKEN_CALLBACK = ''
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'QQ8YyWvLXWdSFAUjZyMbgYNS'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'kktr3pWSYkHNO4gkq3R9azTa'
 SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_ID      = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_SECRET  = 'QQ8YyWvLXWdSFAUjZyMbgYNS'
+SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_SECRET  = 'kktr3pWSYkHNO4gkq3R9azTa'
 SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_EMAIL_ADDRESS = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr@developer.gserviceaccount.com'
 SOCIAL_AUTH_TWITTER_KEY = 'juXvnN6hyNhEK7refjdQ'
 SOCIAL_AUTH_TWITTER_SECRET = 'A1PEleM5SMFDtR57AJUFdPB2iKjEH4ROgSoeQiY5Aeo'
@@ -143,6 +143,8 @@ INSTALLED_APPS = (
     'navigation',
     'notifications', 
     'oauth_access',
+    'openid',
+    'oauth2client',
     'pagination',
     'permission',
     'pipeline',
@@ -207,7 +209,6 @@ MIDDLEWARE_CLASSES = (
     'rules_light.middleware.Middleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'api.middlewares.LoginMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = {
@@ -271,16 +272,18 @@ FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'en_US'}
 GITHUB_API_KEY = ''
 GITHUB_API_SECRET = ''
 GOOGLE_CONSUMER_KEY          = 'AIzaSyCDUnYCyzEf8M6S1wyFvyeacZF9vO37l70'
-GOOGLE_CONSUMER_SECRET       = 'QQ8YyWvLXWdSFAUjZyMbgYNS'
+GOOGLE_CONSUMER_SECRET       = 'kktr3pWSYkHNO4gkq3R9azTa'
 GOOGLE_OAUTH2_CLIENT_ID      = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET  = 'QQ8YyWvLXWdSFAUjZyMbgYNS'
+GOOGLE_OAUTH2_CLIENT_SECRET  = 'kktr3pWSYkHNO4gkq3R9azTa'
 GOOGLE_OAUTH2_CLEINT_EMAIL   = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr@developer.gserviceaccount.com'
 GOOGLE_WHITE_LISTED_DOMAINS = ['zrealtycorp.com']
 GOOGLE_WHITE_LISTED_EMAILS= ['dmitryro@gmail.com','416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr@developer.gserviceaccount.com ']
 # 'magic' settings
 SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'associate_complete'
-
+GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = { 
+    'access_type':'offline'
+}
 
 SOCIAL_AUTH_ENABLED_BACKENDS = ('google', 'google-oauth', 'facebook','twitter','github','linkedin')
 """
@@ -355,6 +358,7 @@ DEFAULT_AUTHENTICATION = (
    # 'rest_framework.authentication.BasicAuthentication',
    # 'rest_framework.authentication.SessionAuthentication',
     'rest_framework.authentication.OAuth2Authentication',
+    'rest_framework.authentication.SessionAuthentication',
 )
 
 GRAPPELLI_ADMIN_TITLE = 'ZRealty Corp'
