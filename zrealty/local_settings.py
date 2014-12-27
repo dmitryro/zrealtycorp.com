@@ -32,11 +32,11 @@ FACEBOOK_API_SECRET          = '2882cb362e766e24a1a51be251860a26'
 TWITTER_CONSUMER_KEY = 'juXvnN6hyNhEK7refjdQ'
 TWITTER_CONSUMER_SECRET = 'A1PEleM5SMFDtR57AJUFdPB2iKjEH4ROgSoeQiY5Aeo' 
 TWITTER_API_ACCESS_TOKEN_CALLBACK = ''
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'kktr3pWSYkHNO4gkq3R9azTa'
-SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_ID      = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_SECRET  = 'kktr3pWSYkHNO4gkq3R9azTa'
-SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_EMAIL_ADDRESS = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr@developer.gserviceaccount.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'AIzaSyCDUnYCyzEf8M6S1wyFvyeacZF9vO37l70'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-vOyys9JyMeTG53QgA18dWcY'
+SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_ID      = '416241165113-d3567f5kdtb1fivlse2aivg8gvb8llh6.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_SECRET  = '-vOyys9JyMeTG53QgA18dWcY'
+SOCIAL_AUTH_GOOGLE_OAUTH2_CLIENT_EMAIL_ADDRESS = '416241165113-d3567f5kdtb1fivlse2aivg8gvb8llh6@developer.gserviceaccount.com'
 SOCIAL_AUTH_TWITTER_KEY = 'juXvnN6hyNhEK7refjdQ'
 SOCIAL_AUTH_TWITTER_SECRET = 'A1PEleM5SMFDtR57AJUFdPB2iKjEH4ROgSoeQiY5Aeo'
 SOCIAL_AUTH_FACEBOOK_SECRET='2882cb362e766e24a1a51be251860a26'
@@ -94,31 +94,6 @@ INSTALLED_APPS = (
   #  'ajax_select',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    # ... include the providers you want to enable:
-    'allauth.socialaccount.providers.amazon',
-    'allauth.socialaccount.providers.angellist',
-    'allauth.socialaccount.providers.bitbucket',
-    'allauth.socialaccount.providers.bitly',
-    'allauth.socialaccount.providers.dropbox',
-    'allauth.socialaccount.providers.flickr',
-    'allauth.socialaccount.providers.feedly',
-    'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.hubic',
-    'allauth.socialaccount.providers.instagram',
-    'allauth.socialaccount.providers.linkedin',
-    'allauth.socialaccount.providers.linkedin_oauth2',
-    'allauth.socialaccount.providers.openid',
-    'allauth.socialaccount.providers.persona',
-    'allauth.socialaccount.providers.soundcloud',
-    'allauth.socialaccount.providers.stackexchange',
-    'allauth.socialaccount.providers.tumblr',
-    'allauth.socialaccount.providers.twitch',
-    'allauth.socialaccount.providers.vimeo',
-    'allauth.socialaccount.providers.vk',
-    'allauth.socialaccount.providers.weibo',
-    'allauth.socialaccount.providers.xing',
     'any_urlfield',
     'autocomplete_light',
   #  'bbfreeze',
@@ -255,9 +230,9 @@ TEMPLATE_CONTEXT_PROCESSORS = {
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
-#    'social_auth.backends.google.GoogleOAuthBackend',
+    'social_auth.backends.google.GoogleOAuthBackend',
     'social_auth.backends.google.GoogleOAuth2Backend',
-#    'social_auth.backends.google.GoogleBackend',
+    'social_auth.backends.google.GoogleBackend',
     'social_auth.backends.yahoo.YahooBackend',
     'social_auth.backends.browserid.BrowserIDBackend',
     'social_auth.backends.contrib.linkedin.LinkedinBackend',
@@ -272,10 +247,9 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
     'social_auth.backends.contrib.readability.ReadabilityBackend',
     'social_auth.backends.contrib.fedora.FedoraBackend',
+
+    'django.contrib.auth.backends.ModelBackend',
     'django_rules.backends.ObjectPermissionBackend',
-#    'social_auth.backends.google.GoogleBackend',
-    'django.contrib.auth.backends.ModelBackend', 
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
    
 LOGIN_REDIRECT_URL = '/dashboard/'
@@ -296,12 +270,12 @@ FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'en_US'}
 GITHUB_API_KEY = ''
 GITHUB_API_SECRET = ''
 GOOGLE_CONSUMER_KEY          = 'AIzaSyCDUnYCyzEf8M6S1wyFvyeacZF9vO37l70'
-GOOGLE_CONSUMER_SECRET       = 'kktr3pWSYkHNO4gkq3R9azTa'
-GOOGLE_OAUTH2_CLIENT_ID      = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET  = 'kktr3pWSYkHNO4gkq3R9azTa'
+GOOGLE_CONSUMER_SECRET       = '-vOyys9JyMeTG53QgA18dWcY'
+GOOGLE_OAUTH2_CLIENT_ID      = '416241165113-d3567f5kdtb1fivlse2aivg8gvb8llh6.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET  = '-vOyys9JyMeTG53QgA18dWcY'
 GOOGLE_OAUTH2_CLEINT_EMAIL   = '416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr@developer.gserviceaccount.com'
 GOOGLE_WHITE_LISTED_DOMAINS = ['zrealtycorp.com']
-GOOGLE_WHITE_LISTED_EMAILS= ['dmitryro@gmail.com','416241165113-rl80a3mehm6ghoq8j9g0lqpvukuqq1qr@developer.gserviceaccount.com ']
+GOOGLE_WHITE_LISTED_EMAILS= ['dmitryro@gmail.com','416241165113-d3567f5kdtb1fivlse2aivg8gvb8llh6@developer.gserviceaccount.com']
 # 'magic' settings
 SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'associate_complete'
@@ -681,3 +655,12 @@ TEST_GOOGLE_PASSWORD = 'nu45edi1'
 REGISTRATION_API_ACTIVATION_SUCCESS_URL = '/'
 # Social Authentication Settings
 APPEND_SLASH = True
+
+SOCIAL_AUTH_PIPELINE = (
+  'social_auth.backends.pipeline.social.social_auth_user',
+  'social_auth.backends.pipeline.associate.associate_by_email',
+  'social_auth.backends.pipeline.misc.save_status_to_session',
+  'social_auth.backends.pipeline.social.associate_user',
+  'social_auth.backends.pipeline.social.load_extra_data',
+  'social_auth.backends.pipeline.user.update_user_details',
+)
