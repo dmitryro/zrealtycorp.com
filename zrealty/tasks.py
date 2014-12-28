@@ -1,7 +1,6 @@
 
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
-from myapp.utils import scrapers
 from celery.utils.log import get_task_logger
 from datetime import datetime
  
@@ -15,4 +14,3 @@ def scraper_example():
     logger.info("Start task")
     now = datetime.now()
     result = scrapers.scraper_example(now.day, now.minute)
-    logger.info("Task finished: result = %i" % result) 

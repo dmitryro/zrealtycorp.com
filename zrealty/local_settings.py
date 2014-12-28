@@ -7,10 +7,9 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import djcelery
-djcelery.setup_loader()
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -21,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '+7&2ugf)%qqn_nh29443z$au)or1z_o$h@sk34w_b34uf)24k$'
 SITE_ID = 1
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -104,7 +103,6 @@ INSTALLED_APPS = (
     'braces',
     'corsheaders',
     'coffeescript',
-    'clear_cache',
     'debug_toolbar',
     'django_actions',
     'django_extensions',
@@ -166,7 +164,6 @@ INSTALLED_APPS = (
     'selenium',
     'socialauth',
     'social',
-    'tasks',
     'twitter',
     'twitter_api',
     'taxonomy',
@@ -183,6 +180,7 @@ INSTALLED_APPS = (
     'icon',
     'feeds',
     'logo',
+    'market',
     'metaprop',
     'pages',
     'property',
@@ -260,7 +258,7 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard'
 SOCIAL_AUTH_ERROR_KEY='social_errors'
 SOCIAL_AUTH_EXPIRATION = 'expires'
 #SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'            
-#SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
+SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
 SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
 SOCIAL_AUTH_SESSION_EXPIRATION = False
 
@@ -667,21 +665,20 @@ SOCIAL_AUTH_PIPELINE = (
   'social_auth.backends.pipeline.social.load_extra_data',
   'social_auth.backends.pipeline.user.update_user_details',
 )
-
-BROKER_BACKEND                  = "redis" 
-BROKER_HOST                     = "localhost" 
-BROKER_PORT                     = 6379 
-BROKER_VHOST                    = "1" 
-REDIS_CONNECT_RETRY     = True 
-REDIS_HOST                              = "localhost" 
-REDIS_PORT                              = 6379 
-REDIS_DB                                = "0" 
-CELERY_SEND_EVENTS                      = True 
-CELERYD_LOG_LEVEL               = 'INFO' 
-CELERY_RESULT_BACKEND           = "redis" 
-CELERY_TASK_RESULT_EXPIRES      = 25 
-CELERYD_CONCURRENCY             = 8 
-CELERYD_MAX_TASKS_PER_CHILD = 10 
+BROKER_BACKEND                  = "redis"
+BROKER_HOST                     = "localhost"
+BROKER_PORT                     = 6379
+BROKER_VHOST                    = "1"
+REDIS_CONNECT_RETRY     = True
+REDIS_HOST                              = "localhost"
+REDIS_PORT                              = 6379
+REDIS_DB                                = "0"
+CELERY_SEND_EVENTS                      = True
+CELERYD_LOG_LEVEL               = 'INFO'
+CELERY_RESULT_BACKEND           = "redis"
+CELERY_TASK_RESULT_EXPIRES      = 25
+CELERYD_CONCURRENCY             = 8
+CELERYD_MAX_TASKS_PER_CHILD = 10
 CELERY_ALWAYS_EAGER                     =True
 # CELERY SETTINGS
 BROKER_URL = 'redis://localhost:6379/0'
