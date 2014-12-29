@@ -54,9 +54,11 @@ class DashboardView(LoginRequiredMixin,DashboardViewMixin, TemplateView):
         message_form = MessageForm()
         property_form = PropertyForm()
         thread_form = ThreadForm() 
+        post_form = PostForm()
         return render(request, 'dashboard.html',{'message_form': message_form,
                                                  'property_form': property_form,
-                                                  'thread_form': thread_form})
+                                                  'thread_form': thread_form,
+                                                  'post_form': post_form})
 
 
 class DashboardLogoutView(LoginRequiredMixin, DashboardLogoutViewMixin, TemplateView):

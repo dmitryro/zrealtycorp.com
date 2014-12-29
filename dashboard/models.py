@@ -274,6 +274,7 @@ class Thread(models.Model):
 class Post(models.Model):
 
    title = models.CharField(max_length=150)
+   link =  models.CharField(max_length=550) 
    post = models.TextField(max_length=400)
 
    def __str__(self):

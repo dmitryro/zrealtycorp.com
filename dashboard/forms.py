@@ -42,10 +42,9 @@ class PostForm(NgFormValidationMixin, NgModelFormMixin,forms.ModelForm):
 #    title = forms.CharField(max_length=200)
     def __init__(self, *args, **kwargs):
         kwargs.update(scope_prefix='private')
-        super(MessageForm, self).__init__(*args, **kwargs)
+        super(PostForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = Post
-        fields = ['title','post']
-
+        fields = ['title','link','post']
  
