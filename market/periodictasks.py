@@ -1,55 +1,42 @@
-from celery.task.schedules import crontab
-from celery.decorators import periodic_task
-from celery.utils.log import get_task_logger
-from datetime import datetime
+from __future__ import print_function
 from periodically.decorators import *
-import datetime
-import celery
+from periodically import register
+from datetime import timedelta
+import django_filters
+import smtplib
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.forms.formsets import formset_factory
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, render_to_response, get_object_or_404
+from django.utils.html import conditional_escape
+from django.utils.safestring import mark_safe
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from restless.views import Endpoint
+from metaprop.models import ProfileMetaProp
+from periodically.decorators import *
 
-@hourly()
-def my_task():
-    print 'Do something!'
 
 @every(minutes=1)
-def my_other_task():
-    print 'Do something else every  minutes!'
+def task2():
+    print('RUNNING exampleapp.periodictasks.task2')
+    raise Exception('Custom exception!')
 
- 
-logger = get_task_logger(__name__)
- 
- 
-# A periodic task that will run every minute (the symbol "*" means every)
-@periodic_task(run_every=(crontab(hour="*", minute="*", day_of_week="*")))
-def send_email():
-    logger.info("Start task")
-    now = datetime.now()
 
-# A periodic task that will run every minute (the symbol "*" means every)
-@periodic_task(run_every=(crontab(hour="*", minute="*", day_of_week="*")))
-def tweet():
-    logger.info("Start task")
-    now = datetime.now()
+def task3():
+    print('RUNNING exampleapp.periodictasks.task3')
+register.simple_task(task3, Every(timedelta(weeks=2)))
 
-# A periodic task that will run every minute (the symbol "*" means every)
-@periodic_task(run_every=(crontab(hour="*", minute="*", day_of_week="*")))
-def publish_to_facebook():
-    logger.info("Start task")
-    now = datetime.now()
 
-# A periodic task that will run every minute (the symbol "*" means every)
-@periodic_task(run_every=(crontab(hour="*", minute="*", day_of_week="*")))
-def publish_feed():
-    logger.info("Start task")
-    now = datetime.now()
+@daily(hour=19, minute=38)
+@daily(hour=19, minute=38) # Duplicate. Shouldn't reschedule.
+@daily(hour=20, minute=13) # Not a duplicate. Should schedule again.
+def task4():
+    print('RUNNING exampleapp.periodictasks.task4')
 
-# A periodic task that will run every minute (the symbol "*" means every)
-@periodic_task(run_every=(crontab(hour="*", minute="*", day_of_week="*")))
-def publish_to_vk():
-    logger.info("Start task")
-    now = datetime.now()
-
-@celery.decorators.periodic_task(run_every=datetime.timedelta(minutes=3))
-def notify():
+@every(minutes=2)
+def send_email_task():
         id = 1
         name = 'ZRealty System'
         email = 'dmitryro@gmail.com'

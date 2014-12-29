@@ -32,3 +32,4 @@ class UserProfile(models.Model):
         verbose_name = 'profile'
         verbose_name_plural = 'profiles'
 
+

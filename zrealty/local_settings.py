@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import djcelery
+djcelery.setup_loader()
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -94,15 +96,20 @@ INSTALLED_APPS = (
   #  'ajax_select',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'any_urlfield',
     'autocomplete_light',
   #  'bbfreeze',
+    'background_task',
     'bootstrap',
     'bootstrap_toolkit', 
     'bootstrap_pagination',
     'braces',
     'corsheaders',
     'coffeescript',
+    'celery_schedulers',
+    'crispy_forms',
     'debug_toolbar',
     'django_actions',
     'django_extensions',
@@ -145,6 +152,7 @@ INSTALLED_APPS = (
     'oauth_access',
     'pagination',
     'permission',
+    'periodically',
     'pipeline',
     'phonenumber_field',
     'provider',
@@ -661,7 +669,7 @@ SOCIAL_AUTH_PIPELINE = (
   'social_auth.backends.pipeline.social.social_auth_user',
   'social_auth.backends.pipeline.associate.associate_by_email',
   'social_auth.backends.pipeline.misc.save_status_to_session',
-  'social_auth.backends.pipeline.social.associate_user',
+#  'social_auth.backends.pipeline.social.associate_user',
   'social_auth.backends.pipeline.social.load_extra_data',
   'social_auth.backends.pipeline.user.update_user_details',
 )
@@ -685,4 +693,11 @@ BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-
+PERIODICALLY = {
+    'SCHEDULERS': { 
+         'default': {'backend': 'periodically.backends.DefaultBackend'}
+    }
+}
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+UPLOAD_ROOT = 'images'
+CRISPY_TEMPLATE_PACK = 'uni_form'

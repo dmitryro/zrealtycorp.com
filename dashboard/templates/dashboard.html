@@ -10,8 +10,6 @@
 {% load dashboard_extras %}
 {% load metaprop_extras %}
 {% load bootstrap_toolkit %}
-
-
 {% block title %}Latest Published Properties{% endblock %}
 
 {% block content %}
@@ -23,7 +21,14 @@
 <div id="member-panel"  ng-show="memberpanel" class="panel-section">&nbsp;
 </div>
 <div id="blog-form"  ng-show="posttoblog" class="panel-section">
-Post to blog
+
+<form ng-controller="DashboardCtrl" name="post_form">
+     {% csrf_token %}
+    {{post_form.as_p}}
+    <br/>
+    <button ng-click="submit()" class="btn-primary">Send</button>
+</form>
+
 </div>
 <div id="member-form"  ng-show="memberprofile" class="panel-section">
           <h3>Edit Profile</h3>
@@ -70,8 +75,10 @@ Post to blog
              <div class="dashboard-profile-titles"> Last Name</div>
              <div class="dashboard-profile-fields"> <input name="last_name" type="text" value="{{ user.last_name }}" /></div>
            </div> 
-
- 
+           <div class="dashboard-profile-row">
+             <div class="dashboard-profile-titles">&nbsp;&nbsp;</div>    
+             <div class="dashboard-profile-fields"> <button class="btn-primary">Update</button></div>
+           </div>
            {% csrf_token %}
           </form>
 
@@ -81,14 +88,21 @@ Post to blog
 
 </div>
 <div id="pr-message-form"  ng-show="privatemessage" class="panel-section">
-<form ng-controller="AuthCtrl" name="message_form">
+<form ng-controller="DashboardCtrl" name="message_form">
+     {% csrf_token %}
     {{message_form.as_p}}
     <br/>
-    <button ng-click="submit()">Send</button>
+    <button ng-click="submit()" class="btn-primary">Send</button>
 </form>
 </div>
 <div id="properties-post-form"  ng-show="posttoproperties" class="panel-section">
-Post to properties
+   
+    <form ng-controller="DashboardCtrl" name="property_form">
+         {% csrf_token %}
+        {{property_form.as_p}}
+        <br/>
+        <button ng-click="postProperty()" class="btn-primary">Post</button>
+    </form>
 </div>
 <div id="diary-form"  ng-show="posttodiary" class="panel-section">
 Write note to diary

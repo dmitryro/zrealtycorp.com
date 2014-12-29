@@ -10,7 +10,7 @@ from utils.forms import MemberLoginForm
 from utils.forms import MemberForm
 from property.forms import SearchForm
 from icon.models import ActionIcon
-from forms import MessageForm
+from forms import MessageForm, PropertyForm, ThreadForm, PostForm
 
 class DashboardViewMixin(object):
 
@@ -18,9 +18,13 @@ class DashboardViewMixin(object):
         context = super(DashboardViewMixin,
                   self).get_context_data(**kwargs)
         member_form = MemberForm()
+        thread_form = ThreadForm()
+        post_form = PostForm()
         user = HttpRequest.user
         context['user'] = user
         context['member_form'] = member_form
+        context['thread_form'] = thread_form
+        context['post_form'] = post_form
         context['form'] = MessageForm()
         post_action = ActionIcon.objects.get(action_id=1)
         context['post_action'] = post_action
@@ -38,8 +42,7 @@ class DashboardLogoutViewMixin(object):
         context['property_form'] = sform
         return context
 
-
-class DashboardView(LoginRequiredMixin, DashboardViewMixin, TemplateView):
+class DashboardView(LoginRequiredMixin,DashboardViewMixin, TemplateView):
     template_name = "dashboard.html"
     
     def get(self, request):
@@ -49,8 +52,11 @@ class DashboardView(LoginRequiredMixin, DashboardViewMixin, TemplateView):
             return render_to_response('signin.html', c, context_instance=RequestContext(request)) 
 
         message_form = MessageForm()
-
-        return render(request, 'dashboard.html',{'message_form': message_form })
+        property_form = PropertyForm()
+        thread_form = ThreadForm() 
+        return render(request, 'dashboard.html',{'message_form': message_form,
+                                                 'property_form': property_form,
+                                                  'thread_form': thread_form})
 
 
 class DashboardLogoutView(LoginRequiredMixin, DashboardLogoutViewMixin, TemplateView):
@@ -60,4 +66,5 @@ class DashboardLogoutView(LoginRequiredMixin, DashboardLogoutViewMixin, Template
         logout(request)
         form = MemberLoginForm()
         return render(request,'signin.html',{'member_login_form':form})
+
 

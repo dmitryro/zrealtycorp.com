@@ -2,6 +2,7 @@
 Created on Jul 6, 2014
 @author: Dmitry Roitman
 """
+
 import django_filters
 import smtplib
 from django.contrib import messages
@@ -39,8 +40,71 @@ from property.views import JSONResponse
 from metaprop.models import ProfileMetaProp
 from models import UserProfile
 from utils.models import Member
+from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, permission_required
+from periodically.decorators import *
 
 register = template.Library()
+
+@every(minutes=5)
+def send_email_task():
+        id = 1
+        name = 'ZRealty System'
+        email = 'dmitryro@gmail.com'
+        phone = '718 404 6471'
+        title = 'System health check'
+        mess = 'We are still up and running'
+
+
+        profile = ProfileMetaProp.objects.get(pk=1)
+        FROM = profile.email
+        TO = profile.email
+        USER = profile.user_name
+        PASSWORD = profile.password
+        PORT = profile.smtp_port
+        SERVER = profile.smtp_server
+
+
+        BODY='<html><body><strong>ID</strong> %s'%id
+        BODY+='</strong><br/><strong>TITLE</strong> %s'%title
+        BODY+='</strong><br/><strong>NAME</strong> %s'%name
+        BODY+='</strong><br/><strong>EMAIL</strong> %s'%email
+        BODY+='</strong><br/><strong>PHONE</strong> %s'%phone
+        BODY+='</strong><br/><strong>MESSAGE</strong> %s'%mess
+        BODY+='</strong></body></html>'
+
+        SUBJECT = 'ZRealtyCorp Inquiry %s'%id
+        message = 'Subject: %s\n\n%s' % (SUBJECT, BODY)
+
+
+        MESSAGE = MIMEMultipart('alternative')
+        MESSAGE['subject'] = SUBJECT
+        MESSAGE['To'] = TO
+        MESSAGE['From'] = FROM
+        MESSAGE.preamble = """
+            Your mail reader does not support the report format.
+            Please visit us <a href="http://www.mysite.com">online</a>!"""
+
+        HTML_BODY  = MIMEText(BODY.encode('utf-8'), 'html','utf-8')
+
+
+    # Attach parts into message container.
+    # According to RFC 2046, the last part of a multipart message, in this case
+    # the HTML message, is best and preferred.
+        MESSAGE.attach(HTML_BODY)
+
+        msg = MESSAGE.as_string()
+
+        server = smtplib.SMTP(SERVER+':'+PORT)
+        server.ehlo()
+        server.starttls()
+        server.login(USER,PASSWORD)
+        server.sendmail(FROM, TO, msg)
+        server.quit()
+
+    
 
 class UserProfileList(APIView):
     """
@@ -104,6 +168,7 @@ class SearchView(SearchViewMixin, Endpoint):
     def post(self, request):
         name = 'test'
         return {'message': 'Hello, %s!' % name}  
+
 
 
 class EmailView(Endpoint):
@@ -503,7 +568,6 @@ def google_authenticate(request):
 """
 Forced Log In  
 """
-
 def login_force(request, hash):
     user = authenticate(hash=hash)
     if user:
@@ -512,4 +576,12 @@ def login_force(request, hash):
     else:
         return user_not_found_bad_hash_message    
 
+"""
+Verify
+"""
+#@method_decorator(login_required)
+def google_force(request,token=None):
+   if request.user.is_anonymous() or not  request.user.is_authenticated():
+       return HttpResponseRedirect('/signin')      
+   return HttpResponseRedirect('/dashboard')
 
