@@ -14,10 +14,14 @@
 
     <div style="margin-bottom:20px;">
      <a href="#" style="font-weight:bold;text-transorm:capitalize;">{{ post.author }}</a> &nbsp;<span style="font-weight:bold;text-transorm:capitalize;"> {{ post.title }} </span> &nbsp; {{ post.published }}
-     <a href="{{ post.link }}">{{ post.link }}</a> <br/> 
+     <a href="{{ post.link }}">{{ post.link }}</a> 
+     <br/> 
      {{ post.post }}
       <br/> 
-      <span style="font-weight:normal;color:#000000;text-transorm:capitalize;"><a href="#">Comments({{ post.counter}})</a></span>
+      <span style="font-weight:normal;color:#000000;text-transform:capitalize;"><a href="#">Comments({{ post.counter}})</a></span>
+| <span style="font-weight:normal;color:#000000;text-transform:capitalize;"><a href="#">Add a comment</a></span>
+| 
+<span style="font-weight:normal;color:#000000;text-transform:capitalize;"><a href="http://zrealtycorp.com/rss">RSS</a></span>
     </div>
     
     {% endfor %}

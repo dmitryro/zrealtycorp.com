@@ -12,16 +12,57 @@ function DashboardCtrl($scope,$http) {
     $scope.togglenotfound = false;
     $scope.memberprofile = false;
     $scope.memberpanel = true; 
+    $scope.isposted = false;
+    $scope.notposted = false;
  
-    $scope.postToBlog = function(user) {
+
+    $scope.postToBlog = function(post) {
         $scope.posttoblog = true;
         $scope.memberprofile = false;
         $scope.posttoproperties = false;
         $scope.privatemessage = false;  
-        $scope.posttodiary = false;
-        $scope.memberpanel = false;
+        $scope.isposted = false;
+        $scope.notposted = false;
     };
 
+    $scope.publishBlog = function(post) {
+
+        var published = 'time';
+        var valid = true;
+        var parameters = 'published='+published+'&author='+post.author+'&title='+post.title+'&link='+post.link+'&message='+post.message;
+        var post_url = 'http://zrealtycorp.com/postblog?'+parameters;
+
+        if  (post.title==undefined || post.title.length<=0) {
+            valid = false;
+        }
+
+        if  (post.message==undefined || post.message.length<=0) {
+            valid = false;
+        }
+
+       
+ 
+        if  (valid==true){
+            $scope.isposted = true;
+            $scope.notposted = false;
+            $scope.post.title = '';
+            $scope.post.link = '';
+            $scope.post.message = '';
+
+            $http.get(post_url).
+                       success(function(data) {
+            }).error(function(data) {
+            });
+
+        }
+
+        else  {
+            $scope.isposted = false;
+            $scope.notposted = true;
+        }
+
+
+    };
     $scope.editProfile = function(user) {
         $scope.posttoblog = false;
         $scope.memberprofile = true;
@@ -1097,3 +1138,29 @@ function SortCtrl($scope) {
    };
 }
 
+function getDateTime() {
+    var now     = new Date(); 
+    var year    = now.getFullYear();
+    var month   = now.getMonth()+1; 
+    var day     = now.getDate();
+    var hour    = now.getHours();
+    var minute  = now.getMinutes();
+    var second  = now.getSeconds(); 
+    if(month.toString().length == 1) {
+        var month = '0'+month;
+    }
+    if(day.toString().length == 1) {
+        var day = '0'+day;
+    }   
+    if(hour.toString().length == 1) {
+        var hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+        var minute = '0'+minute;
+    }
+    if(second.toString().length == 1) {
+        var second = '0'+second;
+    }   
+    var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;   
+     return dateTime;
+}
