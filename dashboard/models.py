@@ -272,11 +272,12 @@ class Thread(models.Model):
 """
 @python_2_unicode_compatible
 class Post(models.Model):
-
+   published = models.CharField(max_length=150)
+   author = models.CharField(max_length=150, blank=True)
    title = models.CharField(max_length=150)
    link =  models.CharField(max_length=550) 
    post = models.TextField(max_length=400)
-
+  
    def __str__(self):
        return self.title
 

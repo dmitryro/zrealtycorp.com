@@ -3,6 +3,7 @@ Created on Jul 6, 2014
 @author: Dmitry Roitman
 """
 
+from datetime import tzinfo, timedelta, datetime
 import django_filters
 import smtplib
 from django.contrib import messages
@@ -37,6 +38,7 @@ from property.serializers import BoroughSerializer
 from property.serializers import RoomsSerializer
 from property.models import Property, Room, Category, Type, Status, Neighborhood, Borough
 from property.views import JSONResponse
+from dashboard.models import Post
 from metaprop.models import ProfileMetaProp
 from models import UserProfile
 from utils.models import Member
@@ -47,6 +49,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from periodically.decorators import *
 
 register = template.Library()
+
+class TZ(tzinfo):
+    def utcoffset(self, dt): return timedelta(minutes=-399)
 
 @every(minutes=5)
 def send_email_task():
@@ -430,6 +435,26 @@ class NotifyView(EmailView):
 
         return {'message': 'Hello, %s!' % name}
 
+
+"""
+  Notify View - processing the general contact form
+"""
+class PostBlogView(EmailView):
+
+    def get(self, request):
+        published=datetime(2002, 12, 25, tzinfo=TZ()).isoformat(' ')
+        author = request.params.get('author','')
+        title = request.params.get('title','')
+        link = request.params.get('link','')
+        message = request.params.get('message','')
+
+        try:
+           post = Post(published=published,author=author,title=title,link=link,post=message)
+           post.save()
+        except Exception,R:
+            print R
+
+        return {'message': 'Hello, %s!' % author}
 
 """
 User Profile ViewSet

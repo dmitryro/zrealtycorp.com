@@ -108,6 +108,7 @@ INSTALLED_APPS = (
     'braces',
     'corsheaders',
     'coffeescript',
+    'clear_cache',
     'celery_schedulers',
     'crispy_forms',
     'debug_toolbar',

@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+{% load url from future %}
 {% load imagekit %}
 {% load pagination_tags %}
-
+{% load socialaccount %}
+{% load account %}
 {% block title %}Sign In{% endblock %}
 
 {% block content %}
@@ -19,7 +21,6 @@
            {% csrf_token %}
           {{ member_login_form }}
  <div class="clearfix"></div>
-
 
  <div class="well-login-social">
     <div class="well-login-social-icon-first">

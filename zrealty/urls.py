@@ -13,6 +13,7 @@ from property.views import SearchFormView
 from property.views import SalesList, RentList
 from dashboard.views import DashboardView
 from dashboard.views import DashboardLogoutView
+from dashboard.views import DashboardPostView
 from utils.views import MemberLoginView
 from utils.views import MemberSignupView
 from utils.views import DirectTemplateView
@@ -100,6 +101,7 @@ urlpatterns = patterns('',
     url(r'^post/$', views.EmailView.as_view()), #this endpoint is used to send emails
     url(r'^notifynew/$', views.NotifyView.as_view()), #this endpoint is used to send emails
     url(r'^activatenew/$', views.ActivateView.as_view()), #this endpoint is used to send emails
+    url(r'^postblog/$', views.PostBlogView.as_view()), #this endpoint is used to send emails
     url(r'^rules/', include('rules_light.urls')),
     url(r'^sale/', SalesView.as_view()),
     url(r'^sales/', SalesView.as_view()),

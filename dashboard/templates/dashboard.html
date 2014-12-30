@@ -21,17 +21,69 @@
 <div id="member-panel"  ng-show="memberpanel" class="panel-section">&nbsp;
 </div>
 <div id="blog-form"  ng-show="posttoblog" class="panel-section">
+  
+        <form  methond="post" ng-controller="DashboardCtrl"  name="post_form" id="post-form">
+             <input name="author" id="author" ng-model="post.author" type="hidden" value="{{ user.username }}" />
+             <input name="published" id="published" ng-model="post.published" type="hidden" value="" />
+            {% csrf_token %}
+           <div  class="dashboard-profile-row">
+            <div class="dashboard-profile-titles"><span>&nbsp;&nbsp;</span></div>
+            <div class="dashboard-profile-fields"  style="width:30%;height:2.0em;"> 
+                         <div id="success-message" ng-show="isposted">
+                           <p  ng-animate="{show: 'fade'}">Your message has been posted.</p>
+                         </div>
+                         <div id="failure-message" ng-show="notposted">
+                           <p ng-animate="{show: 'fade'}">Please fill in all the fields.</p>
+                        </div>
 
-<form ng-controller="DashboardCtrl" name="post_form">
-     {% csrf_token %}
-    {{post_form.as_p}}
-    <br/>
-    <button ng-click="submit()" class="btn-primary">Send</button>
-</form>
+            </div>
+           </div>
+           <div class="clearfix"></div>
+           <div  class="dashboard-profile-row">
+            <div class="dashboard-profile-titles" > Author </div>
+            <div class="dashboard-profile-fields" style="width:30%;height:2.0em;"> {{ user.username }}</div>
+             
+           </div>
+           <div class="clearfix"></div>
+
+
+           <div  class="dashboard-profile-row">
+            <div class="dashboard-profile-titles"> Title </div>
+            <div class="dashboard-profile-fields"> <input name="title" ng-model="post.title" type="text" value="" style="width:30%;" /></div>
+           </div>
+           <div class="clearfix"></div>
+
+           <div class="clearfix"></div>
+           <div  class="dashboard-profile-row">
+            <div class="dashboard-profile-titles">  Link </div>
+            <div class="dashboard-profile-fields">  <input name="link" ng-model="post.link" type="text" value="" style="width:30%;" /></div>
+           </div>
+
+           <div class="clearfix"></div>
+
+           <div class="dashboard-profile-row">
+             <div class="dashboard-profile-titles"> Post </div>
+             <div class="dashboard-profile-fields" style="min-height:4.0em;"> 
+                 <textarea  msd-elastic id="message" name="message" ng-model="post.message" value=""  style="width:30%;min-height:140px;" > 
+                 </textarea>
+             </div>
+           </div>
+
+           <div class="clearfix"></div>
+           <div class="dashboard-profile-row">
+             <div class="dashboard-profile-titles">&nbsp;&nbsp;</div>
+             <div class="dashboard-profile-fields" style="margin-top:1.2em;"> 
+               <input type="submit" id="post-submit" class="SignupForm-submit btn primary-btn" value="Publish" ng-click="publishBlog(post)" />             
+             </div>
+           </div>
+           {% csrf_token %}
+          </form>
+
+          <div class="clearfix"></div>
+
 
 </div>
 <div id="member-form"  ng-show="memberprofile" class="panel-section">
-          <h3>Edit Profile</h3>
           <form  methond="post"  name="member_form" id="member-form"  ng-submit=""  novalidate> 
            <div class="dashboard-profile-row">
                 <div class="dashboard-profile-titles"> User Name</div>
