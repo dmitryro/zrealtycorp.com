@@ -25,10 +25,28 @@ from braces import views
 from braces.views import AnonymousRequiredMixin
 from property.models import Property
 from agent.models import Agent
+from dashboard.models import Post
 from property.forms import SearchForm
 from forms import ContactForm
 from forms import ContactModelForm
 from models import MaintenancePage
+
+"""
+Blog View Mixing
+"""
+
+class BlogViewMixin(object):
+    def get_context_data(self,**kwargs):
+        posts = Post.objects.all()
+        context = super(BlogViewMixin,
+                  self).get_context_data(**kwargs)
+        form =  SearchForm()
+        page_size = settings.PAGING_PAGE_SIZE
+        context["results_per_page"] = page_size
+        context['is_paginated'] = True
+        context['property_form'] = form
+        context['blog_posts'] = posts
+        return context
 
 
 """
@@ -183,19 +201,6 @@ class AgentViewMixin(object):
 
 
 """
-  Blog View Mixin
-"""
-class BlogViewMixin(object):
-    def get_context_data(self,**kwargs):
-        context = super(BlogViewMixin,
-                  self).get_context_data(**kwargs)
-        form =  SearchForm()
-        context['property_form'] = form
-
-        return context
-
-
-"""
   About View Mixin
 """
 class AboutViewMixin(object):
@@ -276,10 +281,8 @@ class RentView(RentViewMixin, TemplateView):
 class FeaturedView(FeaturedViewMixin, TemplateView):
             template_name = "featured.html"
 
-
 class SalesView(SalesViewMixin, TemplateView):
             template_name = "sales.html"
-
 
 class AboutView(AboutViewMixin,TemplateView):
 	    template_name = "about.html"
@@ -295,7 +298,6 @@ class BlogView(BlogViewMixin, TemplateView):
 
 class PropertyDetailView(PropertyDetailViewMixin, TemplateView):
     template_name = "details.html"
-
 
 class SearchFormView(SearchViewMixin,TemplateView):
     template_name = 'search.html'

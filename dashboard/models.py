@@ -277,7 +277,8 @@ class Post(models.Model):
    title = models.CharField(max_length=150)
    link =  models.CharField(max_length=550) 
    post = models.TextField(max_length=400)
-  
+   counter = models.IntegerField(default=0) 
+
    def __str__(self):
        return self.title
 
@@ -287,3 +288,24 @@ class Post(models.Model):
    class Meta:
        verbose_name_plural=u'Posts'
  
+
+"""
+  Add comment to the post
+"""
+@python_2_unicode_compatible
+class Comment(models.Model):
+   post = models.ForeignKey(Post)
+   author = models.CharField(max_length=150, blank=True)
+   link =  models.CharField(max_length=550, blank=True)
+   comment = models.TextField(max_length=1400)
+
+   def __str__(self):
+       return self.post.title
+
+   def __unicode__(self):
+       return self.post.title
+
+   class Meta:
+       verbose_name_plural=u'Comments'
+
+

@@ -1,12 +1,29 @@
 {% extends 'base.html' %}
 {% load pages_extras %}
 {% load metaprop_extras %}
+{% load imagekit %}
+{% load pagination_tags %}
 {% block title %}Post with us {% endblock %}
 
 
 {% block content %}
 <h1>Recent Posts</h1>
+{% autopaginate blog_posts 10 %}
+{% if blog_posts %}
+    {% for post in blog_posts %}
 
+    <div style="margin-bottom:20px;">
+     <a href="#" style="font-weight:bold;text-transorm:capitalize;">{{ post.author }}</a> &nbsp;<span style="font-weight:bold;text-transorm:capitalize;"> {{ post.title }} </span> &nbsp; {{ post.published }}
+     <a href="{{ post.link }}">{{ post.link }}</a> <br/> 
+     {{ post.post }}
+      <br/> 
+      <span style="font-weight:normal;color:#000000;text-transorm:capitalize;"><a href="#">Comments({{ post.counter}})</a></span>
+    </div>
+    
+    {% endfor %}
+
+{% endif %}
+{% paginate %}
 
 {% endblock %}
 
