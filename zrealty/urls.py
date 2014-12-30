@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from django.views.generic import RedirectView
 from rest_framework import viewsets, routers
 from tastypie.api import Api
-from feeds.feeds import RssSiteNewsFeed, AtomSiteNewsFeed
+from feeds.feeds import RssSiteNewsFeed, AtomSiteNewsFeed, RssPostsFeed
 from ajax_select import urls as ajax_select_urls
 from property.views import PropertyListView
 from property.views import PropertyView
@@ -13,7 +13,6 @@ from property.views import SearchFormView
 from property.views import SalesList, RentList
 from dashboard.views import DashboardView
 from dashboard.views import DashboardLogoutView
-from dashboard.views import DashboardPostView
 from utils.views import MemberLoginView
 from utils.views import MemberSignupView
 from utils.views import DirectTemplateView
@@ -76,6 +75,7 @@ rules_light.registry['api.models.UserProfile.read'] = True
 
 feeds = {
     'rss': RssSiteNewsFeed,
+    'feeds': RssPostsFeed,
     'atom': AtomSiteNewsFeed,
 }
 
@@ -116,6 +116,7 @@ urlpatterns = patterns('',
     url(r'^logout/',DashboardLogoutView.as_view()),
     url(r'^search/', views.SearchView.as_view()),
     url(r'^rss/', RssSiteNewsFeed()),
+    url(r'^feeds/', RssPostsFeed()),
     url(r'^atom/', AtomSiteNewsFeed()),
     url(r'^signup/',MemberSignupView.as_view()),
     url(r'^signin/',MemberLoginView.as_view()), 
