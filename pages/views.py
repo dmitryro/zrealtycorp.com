@@ -29,8 +29,24 @@ from dashboard.models import Post
 from property.forms import SearchForm
 from forms import ContactForm
 from forms import ContactModelForm
+from forms import CommentPartialForm
+from forms import CommentFullForm
 from models import MaintenancePage
 
+
+"""
+Comment View Mixing
+"""
+
+class CommentViewMixin(object):
+    def get_context_data(self,**kwargs):
+        context = super(BlogViewMixin,
+                  self).get_context_data(**kwargs)
+        form =  SearchForm()
+        page_size = settings.PAGING_PAGE_SIZE
+        context['property_form'] = form
+        return context
+   
 """
 Blog View Mixing
 """
@@ -295,6 +311,50 @@ class RssView(RssViewMixin, TemplateView):
 
 class BlogView(BlogViewMixin, TemplateView):
             template_name = "blog.html"
+
+class CommentView(CommentViewMixin, TemplateView):
+            template_name = "comment.html"
+
+"""
+Add Comment
+"""
+def add_comment(request):
+    layout = request.GET.get('layout')
+    user = request.user
+    post_id = request.GET.get('post_id')
+  
+    try:
+        post = Post.objects.get(id=post_id)
+    except:
+        pass
+
+    if  user.is_authenticated():
+       pass
+    else:
+       comment_form = CommentFullForm()
+
+    if not layout:
+        layout = 'vertical'
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        form.is_valid()
+        if(form.is_valid()):
+            messages.success(request, 'Your message hass been successfully sent.')
+    else:
+        form = ContactForm()
+        modelform = ContactModelForm()
+    return render_to_response('comment.html', RequestContext(request, {
+        'form': form,
+        'post_id': post.id,
+        'post_title': post.title,
+        'post_author': post.author,
+        'post_post': post.post,
+        'post_published': post.published,
+        'username': user.username, 
+        'layout': layout,
+    }))
+
+
 
 class PropertyDetailView(PropertyDetailViewMixin, TemplateView):
     template_name = "details.html"

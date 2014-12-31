@@ -297,6 +297,8 @@ class Comment(models.Model):
    post = models.ForeignKey(Post)
    author = models.CharField(max_length=150, blank=True)
    link =  models.CharField(max_length=550, blank=True)
+   username =  models.CharField(max_length=50, blank=True)
+   password =  models.CharField(max_length=50, blank=True)
    comment = models.TextField(max_length=1400)
 
    def __str__(self):
