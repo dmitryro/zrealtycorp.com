@@ -7,6 +7,12 @@
  * Dashboard Controller - we use it for user operations
  */
 
+function BlogCtrl($scope,$http) {
+     $scope.postComment = function(post) {
+
+     }; 
+}
+
 function DashboardCtrl($scope,$http) {
     $scope.toggleheader = true;
     $scope.togglenotfound = false;

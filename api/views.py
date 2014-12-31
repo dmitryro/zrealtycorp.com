@@ -29,6 +29,8 @@ from rest_framework.response import Response
 from registration_api import utils
 from restless.views import Endpoint
 from serializers import UserProfileSerializer
+from dashboard.serializers import CommentSerializer, ThreadSerializer, PostSerializer
+from dashboard.models import Comment, Post, Thread
 from property.serializers import PropertySerializer
 from property.serializers import CategorySerializer
 from property.serializers import StatusSerializer
@@ -500,6 +502,36 @@ class RoomsViewSet(viewsets.ModelViewSet):
     """
     queryset = Room.objects.all()
     serializer_class = RoomsSerializer
+
+"""
+Post ViewSet
+"""
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows categories to be viewed or edited.
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+"""
+Comment ViewSet
+"""
+class CommentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows categories to be viewed or edited.
+    """
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+"""
+Thread ViewSet
+"""
+class ThreadViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows categories to be viewed or edited.
+    """
+    queryset = Thread.objects.all()
+    serializer_class = ThreadSerializer
 
 
 """

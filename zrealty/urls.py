@@ -13,6 +13,7 @@ from property.views import SearchFormView
 from property.views import SalesList, RentList
 from dashboard.views import DashboardView
 from dashboard.views import DashboardLogoutView
+from dashboard.models import Post, Thread, Property, Comment
 from utils.views import MemberLoginView
 from utils.views import MemberSignupView
 from utils.views import DirectTemplateView
@@ -53,6 +54,7 @@ class MemberViewSet(viewsets.ModelViewSet):
 
 
 
+
 # Routers provide an easy way of automatically determining the URL conf
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -66,6 +68,10 @@ router.register(r'neighborhoods',views.NeighborhoodViewSet)
 router.register(r'boroughs',views.BoroughViewSet)
 router.register(r'rooms',views.RoomsViewSet)
 router.register(r'profiles',views.UserProfileViewSet)
+router.register(r'posts', views.PostViewSet)
+router.register(r'threads', views.ThreadViewSet)
+router.register(r'comments', views.CommentViewSet)
+
 
 rules_light.autodiscover()
 autocomplete_light.autodiscover()
