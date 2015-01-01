@@ -29,7 +29,7 @@ from rest_framework.response import Response
 from registration_api import utils
 from restless.views import Endpoint
 from serializers import UserProfileSerializer
-from dashboard.serializers import CommentSerializer, ThreadSerializer, PostSerializer
+from dashboard.serializers import CommentSerializer, ThreadSerializer, PostSerializer, UserSerializer
 from dashboard.models import Comment, Post, Thread
 from property.serializers import PropertySerializer
 from property.serializers import CategorySerializer
@@ -49,6 +49,10 @@ from django.dispatch import receiver
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, permission_required
 from periodically.decorators import *
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 register = template.Library()
 
@@ -112,6 +116,21 @@ def send_email_task():
         server.quit()
 
     
+class UserList(APIView):
+    """
+    List all snippets, or create a new snippet.
+    """
+    def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserProfileList(APIView):
     """
@@ -592,6 +611,25 @@ class PropertyTypeViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(type=propertytype)
         return queryset
 
+
+"""
+Property of a type ViewSet
+"""
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows property with a type to be viewed or edited.
+    """
+
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        username = self.request.QUERY_PARAMS.get('username',None)
+        if username is not None:
+            queryset = queryset.filter(username=username)
+        return queryset
+
+
 """
 Activate
 """
@@ -641,4 +679,26 @@ def google_force(request,token=None):
    if request.user.is_anonymous() or not  request.user.is_authenticated():
        return HttpResponseRedirect('/signin')      
    return HttpResponseRedirect('/dashboard')
+
+"""
+  Activate View - processing the activation email notification
+"""
+class AuthenticateView(EmailView):
+
+    def get(self, request):
+        # Populate the user credentials
+        username = request.params.get('username','')
+        password = request.params.get('password','')
+
+
+        try:
+            user = User.objects.get(username=username)
+            if user.password == password:
+                return {'message': 'Authenticated'}
+            else:
+                return {'message': 'Invalid user %s!' % username}              
+        except:
+            return {'message': 'Invalid user %s!' % username}
+
+
 

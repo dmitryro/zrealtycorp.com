@@ -13,11 +13,16 @@ from rest_framework import generics
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User, AbstractUser
 from rest_framework.authtoken.models import Token
-from forms import MemberLoginForm, MemberForm
+from django.core.urlresolvers import reverse
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic.base import View
+#from social.views import complete 
 from property.forms import SearchForm
 from serializers import UserSerializer, MemberSerializer
 from models import Member
-
+from property.forms import SearchForm
+from forms import MemberLoginForm, MemberForm
 
 for user in User.objects.all():
     Token.objects.get_or_create(user=user)

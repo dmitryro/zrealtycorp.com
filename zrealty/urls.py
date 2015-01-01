@@ -32,7 +32,7 @@ from pages.views import AgentView
 from pages.views import RssView
 from api import views
 from tastypie.api import Api
-from api.api import ProfileResource
+from api.api import ProfileResource,UserResource
 import rest_auth
 import rules_light
 import autocomplete_light
@@ -42,9 +42,8 @@ import podcast
 
 v1_api = Api(api_name='v1')
 v1_api.register(ProfileResource())
+v1_api.register(UserResource())
 # ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    model = User
 
 class GroupViewSet(viewsets.ModelViewSet):
     model = Group
@@ -57,7 +56,6 @@ class MemberViewSet(viewsets.ModelViewSet):
 
 # Routers provide an easy way of automatically determining the URL conf
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
 router.register(r'members', MemberViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'properties',views.PropertyViewSet)
@@ -132,8 +130,13 @@ urlpatterns = patterns('',
     url(r'^properties/(?P<type_id>[0-9a-zA-Z_-]+)/$',PropertyListView.as_view(),
         name='property_type_list'
     ),
+    url(r'^users/(?P<username>[0-9a-zA-Z_-]+)/$',views.UserList.as_view(),
+        name='user_list'
+    ),
+
     url(r'^saleslist/$',SalesList.as_view()),
     url(r'^rentlist/$',RentList.as_view()),
+    url(r'^users/$',views.UserList.as_view()),
     url(r'^property/(?P<property_id>[0-9]+)', PropertyDetailView.as_view(),
         name='property_detail'
     ),
@@ -147,6 +150,10 @@ urlpatterns = patterns('',
     }
     )),
     url(r'^profiles/(?P<username>.+)/$', views.UserProfileViewSet.as_view({
+      'get': 'list'
+    }
+    )),
+    url(r'^users/(?P<username>.+)/$', views.UserViewSet.as_view({
       'get': 'list'
     }
     )),

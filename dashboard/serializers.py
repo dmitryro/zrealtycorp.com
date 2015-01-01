@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User, AbstractUser
 from rest_framework import serializers
 from dashboard.models import Post, Thread, Comment, Property
 
@@ -71,4 +72,42 @@ class PropertySerializer(serializers.Serializer):
             instance.property = attrs.get('property', instance.property)
             return instance
         return Property(**attrs)
+
+class UserSerializer(serializers.ModelSerializer):
+    id = serializers.Field()
+    username = serializers.CharField(max_length=150,read_only=True)
+    password = serializers.CharField(max_length=150,read_only=True)
+    email = serializers.EmailField(max_length=150,read_only=True)
+    first_name = serializers.CharField(max_length=500,read_only=True)
+    last_name = serializers.CharField(max_length=300,read_only=True)
+
+    class Meta:
+        model = User
+        fields = []
+
+    def update(self, instance, validated_data):
+        if instance:
+            instance.username= validated_data.get('username', instance.username)
+            instance.password = validated_data.get('password', instance.password)
+            instance.email = validated_data.get('email', instance.email)
+            instance.last_name = validated_data.get('last_name', instance.last_name)
+            instance.first_name = validated_data.get('first_name', instance.first_name)
+            instance.id = validated_data.get('id', instance.id)
+            instance.save()
+            return instance
+        return User(**attrs)
+
+    def create(self, validated_data):
+        return User.objects.create(**validated_data)
+
+    def to_representation(self, instance):
+        if instance:
+           ret = super(UserSerializer, self).to_representation(self)
+           ret['id']= instance.id
+           ret['username']= instance.username
+           ret['password']= instance.password
+           ret['email']= instance.email
+           ret['first_name']= instance.first_name
+           ret['last_name']= instance.last_name
+           return ret
 

@@ -8,22 +8,35 @@
  */
 
 function BlogCtrl($scope,$http,$rootScope) {
+     $scope.toggleheader = true;
+     $scope.togglenotfound = false;
+     $scope.memberprofile = false;
+     $scope.memberpanel = true;
+     $scope.isposted = false;
+     $scope.notposted = false;
+
 
      $scope.showcomment=true;
-     $scope.displayForm = function(post) {
 
-         $scope.showcomment=true;
-         $scope.authenticated=post.authenticated;
+     $scope.displayForm = function(post) {
+         $rootScope.showcomment=true;
+         $rootScope.authenticated=post.authenticated;
          $rootScope.username = post.username;
          $rootScope.title = post.title;
          $rootScope.author = post.author;
-        
+         $rootScope.postid = post.id; 
+         $scope.message = "";
+         $rootScope.authenticated = false;
+         $rootScope.unauthenticated = false;
+         $scope.unauthenticated = false;
+
          if(post.username=='anonymous')  {
              document.getElementById("comment.username").value='';   
              document.getElementById("comment.username").style.display='block';
              document.getElementById("comment.username").style.visible='true';
              document.getElementById("password-row").style.display='block';
              $rootScope.username = '';
+             $rootScope.isauthenticated = false;
          }
          else {
              document.getElementById("comment.username").style.display='none';
@@ -34,17 +47,66 @@ function BlogCtrl($scope,$http,$rootScope) {
 
              document.getElementById("password-row").style.display='none';
              $rootScope.username =  post.username;
+             $rootScope.isauthenticated = true;
          }
          document.getElementById("comment-form").style.display='block';
          document.getElementById("comment-form").style.visible='true';
      };
      
-     $scope.postComment = function(post) {
-
-     }; 
      $scope.cleanForm = function() {
+           document.getElementById("login-success-message").style.display='none';
+           document.getElementById("login-failure-message").style.display='none';   
            document.getElementById("comment-form").style.display='none';
      };
+
+     $scope.postComment = function(comment) {
+
+           if ($rootScope.isauthenticated==true) {
+                return;
+           }
+
+           if (comment.username == undefined || comment.password == undefined)  {
+                     document.getElementById("login-success-message").style.display='none';
+                     document.getElementById("login-failure-message").style.display='block';
+
+                     $scope.authenticated = false;
+                     $scope.unauthenticated = true;
+                     $rootScope.isauthenticated=false;
+                     return;
+           }
+           if  ($rootScope.isauthenticated==false) {
+                var url = 'http://zrealtycorp.com/rest/login/';
+
+                var values = 'username='+comment.username+'&password='+comment.password;
+                $http({
+                     method: 'POST',
+                     url: url,
+                     data: {'usernam':comment.username,'password':comment.password},
+                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function(data) {
+                     alert('this is the case'+data.results);
+                     document.getElementById("login-success-message").style.display='block';
+                     document.getElementById("login-failure-message").style.display='none';
+                     $rootScope.isauthenticated=true;
+                     $scope.authenticated = true;
+                     $scope.unauthenticated = false;
+                }).error(function(data) {
+                     document.getElementById("login-success-message").style.display='none';
+                     document.getElementById("login-failure-message").style.display='block';
+
+                     $scope.authenticated = false;
+                     $scope.unauthenticated = true;
+                });
+
+           }  else {
+                     document.getElementById("login-success-message").style.display='none';
+                     document.getElementById("login-failure-message").style.display='block';
+
+                     $scope.authenticated = false;
+                     $scope.unauthenticated = true;
+           }
+     };
+
 
      $scope.openComment = function() {
            $scope.data = {success:false, show: true, mustclean: true};

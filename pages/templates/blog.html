@@ -26,13 +26,14 @@
        <input type="hidden" name="post.id" ng-model="post.id" value="{{ post.id }}" />
        <input type="hidden" name="post.author" ng-model="post.author" value="{{ post.author }}" /> 
        <input type="hidden" name="post.title" ng-model="post.title" value="{{ post.title }}" />
+       <input type="hidden" name="isauthenticated" value="{$ isauthenticated $}" />
       {% if user.username %}
             <input type="hidden" name="post.username" ng-model="post.username" value="{{ user.username }}" />
-            <input type="hidden" name="post.authenticate" ng-model="post.authenticate" value="false" />
+            <input type="hidden" name="post.authenticated" ng-model="post.authenticated" value="true" />
       {% endif %}
       {% if not user.username %}
             <input type="hidden" name="post.username" ng-model="post.username" value="anonymous" />
-            <input type="hidden" name="post.authenticate" ng-model="post.authenticate" value="true" />
+            <input type="hidden" name="post.authenticated" ng-model="post.authenticated" value="false" />
       {% endif %}
 
       <br/> 
@@ -49,8 +50,7 @@
 
 
 <div id="comment-form" ng-controller="BlogCtrl">
-        {% csrf_token %}
-          <input type="hidden" name="comment.username" ng-model="comment.username" value="{{ user.username }}" />
+<form method="post" action="" ng-submit="postComment(comment)">
           <input type="hidden" name="comment.authnticated" ng-model="comment.authenticated" value="{$ authenticated $}" />
           <div class="contact-form-header">
             <div class="contact-form-header-header">
@@ -60,14 +60,28 @@
               <img src="http://zrealtycorp.com/media/images/icon_close_white.png" />
             </div>
             <div class="clearfix"></div>
-          </div>
+          </div> 
+         <div class="clearfix"></div>
+         <div class="contact-form-row" style="padding-top:0.7em;">   
+             <div class="contact-form-row-left">&nbsp;</div>
+             <div class="contact-form-row-right">
+ 
+                <div id="login-success-message" ng-show="authenticated">
+                    <p  ng-animate="{show: 'fade'}">You're now logged in.</p>
+                </div>
+                <div id="login-failure-message" ng-show="unauthenticated">
+                    <p ng-animate="{show: 'fade'}">Invalid credentials.</p>
+                </div>
+              </div>
+          </div>    
+         
           <div class="clearfix"></div>  
           <div class="contact-form-row">
              <div class="contact-form-row-left">Your username:</div>
              <div class="contact-form-row-right">
 
                     <div class="form-group" ng-class="{'has-error': commentForm.username.$invalid}">
-                      <input type="text" name="comment.username" id="comment.username" placeholder="username" required   ng-model="comment.username" value="{$ username $}" />
+                      <input type="text" name="comment.username" id="comment.username" placeholder="username" required   ng-model="comment.username"  />
                       <span class="help-block" ng-show="commentForm.username.$error.required">Required</span>
                       <div id="comment.username.static" style="font-size:1.3em;">{$ username $}</div> 
                    </div>
@@ -78,9 +92,8 @@
           <div class="contact-form-row" id="password-row">
              <div class="contact-form-row-left">Your password:</div>
              <div class="contact-form-row-right">
-
                     <div class="form-group" ng-class="{'has-error': commentForm.password.$invalid}">
-                      <input type="password" name="comment.password" id="comment.username" placeholder="password" required   ng-model="comment.password" value="{$ password $}" />
+                      <input type="password" name="comment.password" id="comment.password" placeholder="password" required   ng-model="comment.password"  />
                       <span class="help-block" ng-show="commentForm.password.$error.required">Required</span>
                       
                    </div>
@@ -99,17 +112,15 @@
           <div class="contact-form-row" ng-show="showcomment">
              <div class="contact-form-row-left">Your comment:</div>
              <div class="contact-form-row-right">
-                 <textarea  msd-elastic id="message" name="message" ng-model="inquiry.message">
+                 <textarea  msd-elastic id="message" name="message" ng-model="comment.message">
                  </textarea>
            </div>
            <div class="clearfix"></div>  
            <div class="contact-form-row" ng-show="showcomment">
              <div class="contact-form-row-left">&nbsp;&nbsp;</div>
              <div class="contact-form-row-right">
-                    <div id="send" class="contact-form-send" ng-click="submitInquiry(inquiry)">
-
+                    <div id="post-comment" class="contact-form-send" ng-click="postComment(comment)">
                                <img src="http://zrealtycorp.com/media/images/send_on.png" />
-
                     </div>
                      <div class="clearfix"></div>
                </div>
@@ -119,6 +130,7 @@
 
 
           <div class="clearfix"></div>
+</form>
 </div>
 </div>
 {% endblock %}

@@ -924,7 +924,7 @@ box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.75);
        max-width: 100px;
 }
 
-#contact-form {
+#contact-form, #comment-form {
    position:fixed;
    border-radius:5px;
    margin-top:-30%;
@@ -1953,7 +1953,7 @@ button.btn-login, input.btn-login[type="submit"]
     display:none;
 }
 
-#failure-message, #duplicate-user-message, #success-message, #login-failure-message,#login-success-message, #register-failure-message, #register-success-message, #password-failure-message, #activate-success-message {
+#match-failure-message, #failure-message, #duplicate-user-message, #success-message, #login-failure-message,#login-success-message, #register-failure-message, #register-success-message, #password-failure-message, #activate-success-message {
   margin-top:-3%;
 }
 
@@ -1963,7 +1963,7 @@ button.btn-login, input.btn-login[type="submit"]
   font-weight:bold;
 }
 
-#failure-message p,#login-failure-message p, #duplidate-user-message p, #register-failure-message p, #password-failure-message p{
+#match-failure-message p, #failure-message p,#login-failure-message p, #duplidate-user-message p, #register-failure-message p, #password-failure-message p{
   color:red;
   font-size:1.2em;
   font-weight:bold;  
@@ -2138,15 +2138,18 @@ a:hover, a:focus
   color: #369dd6;
   font-weight: normal;
   font-size: 0.93em;
+  min-height: 120%;
 }
 
 #dashboard-form {
   min-height:100%;
   display:block;
+  margin-bottom:1.0em;
 }
 .dashboard-profile-row {
    width: 100%;
    float:top;
+   margin-bottom:1.0em;
 }
 .dashboard-profile-titles {
    float:left;
@@ -2157,4 +2160,8 @@ a:hover, a:focus
 .dashboard-profile-fields {
    float:left;
    width:85%;
+}
+
+.dashboard-profile-fields textarea {
+   min-height: 4.0em;
 }
