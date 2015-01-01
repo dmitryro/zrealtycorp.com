@@ -4,34 +4,36 @@
  */
 
 /**
- * Dashboard Controller - we use it for user operations
+ * Blog Controller - we use it for user blog comments and publishing
  */
 
-function BlogCtrl($scope,$http) {
+function BlogCtrl($scope,$http,$rootScope) {
 
      $scope.showcomment=true;
      $scope.displayForm = function(post) {
-         alert(post.username);
+
          $scope.showcomment=true;
          $scope.authenticated=post.authenticated;
-         $scope.username = post.username;
-         document.getElementById("comment.username").value  = post.username;     
-
+         $rootScope.username = post.username;
+         $rootScope.title = post.title;
+         $rootScope.author = post.author;
+        
          if(post.username=='anonymous')  {
              document.getElementById("comment.username").value='';   
              document.getElementById("comment.username").style.display='block';
              document.getElementById("comment.username").style.visible='true';
              document.getElementById("password-row").style.display='block';
-             $scope.username = '';
+             $rootScope.username = '';
          }
          else {
              document.getElementById("comment.username").style.display='none';
              document.getElementById("comment.username").style.visible='false';
-             $scope.username =  post.username; 
-             document.getElementById("comment.username.static").html = post.username;
+
              document.getElementById("comment.username.static").style.display='block';
              document.getElementById("comment.username.static").style.visible='true';
+
              document.getElementById("password-row").style.display='none';
+             $rootScope.username =  post.username;
          }
          document.getElementById("comment-form").style.display='block';
          document.getElementById("comment-form").style.visible='true';
@@ -49,6 +51,10 @@ function BlogCtrl($scope,$http) {
      };
 
 }
+
+/**
+ *  Dashboard Controller - we use it for user operations
+ */
 
 function DashboardCtrl($scope,$http) {
     $scope.toggleheader = true;

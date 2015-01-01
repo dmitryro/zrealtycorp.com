@@ -10,16 +10,15 @@
 {% block content %}
 
 
-<div ng-controller="BlogCtrl" ng-app="zrealty">
+<div ng-controller="BlogCtrl">
 <h1>Recent Posts</h1>
-<form action="" ng-submit="" novalidate>
 {% autopaginate blog_posts 10 %}
 {% if blog_posts %}
-   {% csrf_token %}
     {% for post in blog_posts %}
-    <form action=""   ng-submit="">
-        {% csrf_token %}
+
     <div style="margin-bottom:30px;padding-top:5px;">
+     <form action="" method="post" novalidate ng-controller="BlogCtrl">
+       {% csrf_token %}
      <a href="#" style="font-weight:bold;text-transorm:capitalize;">{{ post.author }}</a> &nbsp;<span style="font-weight:bold;text-transorm:capitalize;"> {{ post.title }} </span> &nbsp; {{ post.published }}
      <a href="{{ post.link }}">{{ post.link }}</a> 
      <br/> 
@@ -46,14 +45,16 @@
     {% endfor %}
 {% endif %}
 {% paginate %}
-</form>
-<div id="comment-form"  ng-controller="BlogCtrl">
-   {% csrf_token %}
+
+
+
+<div id="comment-form" ng-controller="BlogCtrl">
+        {% csrf_token %}
           <input type="hidden" name="comment.username" ng-model="comment.username" value="{{ user.username }}" />
           <input type="hidden" name="comment.authnticated" ng-model="comment.authenticated" value="{$ authenticated $}" />
           <div class="contact-form-header">
             <div class="contact-form-header-header">
-               Add a comment 
+               Add a comment
             </div>
             <div class="close-form" id="contact-close" ng-click="cleanForm()">
               <img src="http://zrealtycorp.com/media/images/icon_close_white.png" />
@@ -87,8 +88,38 @@
           </div>
           <div class="clearfix"></div>
 
-</div>
+          <div class="contact-form-row" ng-show="showcomment">
+             <div class="contact-form-row-left">Post:</div>
+             <div class="contact-form-row-right">
+                          {$ title $}&nbsp;by&nbsp;{$ author $}
+             </div>
+             <div class="clearfix"></div>
+          </div>
+           <div class="clearfix"></div>
+          <div class="contact-form-row" ng-show="showcomment">
+             <div class="contact-form-row-left">Your comment:</div>
+             <div class="contact-form-row-right">
+                 <textarea  msd-elastic id="message" name="message" ng-model="inquiry.message">
+                 </textarea>
+           </div>
+           <div class="clearfix"></div>  
+           <div class="contact-form-row" ng-show="showcomment">
+             <div class="contact-form-row-left">&nbsp;&nbsp;</div>
+             <div class="contact-form-row-right">
+                    <div id="send" class="contact-form-send" ng-click="submitInquiry(inquiry)">
 
+                               <img src="http://zrealtycorp.com/media/images/send_on.png" />
+
+                    </div>
+                     <div class="clearfix"></div>
+               </div>
+           </div>
+             <div class="clearfix"></div>
+          </div>
+
+
+          <div class="clearfix"></div>
+</div>
 </div>
 {% endblock %}
 
