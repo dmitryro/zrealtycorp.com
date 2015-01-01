@@ -3,31 +3,92 @@
 {% load metaprop_extras %}
 {% load imagekit %}
 {% load pagination_tags %}
+
 {% block title %}Post with us {% endblock %}
 
 
 {% block content %}
+
+
+<div ng-controller="BlogCtrl" ng-app="zrealty">
 <h1>Recent Posts</h1>
+<form action="" ng-submit="" novalidate>
 {% autopaginate blog_posts 10 %}
 {% if blog_posts %}
+   {% csrf_token %}
     {% for post in blog_posts %}
-
+    <form action=""   ng-submit="">
+        {% csrf_token %}
     <div style="margin-bottom:30px;padding-top:5px;">
      <a href="#" style="font-weight:bold;text-transorm:capitalize;">{{ post.author }}</a> &nbsp;<span style="font-weight:bold;text-transorm:capitalize;"> {{ post.title }} </span> &nbsp; {{ post.published }}
      <a href="{{ post.link }}">{{ post.link }}</a> 
      <br/> 
      {{ post.post }}
+       <input type="hidden" name="post.id" ng-model="post.id" value="{{ post.id }}" />
+       <input type="hidden" name="post.author" ng-model="post.author" value="{{ post.author }}" /> 
+       <input type="hidden" name="post.title" ng-model="post.title" value="{{ post.title }}" />
+      {% if user.username %}
+            <input type="hidden" name="post.username" ng-model="post.username" value="{{ user.username }}" />
+            <input type="hidden" name="post.authenticate" ng-model="post.authenticate" value="false" />
+      {% endif %}
+      {% if not user.username %}
+            <input type="hidden" name="post.username" ng-model="post.username" value="anonymous" />
+            <input type="hidden" name="post.authenticate" ng-model="post.authenticate" value="true" />
+      {% endif %}
+
       <br/> 
-      <span style="font-weight:normal;color:#000000;text-transform:capitalize;"><a href="http://zrealtycorp.com/comment?post_id={{ post.id}}">Comments({{ post.counter}})</a></span>
-| <span style="font-weight:normal;color:#000000;text-transform:capitalize;"><a href="#">Add a comment</a></span>
+      <span style="font-weight:normal;color:#000000;text-transform:capitalize;"><a href="http://zrealtycorp.com/comment?post_id={{ post.id}}">Comments({{ post.counter}}) </a></span>
+| <span style="font-weight:normal;color:#000000;text-transform:capitalize;"><a id="add-comment-blog" href="#" ng-click="displayForm(post)">Add a comment</a></span>
 | 
 <span style="font-weight:normal;color:#000000;text-transform:capitalize;"><a href="http://zrealtycorp.com/feeds">RSS</a></span>
     </div>
-    
+    </form>
     {% endfor %}
-
 {% endif %}
 {% paginate %}
+</form>
+<div id="comment-form"  ng-controller="BlogCtrl">
+   {% csrf_token %}
+          <input type="hidden" name="comment.username" ng-model="comment.username" value="{{ user.username }}" />
+          <input type="hidden" name="comment.authnticated" ng-model="comment.authenticated" value="{$ authenticated $}" />
+          <div class="contact-form-header">
+            <div class="contact-form-header-header">
+               Add a comment 
+            </div>
+            <div class="close-form" id="contact-close" ng-click="cleanForm()">
+              <img src="http://zrealtycorp.com/media/images/icon_close_white.png" />
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="clearfix"></div>  
+          <div class="contact-form-row">
+             <div class="contact-form-row-left">Your username:</div>
+             <div class="contact-form-row-right">
 
+                    <div class="form-group" ng-class="{'has-error': commentForm.username.$invalid}">
+                      <input type="text" name="comment.username" id="comment.username" placeholder="username" required   ng-model="comment.username" value="{$ username $}" />
+                      <span class="help-block" ng-show="commentForm.username.$error.required">Required</span>
+                      <div id="comment.username.static" style="font-size:1.3em;">{$ username $}</div> 
+                   </div>
+             </div>
+          </div>   
+          <div class="clearfix"></div>
+
+          <div class="contact-form-row" id="password-row">
+             <div class="contact-form-row-left">Your password:</div>
+             <div class="contact-form-row-right">
+
+                    <div class="form-group" ng-class="{'has-error': commentForm.password.$invalid}">
+                      <input type="password" name="comment.password" id="comment.username" placeholder="password" required   ng-model="comment.password" value="{$ password $}" />
+                      <span class="help-block" ng-show="commentForm.password.$error.required">Required</span>
+                      
+                   </div>
+             </div>
+          </div>
+          <div class="clearfix"></div>
+
+</div>
+
+</div>
 {% endblock %}
 

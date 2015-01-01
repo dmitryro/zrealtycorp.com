@@ -8,9 +8,46 @@
  */
 
 function BlogCtrl($scope,$http) {
+
+     $scope.showcomment=true;
+     $scope.displayForm = function(post) {
+         alert(post.username);
+         $scope.showcomment=true;
+         $scope.authenticated=post.authenticated;
+         $scope.username = post.username;
+         document.getElementById("comment.username").value  = post.username;     
+
+         if(post.username=='anonymous')  {
+             document.getElementById("comment.username").value='';   
+             document.getElementById("comment.username").style.display='block';
+             document.getElementById("comment.username").style.visible='true';
+             document.getElementById("password-row").style.display='block';
+             $scope.username = '';
+         }
+         else {
+             document.getElementById("comment.username").style.display='none';
+             document.getElementById("comment.username").style.visible='false';
+             $scope.username =  post.username; 
+             document.getElementById("comment.username.static").html = post.username;
+             document.getElementById("comment.username.static").style.display='block';
+             document.getElementById("comment.username.static").style.visible='true';
+             document.getElementById("password-row").style.display='none';
+         }
+         document.getElementById("comment-form").style.display='block';
+         document.getElementById("comment-form").style.visible='true';
+     };
+     
      $scope.postComment = function(post) {
 
      }; 
+     $scope.cleanForm = function() {
+           document.getElementById("comment-form").style.display='none';
+     };
+
+     $scope.openComment = function() {
+           $scope.data = {success:false, show: true, mustclean: true};
+     };
+
 }
 
 function DashboardCtrl($scope,$http) {
