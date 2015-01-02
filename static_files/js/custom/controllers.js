@@ -28,7 +28,22 @@ function BlogCtrl($scope,$http,$rootScope) {
          $rootScope.authenticated = false;
          $rootScope.unauthenticated = false;
          $scope.unauthenticated = false;
-         if(post.username=='anonymous' || $rootScope.username==undefined)  {
+
+         if(post.username!='anonymous')  {
+             $rootScope.username = post.username;
+         }
+
+         if(post.username!='anonymous' || !not_set($rootScope.username)) {
+             document.getElementById("comment.username").style.display='none';
+             document.getElementById("comment.username").style.visible='false';
+
+             document.getElementById("comment.username.static").style.display='block';
+             document.getElementById("comment.username.static").style.visible='true';
+
+             document.getElementById("password-row").style.display='none';
+             $rootScope.isauthenticated = true; 
+         }
+         else  {
              document.getElementById("comment.username").value='';   
              document.getElementById("comment.username").style.display='block';
              document.getElementById("comment.username").style.visible='true';
@@ -36,26 +51,6 @@ function BlogCtrl($scope,$http,$rootScope) {
              $rootScope.isauthenticated = false;
          }
           
-         else {
-             document.getElementById("comment.username").style.display='none';
-             document.getElementById("comment.username").style.visible='false';
-
-             document.getElementById("comment.username.static").style.display='block';
-             document.getElementById("comment.username.static").style.visible='true';
-
-             document.getElementById("password-row").style.display='none';
-             $rootScope.isauthenticated = true;
-         }
-         if(!not_set($rootScope.username)) {
-             document.getElementById("comment.username").style.display='none';
-             document.getElementById("comment.username").style.visible='false';
-
-             document.getElementById("comment.username.static").style.display='block';
-             document.getElementById("comment.username.static").style.visible='true';
-
-             document.getElementById("password-row").style.display='none';
-             $rootScope.isauthenticated = true;
-         }
          document.getElementById("comment-form").style.display='block';
          document.getElementById("comment-form").style.visible='true';
      };

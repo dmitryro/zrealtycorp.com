@@ -17,7 +17,7 @@
     {% for post in blog_posts %}
 
     <div style="margin-bottom:30px;padding-top:5px;">
-     <form action="" method="post" novalidate ng-controller="BlogCtrl">
+     <form action="" method="post" ng-controller="BlogCtrl" ng-app="zrealty" novalidate>
        {% csrf_token %}
      <a href="#" style="font-weight:bold;text-transorm:capitalize;">{{ post.author }}</a> &nbsp;<span style="font-weight:bold;text-transorm:capitalize;"> {{ post.title }} </span> &nbsp; {{ post.published }}
      <a href="{{ post.link }}">{{ post.link }}</a> 
@@ -48,9 +48,9 @@
 {% paginate %}
 
 
-
-<div id="comment-form" ng-controller="BlogCtrl">
-<form method="post" action="" ng-submit="postComment(comment)">
+<div id="comment-form" style="margin-top:-50%;">
+<form action="/rest/login/" methond="post" name="member_comment_form" id="member-comment-form"  ng-submit="postComment(comment)" ng-controller="BlogCtrl" ng-app="zrealty"   novalidate>
+{% csrf_token %}
           <input type="hidden" name="comment.authnticated" ng-model="comment.authenticated" value="{$ authenticated $}" />
           <div class="contact-form-header">
             <div class="contact-form-header-header">
@@ -65,13 +65,14 @@
          <div class="contact-form-row" style="padding-top:0.7em;">   
              <div class="contact-form-row-left">&nbsp;</div>
              <div class="contact-form-row-right">
- 
+
                 <div id="login-success-message" ng-show="authenticated">
                     <p  ng-animate="{show: 'fade'}">You're now logged in.</p>
-                </div>
-                <div id="login-failure-message" ng-show="unauthenticated">
+                </div>    
+            <div id="login-failure-message" ng-show="unauthenticated">
                     <p ng-animate="{show: 'fade'}">Invalid credentials.</p>
                 </div>
+
               </div>
           </div>    
          

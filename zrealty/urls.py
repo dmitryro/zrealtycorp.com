@@ -130,13 +130,13 @@ urlpatterns = patterns('',
     url(r'^properties/(?P<type_id>[0-9a-zA-Z_-]+)/$',PropertyListView.as_view(),
         name='property_type_list'
     ),
-    url(r'^users/(?P<username>[0-9a-zA-Z_-]+)/$',views.UserList.as_view(),
-        name='user_list'
-    ),
+   # url(r'^users/(?P<username>[0-9a-zA-Z_-]+)/$',views.UserList.as_view(),
+    #    name='user_list'
+    #),
 
     url(r'^saleslist/$',SalesList.as_view()),
     url(r'^rentlist/$',RentList.as_view()),
-    url(r'^users/$',views.UserList.as_view()),
+    #url(r'^users/$',views.UserList.as_view()),
     url(r'^property/(?P<property_id>[0-9]+)', PropertyDetailView.as_view(),
         name='property_detail'
     ),
@@ -153,10 +153,15 @@ urlpatterns = patterns('',
       'get': 'list'
     }
     )),
-    url(r'^users/(?P<username>.+)/$', views.UserViewSet.as_view({
+#    url(r'^users/(?P<username>.+)/$', views.UserViewSet.as_view({
+ #     'get': 'list'
+ #   }
+ #   )),
+    url(r'^users/$', views.UserViewSet.as_view({
       'get': 'list'
     }
     )),
+    url(r'^authenticate/$',views.AuthView.as_view()),   
     url(r'^admin/lookups/', include(ajax_select_urls)),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
