@@ -106,6 +106,7 @@ urlpatterns = patterns('',
     url(r'^notifynew/$', views.NotifyView.as_view()), #this endpoint is used to send emails
     url(r'^activatenew/$', views.ActivateView.as_view()), #this endpoint is used to send emails
     url(r'^postblog/$', views.PostBlogView.as_view()), #this endpoint is used to send emails
+    url(r'^postcomment/$', views.PostCommentView.as_view()),
     url(r'^rules/', include('rules_light.urls')),
     url(r'^sale/', SalesView.as_view()),
     url(r'^sales/', SalesView.as_view()),

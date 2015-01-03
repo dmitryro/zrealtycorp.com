@@ -25,7 +25,7 @@ from braces import views
 from braces.views import AnonymousRequiredMixin
 from property.models import Property
 from agent.models import Agent
-from dashboard.models import Post
+from dashboard.models import Post, Comment
 from property.forms import SearchForm
 from forms import ContactForm
 from forms import ContactModelForm
@@ -75,7 +75,9 @@ class PropertyDetailViewMixin(object):
         path = str(url)
         id = path[10:len(path)]
         property = Property.objects.get(property_id=id)
-        related = Property.objects.filter(borough=property.borough,neighborhood=property.neighborhood,category=property.category)
+        related = Property.objects.filter(borough=property.borough,
+                                          neighborhood=property.neighborhood,
+                                          category=property.category)
 
         context = super(PropertyDetailViewMixin,
                   self).get_context_data(**kwargs)
@@ -99,6 +101,7 @@ class MaintenanceViewMixin(object):
             pass
 
 class HomeViewMixin(object):
+
     def get_context_data(self,**kwargs):
         properties = Property.objects.all()
         context = super(HomeViewMixin,
@@ -266,11 +269,11 @@ class SearchViewMixin(object):
     def get_context_data(self,**kwargs):
         context = super(SearchViewMixin,
                   self).get_context_data(**kwargs)
-      #  form =  SearchForm()
-      #  context['property_form'] = form
- 
         return context
 
+"""
+Mobile View Mixin
+"""
 class MobileViewMixin(object):
     def get_context_data(self,**kwargs):
         context = super(MobileViewMixin,
@@ -319,14 +322,16 @@ class CommentView(CommentViewMixin, TemplateView):
 Add Comment
 """
 def add_comment(request):
+
     layout = request.GET.get('layout')
     user = request.user
     post_id = request.GET.get('post_id')
-  
+
     try:
         post = Post.objects.get(id=post_id)
+        comments = Comment.objects.filter(post_id=post_id)
     except:
-        pass
+        comments = []
 
     if  user.is_authenticated():
        pass
@@ -352,6 +357,7 @@ def add_comment(request):
         'post_published': post.published,
         'username': user.username, 
         'layout': layout,
+        'post_comments':comments
     }))
 
 

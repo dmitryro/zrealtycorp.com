@@ -25,6 +25,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
+from rest_framework.test import APIClient
 from rest_framework.response import Response
 from registration_api import utils
 from restless.views import Endpoint
@@ -40,7 +41,7 @@ from property.serializers import BoroughSerializer
 from property.serializers import RoomsSerializer
 from property.models import Property, Room, Category, Type, Status, Neighborhood, Borough
 from property.views import JSONResponse
-from dashboard.models import Post
+from dashboard.models import Post, Comment
 from metaprop.models import ProfileMetaProp
 from models import UserProfile
 from utils.models import Member
@@ -463,7 +464,10 @@ class NotifyView(EmailView):
 class PostBlogView(EmailView):
 
     def get(self, request):
-        published=datetime(2002, 12, 25, tzinfo=TZ()).isoformat(' ')
+        year = datetime.date.today().year
+        month = datetime.date.today().month
+        day = datetime.date.today().day
+        published=datetime(year, month, day, tzinfo=TZ()).isoformat(' ')
         author = request.params.get('author','')
         title = request.params.get('title','')
         link = request.params.get('link','')
@@ -472,6 +476,27 @@ class PostBlogView(EmailView):
         try:
            post = Post(published=published,author=author,title=title,link=link,post=message)
            post.save()
+        except Exception,R:
+            print R
+
+        return {'message': 'Hello, %s!' % author}
+
+"""
+  Notify View - processing the general contact form
+"""
+class PostCommentView(EmailView):
+
+    def get(self, request):
+        post_id = request.params.get('post_id','')
+        username = request.params.get('username','')
+        comment = request.params.get('comment','') 
+        try:
+            post = Post.objects.get(id=post_id)
+            counter = post.counter
+            post.counter = counter+1
+            post.save()
+            comt = Comment(post_id=post.id,username=username,comment=comment)
+            comt.save()
         except Exception,R:
             print R
 
@@ -701,4 +726,29 @@ class AuthenticateView(EmailView):
             return {'message': 'Invalid user %s!' % username}
 
 
+class AuthView(Endpoint):
+    def get(self, request):
+        username = request.params.get('username','')
+        password = request.params.get('password','')
+          
+        print password
+        print username
+ 
+        try:         
+            token = Token.objects.get(user__username='root')
+            client = APIClient()
+            client.login(username='root', password='nu45edi')
+           #print user.is_active 
+           #if user is not None:
+            #    if user.is_active:
+                    #login(request, user)
+             #       return {'message': 'Authenticated'}
+            # Redirect to a success page.
+              #  else:
+            return {'message': 'Authenticated'}  
+            # Return a 'disabled account' error message
+         #  else:
+          #      return {'message': 'Invalid user %s!' % username}
 
+        except: 
+            return {'message': 'An error occured'}

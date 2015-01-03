@@ -28,7 +28,7 @@ function BlogCtrl($scope,$http,$rootScope) {
          $rootScope.authenticated = false;
          $rootScope.unauthenticated = false;
          $scope.unauthenticated = false;
-
+        
          if(post.username!='anonymous')  {
              $rootScope.username = post.username;
          }
@@ -62,6 +62,7 @@ function BlogCtrl($scope,$http,$rootScope) {
      };
 
      $scope.postComment = function(comment) {
+
 
            if ($rootScope.isauthenticated==true) {
                      document.getElementById("comment.username").style.display='none';
@@ -103,6 +104,13 @@ function BlogCtrl($scope,$http,$rootScope) {
                      data: values,
                      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
+                     var values = 'post_id='+$rootScope.postid+'&username='+comment.username+'&comment='+comment.message;
+                     var post_url = 'http://zrealtycorp.com/postcomment?'+values;
+                     $http.get(post_url).
+                     success(function(data) {
+                         }).error(function(data) {
+                     });
+
                      document.getElementById("comment.username").style.display='none';
                      document.getElementById("comment.username").style.visible='false';
 
@@ -126,6 +134,8 @@ function BlogCtrl($scope,$http,$rootScope) {
                      $rootScope.isauthenticated=true;
                      $scope.authenticated = true;
                      $scope.unauthenticated = false;
+
+
                 }).error(function(data) {
                      document.getElementById("comment.username").value='';
                      document.getElementById("comment.username").style.display='block';

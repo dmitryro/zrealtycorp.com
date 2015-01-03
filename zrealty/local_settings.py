@@ -377,7 +377,7 @@ GRAPPELLI_INDEX_DASHBOARD = {
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework.authentication.BasicAuthentication',
+#       'rest_framework.authentication.BasicAuthentication',
        'rest_framework.authentication.SessionAuthentication',
        'rest_framework.authentication.TokenAuthentication',
        'rest_framework.authentication.OAuth2Authentication',
@@ -670,12 +670,12 @@ REGISTRATION_API_ACTIVATION_SUCCESS_URL = '/'
 APPEND_SLASH = True
 
 SOCIAL_AUTH_PIPELINE = (
-#  'social_auth.backends.pipeline.social.social_auth_user',
-#  'social_auth.backends.pipeline.associate.associate_by_email',
-#  'social_auth.backends.pipeline.misc.save_status_to_session',
-#  'social_auth.backends.pipeline.social.associate_user',
-#  'social_auth.backends.pipeline.social.load_extra_data',
-#  'social_auth.backends.pipeline.user.update_user_details',
+  'social_auth.backends.pipeline.social.social_auth_user',
+  'social_auth.backends.pipeline.associate.associate_by_email',
+  'social_auth.backends.pipeline.misc.save_status_to_session',
+  'social_auth.backends.pipeline.social.associate_user',
+  'social_auth.backends.pipeline.social.load_extra_data',
+  'social_auth.backends.pipeline.user.update_user_details',
 )
 BROKER_BACKEND                  = "redis"
 BROKER_HOST                     = "localhost"
@@ -704,4 +704,5 @@ PERIODICALLY = {
 }
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 UPLOAD_ROOT = 'images'
-CRISPY_TEMPLATE_PACK = 'uni_form'
+#CRISPY_TEMPLATE_PACK = 'uni_form'
+#TASTYPIE_ABSTRACT_APIKEY = True
