@@ -7,6 +7,7 @@
  * Blog Controller - we use it for user blog comments and publishing
  */
 
+
 function BlogCtrl($scope,$http,$rootScope) {
      $scope.toggleheader = true;
      $scope.togglenotfound = false;
