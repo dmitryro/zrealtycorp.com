@@ -1,0 +1,13 @@
+<div class="container" id="search-area">
+
+<form  name="property_form" id="property-form"  ng-submit="searchProperty()"  novalidate>
+           {% csrf_token %}
+          {{ property_form }}
+
+          <div class="form-search-btn" id="bnt_search"  ng-click="searchProperty()"></div>
+          <div class="clearfix"></div>
+
+          <input type="hidden" id="is_search_open" value="" />
+</form>
+</div>
+
