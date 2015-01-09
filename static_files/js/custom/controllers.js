@@ -17,7 +17,7 @@ function BlogCtrl($scope,$http,$rootScope) {
 
 
      $scope.showcomment=true;
-
+      
      $scope.displayForm = function(post) {
          $rootScope.showcomment=true;
          $rootScope.authenticated=post.authenticated;

@@ -326,6 +326,7 @@ def add_comment(request):
     layout = request.GET.get('layout')
     user = request.user
     post_id = request.GET.get('post_id')
+    property_form =  SearchForm()
 
     try:
         post = Post.objects.get(id=post_id)
@@ -348,8 +349,11 @@ def add_comment(request):
     else:
         form = ContactForm()
         modelform = ContactModelForm()
+  
+    
     return render_to_response('comment.html', RequestContext(request, {
         'form': form,
+        'property_form': property_form,
         'post_id': post.id,
         'post_title': post.title,
         'post_author': post.author,

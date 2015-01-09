@@ -1,8 +1,17 @@
-{% extends 'pages.html' %}
-{% block title %}Post with us {% endblock %}
+{% extends 'base.html' %}
+{% load pages_extras %}
+{% load metaprop_extras %}
+{% load imagekit %}
+{% load pagination_tags %}
+
+{% block title %}Add a comment{% endblock %}
 
 
 {% block content %}
+<div id="thread-wrapper" ng-controller="BlogCtrl" ng-app="zrealty">
+<form action="" method="post" novalidate>
+       {% csrf_token %}
+
 <strong><h4>{{ post_title }}</h4></strong>
 <br/>
 Author:<strong>{{ post_author }}</strong>
@@ -13,11 +22,35 @@ Published:<strong>{{ post_published }}</strong>
 {{ post_post }}
 </p>
 <br/>
+       <input type="hidden" name="post.id" ng-model="post.id" value="{{ post_id }}" />
+       <input type="hidden" name="post.author" ng-model="post.author" value="{{ post_author }}" />
+       <input type="hidden" name="post.title" ng-model="post.title" value="{{ post_title }}" />
+       <input type="hidden" name="isauthenticated" value="{$ isauthenticated $}" />
+      {% if user.username %}
+            <input type="hidden" name="post.username" ng-model="post.username" value="{{ user.username }}" />
+            <input type="hidden" name="post.authenticated" ng-model="post.authenticated" value="true" />
+      {% endif %}
+      {% if not user.username %}
+            <input type="hidden" name="post.username" ng-model="post.username" value="anonymous" />
+            <input type="hidden" name="post.authenticated" ng-model="post.authenticated" value="false" />
+      {% endif %}
 
 <br/>
-<a href="#">Add comment</a> | <a href="http://zrealtycorp.com/feeds">RSS</a>
+<a id="add-comment-comment" href="#" ng-click="displayForm(post)" >Add comment</a> | <a href="http://zrealtycorp.com/feeds">RSS</a>
 <br/><br/>
-
+{% if post_comments %}
+    {% for comment in post_comments %}
+         <div style="margin-bottom:30px;padding-top:5px;">
+            <strong>User:</strong>&nbsp; {{ comment.username }}
+            <strong>Comment:</strong>&nbsp; {{ comment.comment }}
+         </div>
+    {% endfor %}  
+    {% paginate %}
+    <div style="margin-bottom:30px;padding-top:5px;">
+{% endif %}
 <a href="http://zrealtycorp.com/blog">back</a>
+</form>
+</div>
+{% include 'comment_form.html' %}
 {% endblock %}
 
