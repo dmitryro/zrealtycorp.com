@@ -126,8 +126,6 @@
 {% include 'header.html' %}
 {% include 'property_search.html' %}
 {% include 'submenu.html' %}
-
-
 <div id="container" class="container">
 
 
@@ -235,13 +233,13 @@
          <div class="pagination" ng-show="toggle" style="float:left;">
               <ul style="display:inline;">
                <li ng-class="prevPageDisabled()" style="display:inline;">
-                  <a href ng-click="prevPage()">« Prev</a>
+                  <a href ng-click="prevPage()">Â« Prev</a>
                 </li>
                 <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)" style="display:inline;">
                   <a href="#" style="display:inline;">{$ n+1 $}</a>
                 </li>
                 <li ng-class="nextPageDisabled()" style="display:inline;">
-                  <a href ng-click="nextPage()" style="display:inline;">Next »</a>
+                  <a href ng-click="nextPage()" style="display:inline;">Next Â»</a>
                 </li>
               </ul>
             </div>
@@ -259,7 +257,6 @@
 
 
 <div class="clearfix"></div>
-
 
 </div> <!-- content wrapper -->
 
