@@ -126,7 +126,7 @@ Django Rest Framework ENDPOINTS
 * http://zrealtycorp.com/boroughs      - for all boroughs
 * http://zrealtycorp.com/neighborhoods - for all neighborhoods
 * http://zrealtycorp.com/rooms         - for all room types (studio,1BR etc...)
-
+* http://zrealtycorp.com/profiles      - for profiles - http://zrealtycorp.com/profiles/188 will return data for user with id 188
 =====================================================================================================
 This README document is a draft version and is subject to permanent updates.
 The project inteneded to be a searchable Real Estate apartment list.
