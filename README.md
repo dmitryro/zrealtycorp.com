@@ -90,21 +90,23 @@ Models:
 12. Member (dahsboard customer profile)
 
 ======================================================================================================
-STARTING THE APPICLATION
+STARTING THE APPICLATION WITH uwsgi
 ------------------------
 1. Clone the repository into your local server root.
 2. Set up your local nginx to point to your domain's location .
-3. Install django, setuptools, pip and other relevant modules.
-4. Install postgresql version 8 or higher. Make sure your log in creds match what's in zrealty/local_settings.py
-5. Create Django admin superuser by running
+3. Install django, django rest framework, setuptools, pip and other as listed in local_settings.py's
+   INSTALLED_APPS section 
+4. Install uwsgi - pip install uwsgi
+5. Install postgresql version 9 or higher. Make sure your log in creds match what's in zrealty/local_settings.py
+6. Create Django admin superuser by running
    python manage.py createsuperuser
-6. Run
+7. Run
    python manage.py makemigrations    - to generate migrations
    python manage.py migrate           - to migrate your new models
    python manage.py syncdb            - to sync your tables
    python manage.py collectstatic     - to copy your static files
    to set up your local schema and copy the static files.
-9. Run bash start.sh (assuming modifications matching your local configs) 
+8. Run bash start.sh (assuming modifications matching your local configs) 
    or run the following command from the project's root directory:
    
    <br/>
@@ -112,16 +114,18 @@ STARTING THE APPICLATION
    <br/>
 
 
-10. View the current live site at http://zrealtycorp.com
+9. View the current live site at http://zrealtycorp.com
 
 Django Rest Framework ENDPOINTS
 -------------------------------
-* http://zrealtycorp.com/properties - for all properties
-* http://zrealtycorp.com/rentlist   - for rented items
-* http://zrealtycorp.com/saleslist  - for sold items
-* http://zrealtycorp.com/types      - for all types
-
- 
+* http://zrealtycorp.com/properties    - for all properties
+* http://zrealtycorp.com/rentlist      - for rented items
+* http://zrealtycorp.com/saleslist     - for sold items
+* http://zrealtycorp.com/types         - for all types
+* http://zrealtycorp.com/categories    - for all categories
+* http://zrealtycorp.com/boroughs      - for all boroughs
+* http://zrealtycorp.com/neighborhoods - for all neighborhoods
+* http://zrealtycorp.com/rooms         - for all room types (studio,1BR etc...)
 
 =====================================================================================================
 This README document is a draft version and is subject to permanent updates.
