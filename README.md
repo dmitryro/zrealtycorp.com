@@ -54,6 +54,7 @@ feauturing useful functionality tools:<br/>
 
   5. Social Authentication and Registration for customers 
      - utilizing Ouath2 and Django's social_auth. <br/>
+  6. 
 
   6. Dedicated contact form - <br/>
      - Once viewing details of the specific property you might wish to <br/>
@@ -113,6 +114,14 @@ STARTING THE APPICLATION
 
 10. View the current live site at http://zrealtycorp.com
 
+Django Rest Framework ENDPOINTS
+-------------------------------
+* http://zrealtycorp.com/properties - for all properties
+* http://zrealtycorp.com/rentlist   - for rented items
+* http://zrealtycorp.com/saleslist  - for sold items
+* http://zrealtycorp.com/types      - for all types
+
+ 
 
 =====================================================================================================
 This README document is a draft version and is subject to permanent updates.
